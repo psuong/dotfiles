@@ -3,10 +3,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-easy-align'                                  " Aligns expressions together
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }          " Nerdtree support
 Plug 'Xuyuanp/nerdtree-git-plugin'                              " Git flags on NERDTree
-Plug 'nathanaelkane/vim-indent-guides'                          " Indentation guides for Vim
+Plug 'Yggdroot/indentLine'                                      " Indentation guides for Vim
 Plug 'OmniSharp/omnisharp-vim'                                  " Omnisharp support
 Plug 'junegunn/seoul256.vim'                                    " Colorscheme
 Plug 'vim-syntastic/syntastic'                                  " Syntastic
+Plug 'Valloric/YouCompleteMe'                                   " YouCompleteMe
+Plug 'Shougo/unite.vim'                                         " Unite Vim
+Plug 'SirVer/ultisnips'                                         " Util snippets
+Plug 'tpope/vim-eunuch'                                         " Make files/directories in Vim
 call plug#end()
 
 " Visual Studio Like Settings
@@ -24,7 +28,7 @@ set wrap                            " Wrap horizontally long lines
 syntax enable                       " Enable the syntax
 
 " Indent Guides
-let g:indent_guides_enable_on_vim_startup = 1   " Enable on startup
+let g:indentLine_char = '⎸'         " Indentation line
 
 " GUI
 if has('gui_running')
@@ -44,17 +48,17 @@ map <C-n> :NERDTreeToggle<CR>           " Ctrl + N for expanding NERDTree
 
 " Omnisharp
 filetype plugin on
-let g:OmniSharp_timeout = 1                                     " Timeout in seconds to wait for a response
-set noshowmatch                                                 " Speeds up performance since it searches for the first match, including ()
-set completeopt=longest,menuone,preview                         " Fetches previews
-set splitbelow                                                  " Show descriptions on the bottom of vim
-let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']  " Code/syntax issues
+let g:OmniSharp_timeout = 1                                                 " Timeout in seconds to wait for a response
+set noshowmatch                                                             " Speeds up performance since it searches for the first match, including ()
+set completeopt=longest,menuone,preview                                     " Fetches previews
+set splitbelow                                                              " Show descriptions on the bottom of vim
+let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']              " Code/syntax issues
 
 augroup omnisharp_commands
     autocmd!
-    autocmd FileType cs setlocal omnifunc=OmniSharp#Complete                " Autocomplete function
     autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck            " Syntax checking
-    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation() " Show type info when cursor stops moving
+    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithDocumentation()    " Show type info when cursor stops moving
+    autocmd BufWritePost *.cs call OmniSharp#AddToProject()                 " Automatically add the file to the project
     autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
     autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
     autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
@@ -69,12 +73,25 @@ augroup omnisharp_commands
     autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>           " Navigate property fields (down)
 augroup end
 
-nnoremap <leader>rl :OmniSharpReloadSolution<cr>                " Reload the solution
-nnoremap <leader>cf :OmniSharpCodeFormat<cr>                    " Formats the code
-nnoremap <leader>ss :OmniSharpStartServer<cr>                   " Starts omnisharp for the current sln
-nnoremap <leader>sp :OmniSharpStopServer<cr>                    " Stops omnisharp for the current sln
-nnoremap <leader>th :OmniSharpHighlightTypes<cr>                " Syntax highlighting for types/interfaces
+nnoremap <leader>rl :OmniSharpReloadSolution<cr>                            " Reload the solution
+nnoremap <leader>cf :OmniSharpCodeFormat<cr>                                " Formats the code
+nnoremap <leader>ss :OmniSharpStartServer<cr>                               " Starts omnisharp for the current sln
+nnoremap <leader>sp :OmniSharpStopServer<cr>                                " Stops omnisharp for the current sln
+nnoremap <leader>th :OmniSharpHighlightTypes<cr>                            " Syntax highlighting for types/interfaces
 set hidden
-let g:OmniSharp_want_snippet=1                                  " Snippet completion
+let g:OmniSharp_want_snippet=1                                              " Snippet completion
 
+" Syntastic Settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Ultisnippets
+let g:UltiSnipsExpandTrigger="<shift>"                          " Use shift to trigger
+let g:UltiSnipsJumpForwardTrigger="<c-x>"                       " Use ctrl + x to jump forward
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"                      " Use ctrl + z to jump backward
 
