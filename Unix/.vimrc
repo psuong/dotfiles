@@ -11,6 +11,7 @@ Plug 'Valloric/YouCompleteMe'                                   " YouCompleteMe
 Plug 'Shougo/unite.vim'                                         " Unite Vim
 Plug 'SirVer/ultisnips'                                         " Util snippets
 Plug 'tpope/vim-eunuch'                                         " Make files/directories in Vim
+Plug 'ctrlpvim/ctrlp.vim'                                       " CtrlP b/c I need fuzzy finders
 call plug#end()
 
 " Visual Studio Like Settings
@@ -25,7 +26,7 @@ set number                          " Show number lines
 set cursorline                      " Highlight the current line number
 set showcmd                         " Show the vim commands
 set wrap                            " Wrap horizontally long lines
-syntax enable                       " Enable the syntax
+syntax on                           " Enable the syntax
 
 " Indent Guides
 let g:indentLine_char = '⎸'         " Indentation line
@@ -80,6 +81,7 @@ nnoremap <leader>sp :OmniSharpStopServer<cr>                                " St
 nnoremap <leader>th :OmniSharpHighlightTypes<cr>                            " Syntax highlighting for types/interfaces
 set hidden
 let g:OmniSharp_want_snippet=1                                              " Snippet completion
+let g:OmniSharp_selector_ui = 'unite'                                       " Use unite.vim
 
 " Syntastic Settings
 set statusline+=%#warningmsg#
@@ -94,4 +96,9 @@ let g:syntastic_check_on_wq = 0
 let g:UltiSnipsExpandTrigger="<shift>"                          " Use shift to trigger
 let g:UltiSnipsJumpForwardTrigger="<c-x>"                       " Use ctrl + x to jump forward
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"                      " Use ctrl + z to jump backward
+
+" Ctrl P
+let g:ctrlp_map = '<c-p>'                                       " Default mapping to Ctrl + P
+let g:ctrlp_cmd = 'CtrlP'                                       " Default command is CtrlP
+let g:ctrlp_working_path_mode = 'ra'                            " Let CtrlP be a working directory
 
