@@ -102,3 +102,5 @@ let g:ctrlp_map = '<c-p>'                                       " Default mappin
 let g:ctrlp_cmd = 'CtrlP'                                       " Default command is CtrlP
 let g:ctrlp_working_path_mode = 'ra'                            " Let CtrlP be a working directory
 
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py
