@@ -6,12 +6,16 @@ Plug 'Xuyuanp/nerdtree-git-plugin'                              " Git flags on N
 Plug 'Yggdroot/indentLine'                                      " Indentation guides for Vim
 Plug 'OmniSharp/omnisharp-vim'                                  " Omnisharp support
 Plug 'junegunn/seoul256.vim'                                    " Colorscheme
+Plug 'aradunovic/perun.vim'                                     " Dark Colourscheme
 Plug 'vim-syntastic/syntastic'                                  " Syntastic
 Plug 'Valloric/YouCompleteMe'                                   " YouCompleteMe
 Plug 'Shougo/unite.vim'                                         " Unite Vim
 Plug 'SirVer/ultisnips'                                         " Util snippets
 Plug 'tpope/vim-eunuch'                                         " Make files/directories in Vim
 Plug 'ctrlpvim/ctrlp.vim'                                       " CtrlP b/c I need fuzzy finders
+Plug 'itchyny/calendar.vim'                                     " Trying to make Vim my personal workspace
+Plug 'itchyny/lightline.vim'                                    " Status bar for Vim
+Plug 'itchyny/vim-gitbranch'                                    " Display the current branch in vim
 call plug#end()
 
 " Visual Studio Like Settings
@@ -26,18 +30,21 @@ set number                          " Show number lines
 set cursorline                      " Highlight the current line number
 set showcmd                         " Show the vim commands
 set wrap                            " Wrap horizontally long lines
-syntax on                           " Enable the syntax
 
 " Indent Guides
 let g:indentLine_char = '⎸'         " Indentation line
 
 " GUI
 if has('gui_running')
+    syntax enable                   " Enable syntax
+    " set background=light            " Use the light background
+    " colorscheme solarized           " Use the solarized colourscheme
     let g:seoul256_background = 234 " Use a slightly darker bg
-    colo seoul256                   " seoul256 colorscheme
-    set guifont=Menlo:h13           " Use the default font with size 14
-    set lines=999                   " Maximize the vertical size of the window
-    set columns=9999                " Maximize the horizontal size of the window
+    colo seoul256                   " seoul256 colorscheme (green - black)
+    " colorscheme perun               " orange-black colourscheme
+    " colorscheme wombat              " Wombat colourscheme
+    set lines=511                   " Maximize the vertical size of the window
+    set columns=1000                " Maximize the horizontal size of the window
 endif
 
 " NERDTree Settings
@@ -102,5 +109,20 @@ let g:ctrlp_map = '<c-p>'                                       " Default mappin
 let g:ctrlp_cmd = 'CtrlP'                                       " Default command is CtrlP
 let g:ctrlp_working_path_mode = 'ra'                            " Let CtrlP be a working directory
 
-" YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py
+" YouCompleteMe Settings
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
+
+" Git Branch Status
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+      \ }
+
+" Vim Calendar
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
