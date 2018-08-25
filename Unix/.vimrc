@@ -5,8 +5,6 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }          " Nerdtree suppo
 Plug 'Xuyuanp/nerdtree-git-plugin'                              " Git flags on NERDTree
 Plug 'Yggdroot/indentLine'                                      " Indentation guides for Vim
 Plug 'OmniSharp/omnisharp-vim'                                  " Omnisharp support
-Plug 'junegunn/seoul256.vim'                                    " Colorscheme
-Plug 'aradunovic/perun.vim'                                     " Dark Colourscheme
 Plug 'vim-syntastic/syntastic'                                  " Syntastic
 Plug 'Valloric/YouCompleteMe'                                   " YouCompleteMe
 Plug 'Shougo/unite.vim'                                         " Unite Vim
@@ -16,6 +14,9 @@ Plug 'ctrlpvim/ctrlp.vim'                                       " CtrlP b/c I ne
 Plug 'itchyny/calendar.vim'                                     " Trying to make Vim my personal workspace
 Plug 'itchyny/lightline.vim'                                    " Status bar for Vim
 Plug 'itchyny/vim-gitbranch'                                    " Display the current branch in vim
+Plug 'junegunn/seoul256.vim'                                    " Colorscheme
+Plug 'aradunovic/perun.vim'                                     " Dark Colourscheme
+Plug 'rakr/vim-one'                                             " Vim one colourscheme
 call plug#end()
 
 " Visual Studio Like Settings
@@ -34,15 +35,18 @@ set wrap                            " Wrap horizontally long lines
 " Indent Guides
 let g:indentLine_char = '⎸'         " Indentation line
 
+" Themes
+let g:airline_theme = 'one'         " Vim Airline Theme
+
 " GUI
 if has('gui_running')
     syntax enable                   " Enable syntax
     " set background=light            " Use the light background
     " colorscheme solarized           " Use the solarized colourscheme
-    let g:seoul256_background = 234 " Use a slightly darker bg
-    colo seoul256                   " seoul256 colorscheme (green - black)
-    " colorscheme perun               " orange-black colourscheme
-    " colorscheme wombat              " Wombat colourscheme
+    " let g:seoul256_background = 234 " Use a slightly darker bg
+    " colo seoul256                   " seoul256 colorscheme (green - black)
+    colorscheme one                 " One colourscheme
+    set background=dark            " Dark colourscheme for Atom One
     set lines=511                   " Maximize the vertical size of the window
     set columns=1000                " Maximize the horizontal size of the window
 endif
@@ -66,7 +70,7 @@ augroup omnisharp_commands
     autocmd!
     autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck            " Syntax checking
     autocmd CursorHold *.cs call OmniSharp#TypeLookupWithDocumentation()    " Show type info when cursor stops moving
-    autocmd BufWritePost *.cs call OmniSharp#AddToProject()                 " Automatically add the file to the project
+    " autocmd BufWritePost *.cs call OmniSharp#AddToProject()                 " Automatically add the file to the project
     autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
     autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
     autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
