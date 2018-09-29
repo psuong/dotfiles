@@ -14,9 +14,7 @@ Plug 'ctrlpvim/ctrlp.vim'                                       " CtrlP b/c I ne
 Plug 'itchyny/calendar.vim'                                     " Trying to make Vim my personal workspace
 Plug 'itchyny/lightline.vim'                                    " Status bar for Vim
 Plug 'itchyny/vim-gitbranch'                                    " Display the current branch in vim
-Plug 'junegunn/seoul256.vim'                                    " Colorscheme
-Plug 'aradunovic/perun.vim'                                     " Dark Colourscheme
-Plug 'rakr/vim-one'                                             " Vim one colourscheme
+Plug 'morhetz/gruvbox'                                          " Bad wolf fusion colourscheme
 call plug#end()
 
 " Visual Studio Like Settings
@@ -31,6 +29,7 @@ set number                          " Show number lines
 set cursorline                      " Highlight the current line number
 set showcmd                         " Show the vim commands
 set wrap                            " Wrap horizontally long lines
+set encoding=utf-8                  " Default to UTF-8
 
 " Indent Guides
 let g:indentLine_char = '⎸'         " Indentation line
@@ -41,22 +40,20 @@ let g:airline_theme = 'one'         " Vim Airline Theme
 " GUI
 if has('gui_running')
     syntax enable                   " Enable syntax
-    " set background=light            " Use the light background
-    " colorscheme solarized           " Use the solarized colourscheme
-    " let g:seoul256_background = 234 " Use a slightly darker bg
-    " colo seoul256                   " seoul256 colorscheme (green - black)
-    colorscheme one                 " One colourscheme
-    set background=dark            " Dark colourscheme for Atom One
-    set lines=511                   " Maximize the vertical size of the window
-    set columns=1000                " Maximize the horizontal size of the window
+    set lines=511                   " On Unix set the max number of lines
+    set columns=1000                " On Unix set the max number of columns
+    colorscheme gruvbox             " Badwolf fusion colourscheme
+    set background=dark             " Use the dark background
+    set guifont=Menlo
 endif
 
 " NERDTree Settings
 autocmd vimenter * NERDTree             " Autostart NERDTree
-let g:NERDTreeDirArrowExpandable = '▸'  " Arrow for expanding directories
+let g:NERDTreeDirArrowExpandable = '▸'  " Arrow to expand directories
 let g:NERDTreeDirArrowCollapsible = '▾' " Arrow for expanded directories
 let NERDTreeShowHidden=1                " Show hidden files
 map <C-n> :NERDTreeToggle<CR>           " Ctrl + N for expanding NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Omnisharp
 filetype plugin on
@@ -70,7 +67,7 @@ augroup omnisharp_commands
     autocmd!
     autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck            " Syntax checking
     autocmd CursorHold *.cs call OmniSharp#TypeLookupWithDocumentation()    " Show type info when cursor stops moving
-    " autocmd BufWritePost *.cs call OmniSharp#AddToProject()                 " Automatically add the file to the project
+    "autocmd BufWritePost *.cs call OmniSharp#AddToProject()                 " Automatically add the file to the project
     autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
     autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
     autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
