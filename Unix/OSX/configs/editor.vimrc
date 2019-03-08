@@ -13,7 +13,7 @@ set showcmd                         " Show the vim commands
 set wrap                            " Wrap horizontally long lines
 set encoding=utf-8                  " Default to UTF-8
 filetype plugin on                  " Enable plugins based on their extension
-filetype plugin indent on
+"filetype plugin indent on
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " GUI

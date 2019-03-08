@@ -3,7 +3,7 @@ autocmd vimenter * NERDTree                                         " Autostart 
 let g:NERDTreeDirArrowExpandable = '▸'                              " Arrow to expand directories
 let g:NERDTreeDirArrowCollapsible = '▾'                             " Arrow for expanded directories
 let NERDTreeShowHidden=1                                            " Show hidden files
-map <S-n> :NERDTreeToggle<CR>                                       " Ctrl + N for expanding NERDTree
+map <C-n> :NERDTreeToggle<CR>                                       " Ctrl + N for expanding NERDTree
 let NERDTreeIgnore = ['\.meta$', '\.swp$', '\.DS_Store']            " Ignore meta files generated from Unity and vim swap files.
 
 " Close NERDTree if it's the last one opened.
