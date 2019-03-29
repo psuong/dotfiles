@@ -20,13 +20,16 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 if has('gui_running')
     syntax enable                   " Enable syntax
     set lines=999                   " Maximize the vertical size of the window
-    set columns=9999                " Maximize the horizontal size of the window
+    set columns=999                 " Maximize the horizontal size of the window
     colorscheme gruvbox             " Badwolf fusion colourscheme
     set background=dark             " Use the dark background
 endif
 
 " Indent Guides
-let g:indentLine_char = '▏'         " Indentation line
+let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_color_gui = '#7C6f64'
 
 " Airline
 let g:airline_theme = 'one'
