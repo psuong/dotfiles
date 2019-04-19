@@ -12,11 +12,14 @@ Plug 'morhetz/gruvbox'                                          " Bad wolf fusio
 Plug 'junegunn/vim-easy-align'                                  " Vim Easy Align
 Plug 'editorconfig/editorconfig-vim'                            " Allow Vim to read editorConfig files
 Plug 'Valloric/YouCompleteMe'                                   " Default Completion Engine
-Plug '~/.fzf'                                                   " Fuzzy finder
+Plug '~/.fzf'                                                   " Non OSX Fuzzy finder
+Plug '/usr/local/opt/fzf'                                       " OSX Fuzzy finding
+Plug 'junegunn/fzf.vim'                                         " Fuzzy finding
 call plug#end()
 
 source $HOME/.vim/configs/editor.vimrc
 source $HOME/.vim/configs/nerdtree.vimrc
 source $HOME/.vim/configs/format.vimrc
 source $HOME/.vim/configs/syntax.vimrc
+source $HOME/.vim/configs/search.vimrc
 source $HOME/.vim/configs/ycm.vimrc
