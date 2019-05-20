@@ -25,6 +25,10 @@ if has('gui_running')
     set background=dark             " Use the dark background
 endif
 
+" Cursor settings
+nnoremap j gj
+nnoremap k gk
+
 " Indent Guides
 let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
 let g:indentLine_leadingSpaceEnabled = 1
