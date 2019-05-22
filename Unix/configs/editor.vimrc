@@ -13,8 +13,8 @@ set showcmd                         " Show the vim commands
 set wrap                            " Wrap horizontally long lines
 set encoding=utf-8                  " Default to UTF-8
 filetype plugin on                  " Enable plugins based on their extension
-"filetype plugin indent on
 highlight ColorColumn ctermbg=0 guibg=lightgrey
+set noshowmode                      " Linelight shows this already
 
 " GUI
 if has('gui_running')
@@ -23,6 +23,9 @@ if has('gui_running')
     set columns=999                 " Maximize the horizontal size of the window
     colorscheme gruvbox             " Badwolf fusion colourscheme
     set background=dark             " Use the dark background
+else
+    colo seoul256-light
+    let g:seoul256_srgb = 1
 endif
 
 " Cursor settings
@@ -35,11 +38,9 @@ let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_color_gui = '#7C6f64'
 
-" Airline
-let g:airline_theme = 'one'
-
-" Git Branch Status
+" Lightline Settings
 let g:lightline = {
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -49,3 +50,5 @@ let g:lightline = {
       \ },
       \ }
 
+" Goyo
+nnoremap <Leader>go :Goyo<CR>

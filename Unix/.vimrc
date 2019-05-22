@@ -15,6 +15,9 @@ Plug 'Valloric/YouCompleteMe'                                   " Default Comple
 Plug '~/.fzf'                                                   " Non OSX Fuzzy finder
 Plug '/usr/local/opt/fzf'                                       " OSX Fuzzy finding
 Plug 'junegunn/fzf.vim'                                         " Fuzzy finding
+Plug 'junegunn/seoul256.vim'                                    " Seoul colour scheme
+Plug 'junegunn/goyo.vim'                                        " Pure writing
+Plug 'junegunn/limelight.vim'                                   " Focused writing
 call plug#end()
 
 source $HOME/.vim/configs/editor.vimrc
