@@ -52,3 +52,4 @@ let g:lightline = {
 
 " Goyo
 nnoremap <Leader>go :Goyo<CR>
+let g:goyo_width = 120
