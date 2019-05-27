@@ -11,9 +11,11 @@ set splitbelow                          " Put the preview on the bottom
 let g:OmniSharp_typeLookupInPreview = 1 " Use a preview window instead of echoing it in the cmd line
 let g:OmniSharp_selector_ui='fzf'       " Use fzf by default
 let g:OmniSharp_want_snippet = 1        " Get snippets
+let g:OmniSharp_server_stdio = 1        " Use the rosyln stdio server instead.
 
 " ALE
-let g:ale_linters = { 'cs' : ['OmniSharp'] }    " Use the CSharp linter
+let g:ale_linters = { 'cs' : ['OmniSharp'],
+                    \ 'cpp' : [] }    " Use the CSharp linter
 
 augroup omnisharp_commands " Automatic omnisharp commands
     autocmd!

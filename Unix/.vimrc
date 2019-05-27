@@ -18,6 +18,7 @@ Plug 'junegunn/fzf.vim'                                         " Fuzzy finding
 Plug 'junegunn/seoul256.vim'                                    " Seoul colour scheme
 Plug 'junegunn/goyo.vim'                                        " Pure writing
 Plug 'junegunn/limelight.vim'                                   " Focused writing
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}             " YCM Generator
 call plug#end()
 
 source $HOME/.vim/configs/editor.vimrc
