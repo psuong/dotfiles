@@ -12,6 +12,7 @@ let g:OmniSharp_typeLookupInPreview = 1 " Use a preview window instead of echoin
 let g:OmniSharp_selector_ui='fzf'       " Use fzf by default
 let g:OmniSharp_want_snippet = 1        " Get snippets
 let g:OmniSharp_server_stdio = 1        " Use the rosyln stdio server instead.
+let g:OmniSharp_highlight_types = 1     " Self explanatory
 
 " ALE
 let g:ale_linters = { 'cs' : ['OmniSharp'],
@@ -35,7 +36,7 @@ augroup omnisharp_commands " Automatic omnisharp commands
     autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
 augroup END
 
-" Enabled with CtrlP
+" Enabled with fzf
 nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
 xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
 nnoremap <Leader>nm :OmniSharpRename<CR>
