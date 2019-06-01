@@ -48,3 +48,8 @@ nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
 nnoremap <Leader>ss :OmniSharpStartServer<CR>
 nnoremap <Leader>sp :OmniSharpStopServer<CR>
 nnoremap <Leader>th :OmniSharpHighlightTypes<CR>
+
+" YCM C/C++ Commands
+nnoremap <Leader>ygt :YcmCompleter GoToDefinition<CR>
+nnoremap <Leader>ygd :YcmCompleter GoToDeclaration<CR>
+nnoremap <Leader>yf :YcmCompleter FixIt<CR>
