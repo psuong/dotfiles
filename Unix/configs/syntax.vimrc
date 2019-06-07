@@ -14,6 +14,9 @@ let g:OmniSharp_want_snippet = 1        " Get snippets
 let g:OmniSharp_server_stdio = 1        " Use the rosyln stdio server instead.
 let g:OmniSharp_highlight_types = 1     " Self explanatory
 
+let g:OmniSharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.exe'
+let g:OmniSharp_translate_cygwin_wsl = 1
+
 " ALE
 let g:ale_linters = { 'cs' : ['OmniSharp'],
                     \ 'cpp' : [] }    " Use the CSharp linter
