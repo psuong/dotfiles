@@ -21,8 +21,10 @@ if has('gui_running')
     syntax enable                   " Enable syntax
     set lines=999                   " Maximize the vertical size of the window
     set columns=999                 " Maximize the horizontal size of the window
-    colorscheme gruvbox             " Badwolf fusion colourscheme
-    set background=dark             " Use the dark background
+    "colorscheme gruvbox             " Badwolf fusion colourscheme
+    "set background=dark             " Use the dark background
+    colo seoul256-light
+    let g:seoul256_srgb = 1
 else
     colo seoul256-light
     let g:seoul256_srgb = 1
