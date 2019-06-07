@@ -22,7 +22,8 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}             " YCM Generator
 call plug#end()
 
 " For nvim
-let g:python3_host_prog='/usr/local/bin/python3'
+let g:python3_host_prog='/usr/local/bin/python3'                " For Macs
+let g:python3_host_prog='/usr/bin/python3'                      " For Ubuntu/WSL
 
 source $HOME/.vim/configs/editor.vimrc
 source $HOME/.vim/configs/nerdtree.vimrc
