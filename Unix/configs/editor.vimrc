@@ -13,45 +13,41 @@ set showcmd                         " Show the vim commands
 set wrap                            " Wrap horizontally long lines
 set encoding=utf-8                  " Default to UTF-8
 filetype plugin on                  " Enable plugins based on their extension
-highlight ColorColumn ctermbg=0 guibg=lightgrey
 set noshowmode                      " Linelight shows this already
+highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " GUI
 if has('gui_running')
     syntax enable                   " Enable syntax
     set lines=999                   " Maximize the vertical size of the window
     set columns=999                 " Maximize the horizontal size of the window
-    "colorscheme gruvbox             " Badwolf fusion colourscheme
-    "set background=dark             " Use the dark background
-    colo seoul256-light
-    let g:seoul256_srgb = 1
-else
-    colo seoul256-light
-    let g:seoul256_srgb = 1
 endif
+
+colo seoul256-light
+let g:seoul256_srgb = 1
 
 " Cursor settings
 nnoremap j gj
 nnoremap k gk
 
 " Indent Guides
-let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_leadingSpaceChar = '·'
-let g:indentLine_color_gui = '#7C6f64'
+" let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
+" let g:indentLine_leadingSpaceEnabled = 1
+" let g:indentLine_leadingSpaceChar = '·'
+" let g:indentLine_color_gui = '#7C6f64'
 
 " Lightline Settings
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'gitbranch#name'
-      \ },
-      \ }
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'gitbranch#name'
+"       \ },
+"       \ }
 
-" Goyo
-nnoremap <Leader>go :Goyo<CR>
-let g:goyo_width=120
+" " Goyo
+" nnoremap <Leader>go :Goyo<CR>
+" let g:goyo_width=120

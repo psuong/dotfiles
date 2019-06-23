@@ -1,51 +1,82 @@
-" UltiSnippets
-let g:UltiSnipsExpandTrigger="<F1>"
-let g:UltiSnipsJumpForwardTrigger="<c-x>"
-let g:UltiSnipsJumpBackwardTrigger="<c-c>"
+" Rebind ultisnips to something never used. We use CleverTab :)
+let g:UltiSnipsExpandTrigger="<f12>"
+let g:UltiSnipsJumpForwardTrigger="<f12>"
+let g:UltiSnipsJumpBackwardTrigger="<f12>"
 
-" Omnisharp Vim
-let g:Omnisharp_timeout=5               " Timeout in 5 seconds
-set completeopt=longest,menuone,preview " Enable documentations and previews to show
-set previewheight=5                     " Set the height to 5 for docs
-set splitbelow                          " Put the preview on the bottom
-let g:OmniSharp_typeLookupInPreview = 1 " Use a preview window instead of echoing it in the cmd line
-let g:OmniSharp_selector_ui='fzf'       " Use fzf by default
-let g:OmniSharp_server_stdio = 1        " Use the rosyln stdio server instead.
-let g:OmniSharp_highlight_types = 1     " Self explanatory
+snoremap <Tab> <Esc>:call UltiSnips#ExpandSnippetOrJump()<cr>
+xnoremap <Tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
+snoremap <C-k> <Esc>:call UltiSnips#JumpBackwards()<cr>
+inoremap <C-k> <Esc>:call UltiSnips#JumpBackwards()<cr>
+snoremap <C-j> <Esc>:call UltiSnips#JumpForwards()<cr>
+inoremap <C-j> <Esc>:call UltiSnips#JumpForwards()<cr>
 
-let g:OmniSharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.exe'
-let g:OmniSharp_translate_cygwin_wsl = 1
+" Deoplete
 
-" ALE
-let g:ale_linters = { 'cs': ['OmniSharp'] }
+let g:deoplete#enable_at_startup = 1
+" Disable the candidates in Comment/String syntaxes.
+call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
+aug ClosePreview
+    au!
+    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+aug END
+call deoplete#custom#var('omni', 'input_patterns', {
+    \ 'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+    \ 'java': '[^. *\t]\.\w*',
+    \ 'cs': '\w+|[^. *\t]\.\w*',
+    \ 'php': '\w+|[^. \t]->\w*|\w+::\w*',
+    \})
+call deoplete#custom#option('min_pattern_length', 1)
+call deoplete#custom#option('sources', {
+\ '_': ['ultisnips'],
+\ 'cs': ['omnisharp', 'ultisnips'],
+\ 'rust': ['racer', 'ultisnips'],
+\ 'sh': ['LanguageClient', 'ultisnips'],
+\ 'python': ['jedi', 'ultisnips'],
+\ 'javascript': ['LanguageClient', 'ultisnips'],
+\})
 
-augroup omnisharp_commands " Automatic omnisharp commands
-    autocmd!
+command! DeopleteDisable :call deoplete#disable()
+command! DeopleteEnable :call deoplete#enable()
 
-    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
-    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
-    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
-    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
-augroup END
+" Use % to jump between region/endregion
+let b:match_words = '\s*#\s*region.*$:\s*#\s*endregion'
+let g:OmniSharp_server_stdio = 1
 
-" Enabled with fzf
-nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
-xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
-nnoremap <Leader>nm :OmniSharpRename<CR>
-nnoremap <Leader>ra :OmniSharpGetCodeActions<CR>
-nnoremap <F2> :OmniSharpRename<CR>
+nnoremap <buffer> K :call OmniSharp#TypeLookupWithoutDocumentation()<CR>
+
+" The following commands are contextual, based on the cursor position.
+nnoremap <buffer> gd m':OmniSharpGotoDefinition<CR>
+nnoremap <buffer> gD m':$tab split<CR>:OmniSharpGotoDefinition<CR>
+nnoremap <buffer> gi :OmniSharpFindImplementations<CR>
+nnoremap <buffer> gs :OmniSharpFindSymbol 
+nnoremap <buffer> gr :OmniSharpFindUsages<CR>
+nnoremap <buffer> gm :OmniSharpFindMembers<CR>
+
+nnoremap <buffer> <leader>o :OmniSharpFixUsings<CR>
+
+nnoremap <buffer> <Leader>k :OmniSharpTypeLookup<CR>
+nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+
+" Navigate up and down by method/property/field
+nnoremap <buffer> [[ :OmniSharpNavigateUp<CR>zz
+nnoremap <buffer> ]] :OmniSharpNavigateDown<CR>zz
+
+nnoremap <buffer> <Leader><Space> :OmniSharpGetCodeActions<CR>
+xnoremap <buffer> <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+
+nnoremap <buffer> <Leader>r :OmniSharpRename<CR>
 " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
-command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-nnoremap <Leader>cf :OmniSharpCodeFormat<CR> 
-nnoremap <Leader>ss :OmniSharpStartServer<CR>
-nnoremap <Leader>sp :OmniSharpStopServer<CR>
-nnoremap <Leader>th :OmniSharpHighlightTypes<CR>
+command! -buffer -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+
+nnoremap <buffer> <Leader>f :OmniSharpCodeFormat<CR>
+
+nnoremap <buffer> <F5> :OmniSharpRestartAllServers<CR>
+
+augroup csfmt
+  autocmd! * <buffer>
+  autocmd BufWriteCmd <buffer> call smartformat#Format('cs', 'call OmniSharp#CodeFormat({->execute("noau w")})')
+augroup END
+augroup csopts
+  autocmd! * <buffer>
+  autocmd BufWinEnter <buffer> setlocal tw=100 foldmethod=syntax
+augroup END
