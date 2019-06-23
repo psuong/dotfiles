@@ -4,13 +4,12 @@ let g:UltiSnipsJumpForwardTrigger="<c-x>"
 let g:UltiSnipsJumpBackwardTrigger="<c-c>"
 
 " Omnisharp Vim
-let g:Omnisharp_timeout=10              " Timeout in 10 seconds
+let g:Omnisharp_timeout=5               " Timeout in 5 seconds
 set completeopt=longest,menuone,preview " Enable documentations and previews to show
 set previewheight=5                     " Set the height to 5 for docs
 set splitbelow                          " Put the preview on the bottom
 let g:OmniSharp_typeLookupInPreview = 1 " Use a preview window instead of echoing it in the cmd line
 let g:OmniSharp_selector_ui='fzf'       " Use fzf by default
-let g:OmniSharp_want_snippet = 1        " Get snippets
 let g:OmniSharp_server_stdio = 1        " Use the rosyln stdio server instead.
 let g:OmniSharp_highlight_types = 1     " Self explanatory
 
@@ -18,8 +17,7 @@ let g:OmniSharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.ex
 let g:OmniSharp_translate_cygwin_wsl = 1
 
 " ALE
-let g:ale_linters = { 'cs' : ['OmniSharp'],
-                    \ 'cpp' : [] }    " Use the CSharp linter
+let g:ale_linters = { 'cs': ['OmniSharp'] }
 
 augroup omnisharp_commands " Automatic omnisharp commands
     autocmd!
@@ -51,8 +49,3 @@ nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
 nnoremap <Leader>ss :OmniSharpStartServer<CR>
 nnoremap <Leader>sp :OmniSharpStopServer<CR>
 nnoremap <Leader>th :OmniSharpHighlightTypes<CR>
-
-" YCM C/C++ Commands
-nnoremap <Leader>ygt :YcmCompleter GoToDefinition<CR>
-nnoremap <Leader>ygd :YcmCompleter GoToDeclaration<CR>
-nnoremap <Leader>yf :YcmCompleter FixIt<CR>
