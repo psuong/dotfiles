@@ -115,3 +115,7 @@ fi
 
 source ~/.git-prompt.sh
 
+#########################
+########## FZF ##########
+#########################
+export FZF_CTRL_T_OPTS="--preview 'head -100 {}'"

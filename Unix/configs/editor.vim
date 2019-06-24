@@ -1,3 +1,7 @@
+" Plugin availability
+filetype plugin on                  " Enable plugins based on their extension
+filetype plugin indent on           " Allow different indents per filetypes
+
 " Visual Studio Like Settings
 set expandtab                       " Tabs are spaces
 set tabstop=4                       " Number of visual spaces per tabs
@@ -12,7 +16,6 @@ set cursorline                      " Highlight the current line number
 set showcmd                         " Show the vim commands
 set wrap                            " Wrap horizontally long lines
 set encoding=utf-8                  " Default to UTF-8
-filetype plugin on                  " Enable plugins based on their extension
 set noshowmode                      " Linelight shows this already
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
@@ -31,23 +34,23 @@ nnoremap j gj
 nnoremap k gk
 
 " Indent Guides
-" let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
-" let g:indentLine_leadingSpaceEnabled = 1
-" let g:indentLine_leadingSpaceChar = '·'
-" let g:indentLine_color_gui = '#7C6f64'
+let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_color_gui = '#7C6f64'
 
 " Lightline Settings
-" let g:lightline = {
-"       \ 'colorscheme': 'solarized',
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'gitbranch': 'gitbranch#name'
-"       \ },
-"       \ }
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+      \ }
 
-" " Goyo
-" nnoremap <Leader>go :Goyo<CR>
-" let g:goyo_width=120
+" Goyo
+nnoremap <Leader>go :Goyo<CR>
+let g:goyo_width=120
