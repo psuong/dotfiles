@@ -34,6 +34,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Indent Guides
+let g:indentLine_enabled = 0                            " Disable by default...enable it when needed
 let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '·'
