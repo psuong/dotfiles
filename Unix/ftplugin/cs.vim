@@ -8,9 +8,9 @@ let g:OmniSharp_typeLookupInPreview = 1 " Use a preview window instead of echoin
 let g:OmniSharp_selector_ui='fzf'       " Use fzf by default
 let g:OmniSharp_highlight_types = 1     " Self explanatory
 
-" WSL Stuff (Disabled by default
+" WSL Stuff (Disabled by default)
 " let g:OmniSharp_translate_cygwin_wsl = 1
-" let g:Omnisharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.exe'
+" let g:OmniSharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.exe'
 
 augroup omnisharp_commands " Automatic omnisharp commands
     autocmd!

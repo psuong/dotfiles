@@ -1,10 +1,14 @@
 " Fuzzy Finder
 let g:fzf_action = {
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit'
-      \ }
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit'
+    \ }
 
-nnoremap <c-p> :FZF --preview=head\ -100\ {}<CR>
+" So this is pretty laggy on WSL disabling it by default even though it's cool
+" nnoremap <c-p> :FZF --preview=head\ -100\ {}<CR>
+
+" Default no preview ):
+nnoremap <c-p> :FZF<CR>
 
 augroup fzf
   autocmd!
