@@ -1,6 +1,9 @@
 " Vim Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'prabirshrestha/asyncomplete.vim'                          " Autocomplete alternative
+Plug 'prabirshrestha/async.vim'                                 " Async support
+Plug 'prabirshrestha/vim-lsp'                                   " LSP Support
+Plug 'prabirshrestha/asyncomplete-lsp.vim'                      " LSP SUpport for asyncomplete
 Plug 'junegunn/seoul256.vim'                                    " Default color scheme
 Plug '~/.fzf'                                                   " For manual installs
 Plug '/usr/local/opt/fzf'                                       " For OSX based installs of FZF
@@ -26,3 +29,4 @@ source ~/.vim/configs/ultisnips.vim
 source ~/.vim/configs/nerdtree.vim
 source ~/.vim/configs/format.vim
 source ~/.vim/ftplugin/cs.vim
+source ~/.vim/ftplugin/cpp.vim

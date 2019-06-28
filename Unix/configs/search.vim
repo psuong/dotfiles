@@ -5,10 +5,10 @@ let g:fzf_action = {
     \ }
 
 " So this is pretty laggy on WSL disabling it by default even though it's cool
-" nnoremap <c-p> :FZF --preview=head\ -100\ {}<CR>
+nnoremap <c-p> :FZF --preview=head\ -100\ {}<CR>
 
 " Default no preview ):
-nnoremap <c-p> :FZF<CR>
+" nnoremap <c-p> :FZF<CR>
 
 augroup fzf
   autocmd!
