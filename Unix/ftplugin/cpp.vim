@@ -10,8 +10,10 @@ if executable('ccls')
 endif
 
 " Key bindings for vim-lsp.
-nn <silent> <M-d> :LspDefinition<cr>
-nn <silent> <M-r> :LspReferences<cr>
-nn <f2> :LspRename<cr>
-nn <silent> <M-a> :LspWorkspaceSymbol<cr>
-nn <silent> <M-l> :LspDocumentSymbol<cr>
+nnoremap <Leader>gd :LspDefinition<CR>
+nnoremap <Leader>gt :LspDeclaration<CR>
+nnoremap <Leader>fu :LspReferences<CR>
+nnoremap <Leader>nm :LspRename<CR>
+nnoremap <Leader>tt :LspTypeDefinition<CR>
+nnoremap <Leader>cf :LspDocumentFormat<CR>
+nnoremap <Leader>ra :LspCodeAction<CR>
