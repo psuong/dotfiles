@@ -9,11 +9,11 @@ if executable('ccls')
       \ })
 endif
 
-" Key bindings for vim-lsp.
-nnoremap <Leader>gd :LspDefinition<CR>
-nnoremap <Leader>gt :LspDeclaration<CR>
-nnoremap <Leader>fu :LspReferences<CR>
-nnoremap <Leader>nm :LspRename<CR>
-nnoremap <Leader>tt :LspTypeDefinition<CR>
-nnoremap <Leader>cf :LspDocumentFormat<CR>
-nnoremap <Leader>ra :LspCodeAction<CR>
+" Key bindings for vim-lsp for C based files
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>gd :LspDefinition<CR>
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>gt :LspDeclaration<CR>
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>fu :LspReferences<CR>
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>nm :LspRename<CR>
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>tt :LspTypeDefinition<CR>
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>cf :LspDocumentFormat<CR>
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>ra :LspCodeAction<CR>
