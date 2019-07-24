@@ -34,8 +34,9 @@ nnoremap j gj
 nnoremap k gk
 
 " Indent Guides
+let g:indentLine_enabled = 1
 let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
-let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_color_gui = '#7C6f64'
 
