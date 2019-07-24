@@ -30,5 +30,6 @@ source ~/.vim/configs/lint.vim
 source ~/.vim/configs/ultisnips.vim
 source ~/.vim/configs/nerdtree.vim
 source ~/.vim/configs/format.vim
+source ~/.vim/configs/omnisharp.vim
 source ~/.vim/ftplugin/cs.vim
 source ~/.vim/ftplugin/cpp.vim
