@@ -4,6 +4,7 @@ Plug 'prabirshrestha/asyncomplete.vim'                          " Autocomplete a
 Plug 'prabirshrestha/async.vim'                                 " Async support
 Plug 'prabirshrestha/vim-lsp'                                   " LSP Support
 Plug 'prabirshrestha/asyncomplete-lsp.vim'                      " LSP SUpport for asyncomplete
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                " Asyncomplete w/ vim snippet support
 Plug 'thomasfaingnaert/vim-lsp-snippets'                        " Vim LSP snippets
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'                       " LSP Ultisnippets
 Plug 'junegunn/seoul256.vim'                                    " Default color scheme
@@ -12,6 +13,7 @@ Plug '/usr/local/opt/fzf'                                       " For OSX based 
 Plug 'junegunn/fzf.vim'                                         " Main fzf plugin
 Plug 'OmniSharp/omnisharp-vim'                                  " C# support
 Plug 'SirVer/ultisnips'                                         " Allow snippets
+Plug 'honza/vim-snippets'                                       " Vim snippets
 Plug 'w0rp/ale'                                                 " Linting engine
 Plug 'junegunn/goyo.vim'                                        " Pure writing
 Plug 'junegunn/vim-easy-align'                                  " Vim Easy Align

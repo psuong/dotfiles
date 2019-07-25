@@ -7,7 +7,7 @@ set completeopt=longest,menuone,preview " Enable documentations and previews to 
 let g:OmniSharp_typeLookupInPreview = 1 " Use a preview window instead of echoing it in the cmd line
 let g:OmniSharp_selector_ui='fzf'       " Use fzf by default
 let g:OmniSharp_highlight_types = 2     " Self explanatory
-let g:OmniSharp_want_snippets = 1       " Uses Ultisnips to fill out the function params
+let g:OmniSharp_want_snippet = 1        " Uses Ultisnips to fill out the function params
 
 " WSL Stuff (Disabled by default)
 " let g:OmniSharp_translate_cygwin_wsl = 1
