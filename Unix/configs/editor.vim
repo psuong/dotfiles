@@ -34,7 +34,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Indent Guides
-let g:indentLine_enabled = 1
+let g:indentLine_enabled = 0
 let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
 let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_leadingSpaceChar = '·'
@@ -42,15 +42,22 @@ let g:indentLine_color_gui = '#7C6f64'
 
 " Lightline Settings
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'gitbranch#name'
-      \ },
-      \ }
+\ 'colorscheme': 'solarized',
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+\   'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype', 'sharpenup']]
+\ },
+\ 'inactive': {
+\   'right': [['lineinfo'], ['percent'], ['sharpenup']]
+\ },
+\ 'component_function': {
+\    'gitbranch': 'gitbranch#name'   
+\ },
+\ 'component': {
+\   'sharpenup': sharpenup#statusline#Build()
+\ }
+\}
 
 " Goyo
 nnoremap <Leader>go :Goyo<CR>

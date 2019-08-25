@@ -23,10 +23,10 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }          " Nerdtree suppo
 Plug 'Xuyuanp/nerdtree-git-plugin'                              " Git flags on NERDTree
 Plug 'Yggdroot/indentLine'                                      " Indentation guides for Vim
 Plug 'editorconfig/editorconfig-vim'                            " B/c editorconfig is important
+Plug 'nickspoons/vim-sharpenup'                                 " Add code actions to the status line
 call plug#end()
 
 source ~/.vim/configs/async.vim
-source ~/.vim/configs/editor.vim
 source ~/.vim/configs/search.vim
 source ~/.vim/configs/lint.vim
 source ~/.vim/configs/ultisnips.vim
@@ -35,3 +35,4 @@ source ~/.vim/configs/format.vim
 source ~/.vim/configs/omnisharp.vim
 source ~/.vim/ftplugin/cs.vim
 source ~/.vim/ftplugin/cpp.vim
+source ~/.vim/configs/editor.vim
