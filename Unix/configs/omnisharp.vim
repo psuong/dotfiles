@@ -10,8 +10,8 @@ let g:OmniSharp_highlight_types = 2     " Self explanatory
 let g:OmniSharp_want_snippet = 1        " Uses Ultisnips to fill out the function params
 
 " WSL Stuff (Disabled by default)
-let g:OmniSharp_translate_cygwin_wsl = 1
-let g:OmniSharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.exe'
+" let g:OmniSharp_translate_cygwin_wsl = 1
+" let g:OmniSharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.exe'
 
 " C# SharpenUp
 let g:sharpenup_statusline_opts = {
