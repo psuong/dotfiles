@@ -24,6 +24,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'                              " Git flags on N
 Plug 'Yggdroot/indentLine'                                      " Indentation guides for Vim
 Plug 'editorconfig/editorconfig-vim'                            " B/c editorconfig is important
 Plug 'nickspoons/vim-sharpenup'                                 " Add code actions to the status line
+Plug 'junegunn/gv.vim'                                          " Git history
+Plug 'tpope/vim-fugitive'                                       " For gv
 call plug#end()
 
 source ~/.vim/configs/async.vim
