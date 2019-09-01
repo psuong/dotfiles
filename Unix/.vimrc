@@ -37,4 +37,5 @@ source ~/.vim/configs/format.vim
 source ~/.vim/configs/omnisharp.vim
 source ~/.vim/ftplugin/cs.vim
 source ~/.vim/ftplugin/cpp.vim
+source ~/.vim/ftplugin/rust.vim
 source ~/.vim/configs/editor.vim

@@ -17,3 +17,5 @@ autocmd Filetype cpp,c,h,hpp nnoremap <Leader>nm :LspRename<CR>
 autocmd Filetype cpp,c,h,hpp nnoremap <Leader>tt :LspTypeDefinition<CR>
 autocmd Filetype cpp,c,h,hpp nnoremap <Leader>cf :LspDocumentFormat<CR>
 autocmd Filetype cpp,c,h,hpp nnoremap <Leader>ra :LspCodeAction<CR>
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>je :LspPreviousError<CR>
+autocmd Filetype cpp,c,h,hpp nnoremap <Leader>ke :LspNextError<CR>
