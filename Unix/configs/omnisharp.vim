@@ -27,7 +27,8 @@ let g:sharpenup_statusline_opts = {
 " let g:sharpenup_stausline_opts = { 'Highlight': 0 }
 let g:sharpenup_statusline_opts = '•'
 highlight SharpenUpReady ctermfg=66 guifg=#458588
-" let g:sharpenup_codeactions_autocmd = ['CursorHold', 'CursorMoved']
+" let g:sharpenup_codeactions_autocmd = ['CursorHold', 'CursorMoved', 'BufEnter']
+let g:sharpenup_codeactions_autocmd = 'CursorHold,CursorMoved,BufEnter'
 
 augroup lightline_integration
     autocmd!

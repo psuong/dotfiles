@@ -101,7 +101,7 @@ tabspaces: 8
 # Font configuration (changes require restart)
 font:
   normal:
-    family: Menlo
+    family: Monaco
     style: Regular
   # Normal (roman) font face
   #normal:
@@ -139,7 +139,7 @@ font:
     #style: Italic
 
   # Point size
-  size: 10.0
+  size: 12.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -173,7 +173,7 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Tomorrow Night Bright)
+# Colors (Seoul Light 256)
 colors:
   # Default colors
   primary:
@@ -202,8 +202,8 @@ colors:
   # background is unset, selection color will be the inverse of the cell colors.
   # If only text is unset the cell text color will remain the same.
   #selection:
-  #  text: '0xeaeaea'
-  #  background: '0x404040'
+  # text: '0xeaeaea'
+  # background: '0x404040'
 
   normal:
     black:   '0x4e4e4e'
