@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'prabirshrestha/asyncomplete.vim'                          " Autocomplete alternative
 Plug 'prabirshrestha/async.vim'                                 " Async support
 Plug 'prabirshrestha/vim-lsp'                                   " LSP Support
-Plug 'prabirshrestha/asyncomplete-lsp.vim'                      " LSP SUpport for asyncomplete
+Plug 'prabirshrestha/asyncomplete-lsp.vim'                      " LSP Support for asyncomplete
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                " Asyncomplete w/ vim snippet support
 Plug 'thomasfaingnaert/vim-lsp-snippets'                        " Vim LSP snippets
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'                       " LSP Ultisnippets
