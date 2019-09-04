@@ -62,3 +62,6 @@ let g:lightline = {
 " Goyo
 nnoremap <Leader>go :Goyo<CR>
 let g:goyo_width=120
+
+" Set splitting to be vertical by default
+set diffopt+=vertical
