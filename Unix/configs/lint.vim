@@ -1,6 +1,7 @@
 " ALE
-let g:ale_linters = { 'cs': ['OmniSharp'],
-    \'cpp': ['ccls'],
+let g:ale_linters = { 
+    \'cs': ['OmniSharp'],
+    \'cpp': ['clangd'],
     \'rust': ['rls']
     \}
 

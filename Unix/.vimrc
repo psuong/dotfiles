@@ -5,8 +5,6 @@ Plug 'prabirshrestha/async.vim'                                 " Async support
 Plug 'prabirshrestha/vim-lsp'                                   " LSP Support
 Plug 'prabirshrestha/asyncomplete-lsp.vim'                      " LSP Support for asyncomplete
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                " Asyncomplete w/ vim snippet support
-Plug 'thomasfaingnaert/vim-lsp-snippets'                        " Vim LSP snippets
-Plug 'thomasfaingnaert/vim-lsp-ultisnips'                       " LSP Ultisnippets
 Plug 'junegunn/seoul256.vim'                                    " Default color scheme
 Plug '~/.fzf'                                                   " For manual installs
 Plug '/usr/local/opt/fzf'                                       " For OSX based installs of FZF
