@@ -12,7 +12,7 @@ Plug 'junegunn/fzf.vim'                                         " Main fzf plugi
 Plug 'OmniSharp/omnisharp-vim'                                  " C# support
 Plug 'SirVer/ultisnips'                                         " Allow snippets
 Plug 'honza/vim-snippets'                                       " Vim snippets
-Plug 'w0rp/ale'                                                 " Linting engine
+Plug 'dense-analysis/ale'                                       " Linting engine
 Plug 'junegunn/goyo.vim'                                        " Pure writing
 Plug 'junegunn/vim-easy-align'                                  " Vim Easy Align
 Plug 'itchyny/lightline.vim'                                    " Status bar for Vim

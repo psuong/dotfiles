@@ -1,4 +1,4 @@
-" Register clangd C++ lanuage server.
+" Register ccls C++ lanuage server.
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
