@@ -19,13 +19,6 @@ set encoding=utf-8                  " Default to UTF-8
 set noshowmode                      " Linelight shows this already
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-" GUI
-if has('gui_running')
-    syntax enable                   " Enable syntax
-    set lines=999                   " Maximize the vertical size of the window
-    set columns=999                 " Maximize the horizontal size of the window
-endif
-
 colo seoul256-light
 let g:seoul256_srgb = 1
 
@@ -33,35 +26,13 @@ let g:seoul256_srgb = 1
 nnoremap j gj
 nnoremap k gk
 
-" Indent Guides
-let g:indentLine_enabled = 0
-let g:indentLine_char_list = ['·', '|', '¦', '┆', '┊']
-let g:indentLine_leadingSpaceEnabled = 0
-let g:indentLine_leadingSpaceChar = '·'
-let g:indentLine_color_gui = '#7C6f64'
-
-" Lightline Settings
-let g:lightline = {
-\ 'colorscheme': 'solarized',
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-\   'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype', 'sharpenup']]
-\ },
-\ 'inactive': {
-\   'right': [['lineinfo'], ['percent'], ['sharpenup']]
-\ },
-\ 'component_function': {
-\    'gitbranch': 'gitbranch#name'   
-\ },
-\ 'component': {
-\   'sharpenup': sharpenup#statusline#Build()
-\ }
-\}
-
 " Goyo
 nnoremap <Leader>go :Goyo<CR>
 let g:goyo_width=120
 
 " Set splitting to be vertical by default
 set diffopt+=vertical
+
+" Ignore certain filetypes for indented lines
+let g:indentguides_ignorelist = ['text', 'md']
+let g:indentguides_spacechar = '▏'
