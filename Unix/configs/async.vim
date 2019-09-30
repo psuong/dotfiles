@@ -1,13 +1,10 @@
 " Tabbing support
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<f12>"
-let g:UltiSnipsJumpBackwardTrigger="<f11>"
+let g:UltiSnipsExpandTrigger="<f12>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>" inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>  pumvisible() ? "\<C-y>" : "\<cr>"
-
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
