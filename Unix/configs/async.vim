@@ -1,4 +1,8 @@
 " Tabbing support
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<f12>"
+let g:UltiSnipsJumpBackwardTrigger="<f11>"
+
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>  pumvisible() ? "\<C-y>" : "\<cr>"
