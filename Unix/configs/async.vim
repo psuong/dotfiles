@@ -3,7 +3,8 @@ let g:UltiSnipsExpandTrigger="<f12>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>" inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>" 
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>  pumvisible() ? "\<C-y>" : "\<cr>"
 
 inoremap <silent><expr> <TAB>
