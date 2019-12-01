@@ -112,3 +112,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Set vim mode
+set -o vi

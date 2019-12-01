@@ -21,6 +21,7 @@ Plug 'nickspoons/vim-sharpenup'                        " Add code actions to the
 Plug 'junegunn/gv.vim'                                 " Git history
 Plug 'tpope/vim-fugitive'                              " For gv
 Plug 'psliwka/vim-smoothie'                            " Adds some butterly smooth scrolling
+Plug 'APZelos/blamer.nvim'                             " Git lens like feature
 call plug#end()
 
 source ~/.vim/configs/editor.vim
