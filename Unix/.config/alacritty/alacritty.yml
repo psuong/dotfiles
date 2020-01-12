@@ -101,7 +101,7 @@ tabspaces: 8
 # Font configuration (changes require restart)
 font:
   normal:
-    family: Monaco
+    family: Ubuntu Mono
     style: Regular
   # Normal (roman) font face
   #normal:
@@ -139,7 +139,7 @@ font:
     #style: Italic
 
   # Point size
-  size: 12.0
+  size: 8.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
