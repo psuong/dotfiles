@@ -18,7 +18,6 @@ ln -s $cwd/.bash_profile .bash_profile
 
 if [ -d .config ]
 then
-    echo "dir exists"
     if [ -d .config/nvim ] 
     then
         mv .config/nvim .config/nvim.orig/
@@ -30,5 +29,6 @@ else
 fi
 ln -s $cwd/.vim $HOME/.vim
 ln -s $cwd/.git-prompt.sh $HOME/.git-prompt.sh
+ln -s $cwd/.tmux.conf $HOME/.tmux.conf
 
 cd $cwd

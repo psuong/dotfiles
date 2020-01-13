@@ -115,3 +115,5 @@ fi
 
 # Set vim mode
 set -o vi
+
+export PATH="$HOME/.cargo/bin:$PATH"
