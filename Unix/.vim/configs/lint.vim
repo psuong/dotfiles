@@ -31,3 +31,6 @@ let g:OmniSharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.ex
 
 " SharpenUp
 let g:sharpenup_codeactions_autocmd = 'CursorHold,CursorMoved,BufEnter'
+
+" Vim Blamer
+let g:blamer_enabled = 1
