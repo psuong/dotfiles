@@ -23,8 +23,10 @@ let g:OmniSharp_want_snippet = 1        " Uses Ultisnips to fill out the functio
 " let g:OmniSharp_translate_cygwin_wsl = 1
 " let g:OmniSharp_server_path = '/mnt/c/Users/Blank/omnisharp-win-x64/OmniSharp.exe'
 
-let g:OmniSharp_server_use_mono = 1
-let g:Omnisharp_server_path = '/Users/psuong/sources/omnisharp-osx/run'
+if has('macunix')
+    let g:OmniSharp_server_use_mono = 1
+    let g:Omnisharp_server_path = '/Users/psuong/sources/omnisharp-osx/run'
+endif
 
 " C# SharpenUp
 let g:sharpenup_codeactions_autocmd = 'CursorHold,CursorMoved,BufEnter'
