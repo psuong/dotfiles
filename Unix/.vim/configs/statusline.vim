@@ -1,7 +1,3 @@
-function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-endfunction
-
 " Lightline Settings
 let g:lightline = {
 \ 'colorscheme': 'solarized',
@@ -15,7 +11,7 @@ let g:lightline = {
 \ },
 \ 'component_function': {
 \    'gitbranch': 'gitbranch#name',
-\    'cocstatus': 'coc#status'   
+\    'cocstatus': 'coc#status'
 \ },
 \ 'component': {
 \   'sharpenup': sharpenup#statusline#Build()
@@ -37,3 +33,6 @@ let g:sharpenup_statusline_opts = {
 \ 'HiReady': 'SharpenUpReady',
 \ 'HiDead': 'SharpenUpDead'
 \}
+
+" Replace the glyph
+let g:sharpenup_codeactions_glyph = '�'

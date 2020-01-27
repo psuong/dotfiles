@@ -43,6 +43,7 @@ source ~/.vim/configs/lint.vim
 source ~/.vim/configs/async.vim
 source ~/.vim/configs/search.vim
 source ~/.vim/configs/explorer.vim
+source ~/.vim/configs/format.vim
 source ~/.vim/ftplugin/cs.vim
 source ~/.vim/ftplugin/cpp.vim
 source ~/.vim/ftplugin/rust.vim
