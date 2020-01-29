@@ -5,7 +5,7 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-imap <c-space> <Plug>(asyncomplete_force_refresh)
+imap <c-r> <Plug>(asyncomplete_force_refresh)
 
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-o>"
