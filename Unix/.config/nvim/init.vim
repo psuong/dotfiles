@@ -1,6 +1,9 @@
 " Vim Plugins
 call plug#begin('~/.vim/plugged')
 
+" Icon Support
+Plug 'ryanoasis/vim-devicons'                           " Add icons
+
 " Editor View
 Plug 'junegunn/seoul256.vim'                            " Default color scheme
 Plug 'junegunn/goyo.vim'                                " Focused view

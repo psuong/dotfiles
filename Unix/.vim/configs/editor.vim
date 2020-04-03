@@ -2,6 +2,9 @@
 filetype plugin on                  " Enable plugins based on their extension
 filetype plugin indent on           " Allow different indents per filetypes
 
+" Font Encoding
+set encoding=UTF-8
+
 " Visual Studio Like Settings
 set expandtab                       " Tabs are spaces
 set tabstop=4                       " Number of visual spaces per tabs
