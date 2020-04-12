@@ -37,7 +37,9 @@ Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisens
 Plug 'dense-analysis/ale'                               " Linting engine
 Plug 'prabirshrestha/asyncomplete.vim'                  " Autocompletion Engine
 Plug 'prabirshrestha/async.vim'                         " Base autocompletion
-Plug 'keremc/asyncomplete-racer.vim'
+Plug 'keremc/asyncomplete-racer.vim'                    " Rust support
+Plug 'tikhomirov/vim-glsl'                              " GLSL support
+Plug 'beyondmarc/hlsl.vim'                              " HLSL support
 
 call plug#end()
 
