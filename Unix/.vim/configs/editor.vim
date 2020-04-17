@@ -39,3 +39,7 @@ set diffopt+=vertical
 " Ignore certain filetypes for indented lines
 let g:indentguides_ignorelist = ['text', 'md']
 let g:indentguides_spacechar = '▏'
+
+" Get a decent set up without the $ sign at eol and to allow backspace support
+set nolist
+set backspace=indent,eol,start
