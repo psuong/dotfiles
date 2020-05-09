@@ -37,8 +37,8 @@ let g:goyo_width=120
 set diffopt+=vertical
 
 " Ignore certain filetypes for indented lines
-let g:indentguides_ignorelist = ['text', 'md']
-let g:indentguides_spacechar = '▏'
+let g:indentLine_enabled = 1
+let g:indentLine_char_list = ['|', '¦']
 
 " Get a decent set up without the $ sign at eol and to allow backspace support
 set nolist

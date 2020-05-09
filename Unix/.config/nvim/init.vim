@@ -15,7 +15,7 @@ Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
 Plug 'psliwka/vim-smoothie'                             " Adds some butterly smooth scrolling
 
 " Formats
-Plug 'thaerkh/vim-indentguides'                         " Default indentation guides
+Plug 'Yggdroot/indentLine'                              " Default indentation guides
 
 " Search
 Plug '~/.fzf'                                           " For manual installs
