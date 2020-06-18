@@ -9,8 +9,6 @@ imap <c-r> <Plug>(asyncomplete_force_refresh)
 
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-o>"
-    " let g:UltiSnipsJumpFowardTrigger="<c-i>"
-    " let g:UltiSnipsJumpBackwardTrigger="<c-u>"
     call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
         \ 'name': 'ultisnips',
         \ 'whitelist': ['*'],

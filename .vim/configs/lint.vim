@@ -22,10 +22,6 @@ let g:OmniSharp_want_snippet = 1                    " Uses Ultisnips to fill out
 " Nvim documenation preview
 set completeopt=longest,menuone,preview             " Documenation shows in a preview window
 
-" Vim 8.2 popup
-" set completeopt=longest,menuone,preview,popup       " Enable documentations and previews to show
-" set completepopup=highlight:Pmenu,border:off        " Better readability for pop ups
-
 " WSL Stuff (Enabled)
 let g:OmniSharp_translate_cygwin_wsl = 1
 let g:OmniSharp_server_path = '/mnt/c/Users/Blank/sources/omnisharp-win-x64/OmniSharp.exe'
@@ -37,30 +33,6 @@ endif
 
 " C# SharpenUp
 let g:sharpenup_codeactions_autocmd = 'CursorHold,CursorMoved,BufEnter'
-
-" let g:OmniSharp = {
-" \ 'popup': {
-" \   'mappings': {
-" \     'sigNext': '<C-j>',
-" \     'sigPrev': '<C-k>',
-" \     'lineDown': ['<C-e>', 'j'],
-" \     'lineUp': ['<C-y>', 'k']
-" \   }
-" \ }
-" \}
-
-" OmniSharp pop up support Nvim styling
-" let g:OmniSharp.popup.options = {
-" \ 'highlight': 'Normal',
-" \ 'padding': [1],
-" \ 'border': [1]
-" \}
-
-" OmniSharp pop up support Nvim styling
-" let g:OmniSharp.popup.options = {
-" \ 'winblend': 30,
-" \ 'winhl': 'Normal:Normal'
-" \}
 
 " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
 nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
