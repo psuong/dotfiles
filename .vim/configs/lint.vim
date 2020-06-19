@@ -5,7 +5,7 @@ let g:ale_linters = {
 \}
 
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '✗'
+let g:ale_sign_error = 'x'
 let g:ale_sign_warning = '?'
 
 " OmniSharp configs that need to load before ftplugin
@@ -16,7 +16,7 @@ set splitbelow                                      " Put the preview on the bot
 
 let g:OmniSharp_typeLookupInPreview = 1             " Use a preview window instead of echoing it in the cmd line
 let g:OmniSharp_selector_ui='fzf'                   " Use fzf by default
-let g:OmniSharp_highlight_types = 3                 " 2: for buffer enter/leave, 3 for any kidn of typing
+let g:OmniSharp_highlight_types = 2                 " 2: for buffer enter/leave, 3 for any kind of typing
 let g:OmniSharp_want_snippet = 1                    " Uses Ultisnips to fill out the function params if enabled
 
 " Nvim documenation preview
@@ -33,6 +33,25 @@ endif
 
 " C# SharpenUp
 let g:sharpenup_codeactions_autocmd = 'CursorHold,CursorMoved,BufEnter'
+
+" Popups
+
+let g:OmniSharp = {
+\ 'popup': {
+\   'mappings': {
+\     'sigNext': '<C-j>',
+\     'sigPrev': '<C-k>',
+\     'lineDown': ['<C-e>', 'j'],
+\     'lineUp': ['<C-y>', 'k']
+\   }
+\ }
+\}
+
+" OmniSharp pop up support Nvim styling
+let g:OmniSharp.popup.options = {
+\ 'winblend': 30,
+\ 'winhl': 'Normal:Normal'
+\}
 
 " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
 nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>

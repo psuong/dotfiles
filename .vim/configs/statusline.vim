@@ -1,16 +1,6 @@
 " C# Sharpen Up
-let g:sharpenup_codeactions_glyph = '�'
-let g:sharpenup_statusline_opts = ' 0# ✓ '
-
-" let g:sharpenup_statusline_opts = {
-" \ 'TextLoading': ' O#: • ',
-" \ 'TextReady': ' O#: ✓ ',
-" \ 'TextDead': ' O#: ✘ ',
-" \ 'Highlight': 1,
-" \ 'HiLoading': 'SharpenUpLoading',
-" \ 'HiReady': 'SharpenUpReady',
-" \ 'HiDead': 'SharpenUpDead'
-" \}
+let g:sharpenup_codeactions_glyph = '?'
+let g:sharpenup_statusline_opts = 'O#: •'
 
 " Lightline Settings
 let g:lightline = {
