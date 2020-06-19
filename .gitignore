@@ -1,3 +1,4 @@
 .vim/plugged
 .config/nvim/.netrwhist
+.config/vifm/vifm-help.txt
 .vim/autoload/
