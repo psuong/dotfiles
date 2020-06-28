@@ -43,3 +43,6 @@ let g:indentLine_char_list = ['|', '¦']
 " Get a decent set up without the $ sign at eol and to allow backspace support
 set nolist
 set backspace=indent,eol,start
+
+" Vim Blamer
+let g:blamer_enabled = 1

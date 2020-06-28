@@ -74,5 +74,3 @@ nnoremap <Leader>sp :OmniSharpStopServer<CR>
 autocmd User asyncomplete_setup call asyncomplete#register_source(
     \ asyncomplete#sources#racer#get_source_options())
 
-" Vim Blamer
-let g:blamer_enabled = 1

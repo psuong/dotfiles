@@ -24,7 +24,8 @@ Plug 'junegunn/fzf.vim'                                 " Main fzf plugin
 " Git
 Plug 'junegunn/gv.vim'                                  " Git history
 Plug 'tpope/vim-fugitive'                               " For gv
-Plug 'APZelos/blamer.nvim'                              " Git lens like feature
+" Plug 'APZelos/blamer.nvim'                              " Git lens like feature
+Plug 'rhysd/git-messenger.vim'                          " Git lens but with pop ups instead
 
 " Snippets
 Plug 'SirVer/ultisnips'                                 " Snippet support
