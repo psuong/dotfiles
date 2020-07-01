@@ -24,12 +24,12 @@ echo "source $VULKAN_ROOT/setup-env.sh" >> ~/.bash_aliases
 # echo "export DYLD_LIBRARY_PATH="\$VULKAN_SDK/lib/"" >> ~/.bash_aliases
 # echo "export PATH="\$VULKAN_SDK:$PATH"" >> ~/.bash_aliases
 
-if [ ! -f ~/.bashrc ]; then
+if [ -f ~/.bashrc ]; then
     echo "Reloading the .bashrc file"
     source ~/.bashrc
 fi
 
-if [ ! -f ~/.bash_profile ]; then
+if [ -f ~/.bash_profile ]; then
     echo "Reloading the .bash_profile file"
     source ~/.bash_profile
 fi

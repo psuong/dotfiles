@@ -32,5 +32,6 @@ ln -s $cwd/.bash_aliases .bash_aliases
 ln -s $cwd/.vim $HOME/.vim
 ln -s $cwd/.git-prompt.sh $HOME/.git-prompt.sh
 ln -s $cwd/.tmux.conf $HOME/.tmux.conf
+ln -s $cwd/.bash_profile $HOME/.bash_profile
 
 cd $cwd
