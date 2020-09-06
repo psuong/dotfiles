@@ -13,6 +13,7 @@ Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'itchyny/vim-gitbranch'                            " Display the current branch in vim
 Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
 Plug 'psliwka/vim-smoothie'                             " Adds some butterly smooth scrolling
+" Plug 'itchyny/vim-cursorword'                           " Adds matching per word
 
 " Formats
 Plug 'Yggdroot/indentLine'                              " Default indentation guides
@@ -41,6 +42,7 @@ Plug 'prabirshrestha/async.vim'                         " Base autocompletion
 Plug 'keremc/asyncomplete-racer.vim'                    " Rust support
 Plug 'tikhomirov/vim-glsl'                              " GLSL support
 Plug 'beyondmarc/hlsl.vim'                              " HLSL support
+Plug 'prabirshrestha/asyncomplete-file.vim'             " File completion
 
 call plug#end()
 
