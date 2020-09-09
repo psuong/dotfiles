@@ -114,6 +114,6 @@ if ! shopt -oq posix; then
 fi
 
 # Set vim mode
-set -o vi
+# set -o vi
 
 export PATH="$HOME/.cargo/bin:$PATH"

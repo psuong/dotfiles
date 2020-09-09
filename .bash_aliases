@@ -3,4 +3,13 @@ export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\][\u]\[\033[00m\] \[
 export BAT_THEME="GitHub"
 
 # FZF
-export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {} --height 100%'"
+export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}'"
+
+source ~/sources/fzf-tab-completion/bash/fzf-bash-completion.sh
+bind -x '"\t": fzf_bash_completion'
+
+eval "$(dircolors -p | \
+    sed 's/ 4[0-9];/ 01;/; s/;4[0-9];/;01;/g; s/;4[0-9] /;01 /' | \
+    dircolors /dev/stdin)"
