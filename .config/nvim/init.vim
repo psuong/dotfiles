@@ -6,6 +6,7 @@ Plug 'ryanoasis/vim-devicons'                           " Add icons
 
 " Editor View
 Plug 'junegunn/seoul256.vim'                            " Default color scheme
+Plug 'sonph/onehalf', {'rtp': 'vim'}                    " One half theme
 Plug 'junegunn/goyo.vim'                                " Focused view
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
 Plug 'preservim/nerdtree'                               " Default file tree explorer
@@ -13,7 +14,6 @@ Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'itchyny/vim-gitbranch'                            " Display the current branch in vim
 Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
 Plug 'psliwka/vim-smoothie'                             " Adds some butterly smooth scrolling
-" Plug 'itchyny/vim-cursorword'                           " Adds matching per word
 
 " Formats
 Plug 'Yggdroot/indentLine'                              " Default indentation guides

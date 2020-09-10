@@ -4,7 +4,7 @@ let g:sharpenup_statusline_opts = 'O#: •'
 
 " Lightline Settings
 let g:lightline = {
-\ 'colorscheme': 'solarized',
+\ 'colorscheme': 'one dark',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
 \             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ],

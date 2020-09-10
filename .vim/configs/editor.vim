@@ -22,8 +22,10 @@ set encoding=utf-8                  " Default to UTF-8
 set noshowmode                      " Linelight shows this already
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-colo seoul256-light
-let g:seoul256_srgb = 1
+" colo seoul256-light
+" let g:seoul256_srgb = 1
+
+colorscheme onehalflight
 
 " Cursor settings
 nnoremap j gj
