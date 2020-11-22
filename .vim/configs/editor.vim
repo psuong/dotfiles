@@ -29,9 +29,8 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " Colorschemes
 " --------------------------------------------------------------------------
-" colo seoul256-light
-" let g:seoul256_srgb = 1
-colorscheme codedark
+colo seoul256-light
+let g:seoul256_srgb = 1
 
 " Font Settings
 " --------------------------------------------------------------------------
@@ -41,11 +40,6 @@ set guifont=UbuntuMono\ Nerd\ Font:h14
 " --------------------------------------------------------------------------
 nnoremap j gj
 nnoremap k gk
-
-" Goyo Pure Writing Settings
-" --------------------------------------------------------------------------
-nnoremap <Leader>go :Goyo<CR>
-let g:goyo_width=120
 
 " Set splitting to be vertical by default
 " --------------------------------------------------------------------------

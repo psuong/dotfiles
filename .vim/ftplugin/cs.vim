@@ -21,6 +21,7 @@ set previewheight=5
 
 " OmniSharp Server Settings
 " -----------------------------------------------------------------------
+let g:OmniSharp_translate_cygwin_wsl = 1
 let g:OmniSharp_server_stdio = 1
 let g:Omnisharp_timeout = 5
 
