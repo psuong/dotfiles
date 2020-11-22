@@ -56,6 +56,8 @@ Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisens
 Plug 'dense-analysis/ale'                               " Linting engine
 Plug 'tikhomirov/vim-glsl'                              " GLSL support
 Plug 'beyondmarc/hlsl.vim'                              " HLSL support
+Plug 'mingchaoyan/vim-shaderlab'                        " Shaderlab syntax highlighting
+Plug 'rust-lang/rust.vim'                               " Some additional Rust support (RustFmt)
 
 call plug#end()
 
