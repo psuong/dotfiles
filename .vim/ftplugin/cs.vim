@@ -21,11 +21,16 @@ set previewheight=5
 
 " OmniSharp Server Settings
 " -----------------------------------------------------------------------
-let g:OmniSharp_translate_cygwin_wsl = 1
+if has('Unix')
+    let lines = readfile("/proc/version")
+    if lines[0] =~ "Microsoft"
+        let g:OmniSharp_translate_cygwin_wsl = 1
+    endif
+endif
+
 let g:OmniSharp_server_stdio = 1
 let g:Omnisharp_timeout = 5
-
-let g:OmniSharp_server_path = 'C:\\Users\\Blank\\sources\\omnisharp-win-x64\\OmniSharp.exe'
+let g:OmniSharp_server_path = '/mnt/c/Users/Blank/sources/omnisharp-win-x64/OmniSharp.exe'
 
 if has('macunix')
     let g:OmniSharp_server_use_mono = 1
