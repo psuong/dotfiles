@@ -25,17 +25,19 @@ if has('Unix')
     let lines = readfile("/proc/version")
     if lines[0] =~ "Microsoft"
         let g:OmniSharp_translate_cygwin_wsl = 1
+        let g:OmniSharp_server_path = '/mnt/c/Users/Blank/sources/omnisharp-win-x64/OmniSharp.exe'
     endif
-endif
-
-let g:OmniSharp_server_stdio = 1
-let g:Omnisharp_timeout = 5
-let g:OmniSharp_server_path = '/mnt/c/Users/Blank/sources/omnisharp-win-x64/OmniSharp.exe'
-
-if has('macunix')
+elseif has('Windows')
+    let g:OmniSharp_server_path = 'C:\\Users\\Blank\\sources\\omnisharp-win-x64\\OmniSharp.exe'
+elseif has('macunix')
     let g:OmniSharp_server_use_mono = 1
     let g:Omnisharp_server_path = '/Users/psuong/sources/omnisharp-osx/run'
 endif
+
+
+let g:OmniSharp_server_stdio = 1
+let g:Omnisharp_timeout = 5
+
 
 " C# SharpenUp
 " -----------------------------------------------------------------------
