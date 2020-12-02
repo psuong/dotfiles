@@ -39,6 +39,8 @@ Plug 'prabirshrestha/async.vim'                         " Base autocompletion
 Plug 'prabirshrestha/vim-lsp'                           " Language server support
 Plug 'prabirshrestha/asyncomplete-lsp.vim'              " Asyncomplete support for LSP
 Plug 'prabirshrestha/asyncomplete-file.vim'             " File completion
+Plug 'mattn/vim-lsp-settings'                           " Common LSP configurations for languages
+
 
 " Snippets
 "------------------------------------------------------------------------------------------------
