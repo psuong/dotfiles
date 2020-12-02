@@ -19,23 +19,18 @@ if has('python3')
         \ }))
 endif
 
-" Rust LSP Settings
-" ---------------------------------------------------------------------------------------------
-" Turn off snippets because it does not fill in the actual snippet
-
-if executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-        \ 'whitelist': ['rust'],
-        \ 'config': { 'snippets': 0 }
-        \ })
-endif
-
+" Asyncomplete file source completion
+" -------------------------------------------------------------------------------------------
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',
     \ 'whitelist': ['*'],
     \ 'priority': 10,
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
+
+" Asyncomplete Logging
+" -------------------------------------------------------------------------------------------
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+

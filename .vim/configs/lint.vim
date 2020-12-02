@@ -15,6 +15,6 @@ let g:ale_sign_warning = '!!'
 let g:lsp_diagnostics_enabled = 0
 
 " Allow LSP to fold methods/functions
-set foldmethod=expr
-  \ foldexpr=lsp#ui#vim#folding#foldexpr()
-  \ foldtext=lsp#ui#vim#folding#foldtext()
+" set foldmethod=expr
+"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+"   \ foldtext=lsp#ui#vim#folding#foldtext()
