@@ -27,14 +27,14 @@ let g:fzf_layout = { 'window': '10new' }
 " Unix Preview Settings
 " -------------------------------------------------------------------------------
 " So this is pretty laggy on WSL disabling it by default even though it's cool
-nnoremap <c-p> :FZF! --preview=head\ -50\ {}<CR>
+" nnoremap <c-p> :FZF! --preview=head\ -50\ {}<CR>
 
 " Default no preview
 " nnoremap <c-p> :FZF<CR>
 
 " Windows Preview Settings
 " -------------------------------------------------------------------------------
-" nnoremap <c-p> :FZF! --preview=cat\ {}<CR>
+nnoremap <c-p> :FZF! --preview=cat\ {}<CR>
 
 augroup fzf
   autocmd!
