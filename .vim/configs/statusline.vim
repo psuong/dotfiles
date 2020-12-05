@@ -11,7 +11,7 @@ augroup END
 " Lightline Settings
 " ---------------------------------------------------------------------
 let g:lightline = {
-\ 'colorscheme': 'codedark',
+\ 'colorscheme': 'seoul256',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
 \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],

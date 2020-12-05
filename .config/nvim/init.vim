@@ -9,7 +9,7 @@ Plug 'ryanoasis/vim-devicons'                           " Add icons
 " Editor View
 "------------------------------------------------------------------------------------------------
 Plug 'junegunn/seoul256.vim'                            " Default color scheme
-Plug 'tomasiser/vim-code-dark'                          " Visual Studio color scheme
+Plug 'gruvbox-community/gruvbox'                        " Gruvbox retro theme
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
 Plug 'preservim/nerdtree'                               " Default file tree explorer
 Plug 'itchyny/lightline.vim'                            " Status bar for Vim
@@ -40,7 +40,6 @@ Plug 'prabirshrestha/vim-lsp'                           " Language server suppor
 Plug 'prabirshrestha/asyncomplete-lsp.vim'              " Asyncomplete support for LSP
 Plug 'prabirshrestha/asyncomplete-file.vim'             " File completion
 Plug 'mattn/vim-lsp-settings'                           " Common LSP configurations for languages
-
 
 " Snippets
 "------------------------------------------------------------------------------------------------

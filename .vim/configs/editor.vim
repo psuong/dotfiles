@@ -1,3 +1,7 @@
+" Buffer Settings
+" --------------------------------------------------------------------------
+set nohidden                        " Stops the buffer from closing
+
 " Plugin availability
 " --------------------------------------------------------------------------
 filetype plugin on                  " Enable plugins based on their extension
@@ -31,6 +35,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " --------------------------------------------------------------------------
 colo seoul256-light
 let g:seoul256_srgb = 1
+" colorscheme gruvbox
 
 " Font Settings
 " --------------------------------------------------------------------------

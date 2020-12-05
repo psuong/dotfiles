@@ -34,7 +34,7 @@ nnoremap <c-p> :FZF! --preview=head\ -50\ {}<CR>
 
 " Windows Preview Settings
 " -------------------------------------------------------------------------------
-" nnoremap <c-p> :FZF --preview=cat\ {}<CR>
+" nnoremap <c-p> :FZF! --preview=cat\ {}<CR>
 
 augroup fzf
   autocmd!

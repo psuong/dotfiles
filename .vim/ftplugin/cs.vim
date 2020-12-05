@@ -104,6 +104,11 @@ augroup omnisharp_commands
     autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
     autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
 
+    " C# Legacy Utils
+    " --------------------------------------------------------------------------
+    autocmd FileType cs nmap <silent> <buffer> <Leader>ad <Plug>(sharpenup_add_to_csproj)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>ln <Plug>(sharpenup_rename_in_csproj)
+
     " New settings END
     " ---------------------------------------------------------------------
 augroup END
