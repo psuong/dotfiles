@@ -30,7 +30,6 @@ set encoding=utf-8                  " Default to UTF-8
 set noshowmode                      " Linelight shows this already
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-
 " Colorschemes
 " --------------------------------------------------------------------------
 " colo seoul256-light
@@ -40,7 +39,14 @@ let g:gruvbox_bold = 0
 
 " Font Settings
 " --------------------------------------------------------------------------
-set guifont=UbuntuMono\ Nerd\ Font:h14
+if has('Unix')
+    set guifont=UbuntuMono\ Nerd\ Font:h14
+elseif has('Windows')
+    set guifont=UbuntuMono\ Nerd\ Font:h10
+elseif has('macunix')
+    set guifont=UbuntuMono\ Nerd\ Font:h12
+endif
+
 
 " Cursor settings
 " --------------------------------------------------------------------------
@@ -63,4 +69,4 @@ set backspace=indent,eol,start
 
 " Neovide GUI Settings
 " --------------------------------------------------------------------------
-let g:neovide_fullscreen=v:true
+let g:neovide_fullscreen=v:false
