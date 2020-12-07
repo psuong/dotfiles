@@ -88,6 +88,7 @@ augroup omnisharp_commands
     autocmd FileType cs nmap <silent> <buffer> <Leader>ra <Plug>(omnisharp_code_actions)
     autocmd FileType cs xmap <silent> <buffer> <Leader>ra <Plug>(omnisharp_code_actions)
     autocmd FileType cs nmap <silent> <buffer> <Leader>gc <Plug>(omnisharp_global_code_check)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>cf <Plug>(omnisharp_code_format)
 
     " Rename
     " --------------------------------------------------------------------------

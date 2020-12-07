@@ -33,9 +33,10 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " Colorschemes
 " --------------------------------------------------------------------------
-colo seoul256-light
-let g:seoul256_srgb = 1
-" colorscheme gruvbox
+" colo seoul256-light
+" let g:seoul256_srgb = 1
+colorscheme gruvbox
+let g:gruvbox_bold = 0
 
 " Font Settings
 " --------------------------------------------------------------------------

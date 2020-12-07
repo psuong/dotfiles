@@ -16,6 +16,14 @@ let g:ale_sign_warning = '!!'
 " ------------------------------------------------------
 let g:lsp_diagnostics_enabled = 0
 
+let g:lsp_settings = {
+    \ 'cs': {'disabled': v:false}
+\}
+
+let g:lsp_settings = {
+    \ 'omnisharp-lsp': {'disabled': v:true}
+\}
+
 " LSP Diagnostics Settings
 " ------------------------------------------------------
 " let g:lsp_signs_enabled = 1
