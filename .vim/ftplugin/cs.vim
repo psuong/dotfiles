@@ -22,10 +22,12 @@ set previewheight=5
 " OmniSharp Server Settings
 " -----------------------------------------------------------------------
 if has('Unix')
-    let lines = readfile("/proc/version")
-    if lines[0] =~ "Microsoft"
-        let g:OmniSharp_translate_cygwin_wsl = 1
-        let g:OmniSharp_server_path = '/mnt/c/Users/Blank/sources/omnisharp-win-x64/OmniSharp.exe'
+    if filereadable("/proc/version")
+        let lines = readfile("/proc/version")
+        if lines[0] =~ "Microsoft"
+            let g:OmniSharp_translate_cygwin_wsl = 1
+            let g:OmniSharp_server_path = '/mnt/c/Users/Blank/sources/omnisharp-win-x64/OmniSharp.exe'
+        endif
     endif
 elseif has('Windows')
     let g:OmniSharp_server_path = 'C:\\Users\\Blank\\sources\\omnisharp-win-x64\\OmniSharp.exe'
@@ -34,10 +36,8 @@ elseif has('macunix')
     let g:Omnisharp_server_path = '/Users/psuong/sources/omnisharp-osx/run'
 endif
 
-
 let g:OmniSharp_server_stdio = 1
 let g:Omnisharp_timeout = 5
-
 
 " C# SharpenUp
 " -----------------------------------------------------------------------
