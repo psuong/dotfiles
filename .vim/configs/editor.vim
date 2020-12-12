@@ -47,7 +47,6 @@ elseif has('macunix')
     set guifont=UbuntuMono\ Nerd\ Font:h12
 endif
 
-
 " Cursor settings
 " --------------------------------------------------------------------------
 nnoremap j gj
