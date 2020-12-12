@@ -1,6 +1,6 @@
 " Buffer Settings
 " --------------------------------------------------------------------------
-set nohidden                        " Stops the buffer from closing
+set hidden                          " Stops the buffer from closing
 
 " Plugin availability
 " --------------------------------------------------------------------------
