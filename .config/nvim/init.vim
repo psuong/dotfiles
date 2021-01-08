@@ -59,6 +59,10 @@ Plug 'beyondmarc/hlsl.vim'                              " HLSL support
 Plug 'mingchaoyan/vim-shaderlab'                        " Shaderlab syntax highlighting
 Plug 'rust-lang/rust.vim'                               " Some additional Rust support (RustFmt)
 
+" Previews
+"------------------------------------------------------------------------------------------------
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}   " Markdown Support
+
 call plug#end()
 
 source ~/.vim/configs/editor.vim
