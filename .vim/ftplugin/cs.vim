@@ -99,6 +99,7 @@ augroup omnisharp_commands
     autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
     autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
     autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
+    autocmd FileType cs nmap <silent> <buffer> <F5> <Plug>(omnisharp_restart_server)
 
     " Method Actions
     " --------------------------------------------------------------------------

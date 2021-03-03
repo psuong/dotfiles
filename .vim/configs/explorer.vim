@@ -5,6 +5,7 @@ let g:NERDTreeDirArrowExpandable = '+'                                          
 let g:NERDTreeDirArrowCollapsible = '-'                                                 " Arrow for expanded directories
 let NERDTreeShowHidden = 1                                                              " Show hidden files
 map <C-n> :NERDTreeToggle<CR>                                                           " Ctrl + N for expanding NERDTree
+map <C-f> :NERDTreeFind<CR>                                                             " Ctrl + F to find the file in NERDTree
 let NERDTreeIgnore = ['\.meta$', '\.swp$', '\.DS_Store']                                " Ignore meta files generated from Unity and vim swap files.
 
 " Close NERDTree if it's the last one opened.
