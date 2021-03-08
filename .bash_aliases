@@ -19,6 +19,7 @@ if [ command -v dircolors &> /dev/null ]; then
     eval "$(dircolors -p | \
         sed 's/ 4[0-9];/ 01;/; s/;4[0-9];/;01;/g; s/;4[0-9] /;01 /' | \
         dircolors /dev/stdin)"
+    exit;
 fi
 
 # MacOS Settings
