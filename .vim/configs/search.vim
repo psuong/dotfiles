@@ -1,5 +1,6 @@
+" ----------------------------------------------------------------------
 " Fuzzy Finder
-" -------------------------------------------------------------------------------
+" ----------------------------------------------------------------------
 let g:fzf_action = {
     \ 'ctrl-s': 'split',
     \ 'ctrl-v': 'vsplit'
@@ -24,17 +25,24 @@ let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
 let g:fzf_layout = { 'window': '10new' }
 
+" ----------------------------------------------------------------------
 " Unix Preview Settings
-" -------------------------------------------------------------------------------
+" ----------------------------------------------------------------------
 " So this is pretty laggy on WSL disabling it by default even though it's cool
 " nnoremap <c-p> :FZF! --preview=head\ -50\ {}<CR>
 
 " Default no preview
 " nnoremap <c-p> :FZF<CR>
+if has('Unix')
+    nnoremap <c-p> :FZF<CR>
+elseif has('Windows')
+    nnoremap <c-p> :FZF! --preview=cat\ {}<CR>
+endif
 
+" ----------------------------------------------------------------------
 " Windows Preview Settings
-" -------------------------------------------------------------------------------
-nnoremap <c-p> :FZF! --preview=cat\ {}<CR>
+" ----------------------------------------------------------------------
+"nnoremap <c-p> :FZF! --preview=cat\ {}<CR>
 
 augroup fzf
   autocmd!

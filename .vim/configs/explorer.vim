@@ -1,5 +1,6 @@
+" ----------------------------------------------------------------------
 " NERDTree Settings
-" -------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------
 autocmd vimenter * NERDTree                                                             " Autostart NERDTree
 let g:NERDTreeDirArrowExpandable = '+'                                                  " Arrow to expand directories
 let g:NERDTreeDirArrowCollapsible = '-'                                                 " Arrow for expanded directories
@@ -17,9 +18,9 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
+" ----------------------------------------------------------------------
 " NERDTree Color Settings
-" -------------------------------------------------------------------------------------
-
+" ----------------------------------------------------------------------
 call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
 call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')

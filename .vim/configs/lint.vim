@@ -1,43 +1,65 @@
-" ALE
-" ------------------------------------------------------
+" ----------------------------------------------------------------------
+" Global ALE
+" ----------------------------------------------------------------------
 let g:ale_linters_explicit = 1
-
-" Rust Analyzer doesn't seem to work so just stick with using RLS
-let g:ale_linters = {
-    \ 'cs': ['OmniSharp'],
-    \ 'rust': ['rls']
-\}
-
+let g:ale_completion_enabled = 1
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '✗'
+let g:ale_set_balloons = 1
+let g:ale_hover_to_preview = 1
+let g:ale_floating_preview = 1
+let g:ale_sign_error = '->'
 let g:ale_sign_warning = '!!'
 
-" LSP Settings
-" ------------------------------------------------------
-let g:lsp_diagnostics_enabled = 0
-
-let g:lsp_settings = {
-    \ 'cs': {'disabled': v:false}
+" Rust Analyzer doesn't to do linting nicely on vim...so using rls 
+let g:ale_linters = {
+    \ 'cs': ['OmniSharp'],
+    \ 'rust': ['rls', 'analyzer']
 \}
 
+" ----------------------------------------------------------------------
+" Global LSP Settings
+" ----------------------------------------------------------------------
+let g:lsp_diagnostics_enabled = 0           " Disable diagnostics from LSP
+let g:lsp_signs_enabled = 0
+let g:lsp_auto_enable = 1
+
+" Disable LSP for C#
 let g:lsp_settings = {
-    \ 'omnisharp-lsp': {'disabled': v:true}
+    \ 'cs': { 'disabled': v:false },
+    \ 'omnisharp-lsp': { 'disabled': v:true }
 \}
 
-" LSP Diagnostics Settings
-" ------------------------------------------------------
-" let g:lsp_signs_enabled = 1
-" let g:lsp_signs_error = { 'text': '✗' }
-" let g:lsp_signs_warning = { 'text': '!!' }
-" let g:lsp_signs_hint = { 'text': '->' }
-" let g:lsp_virtual_text_enabled = 0
-" let g:lsp_textprop_enabled = 0
-" let g:lsp_highlights_enabled = 0
-" let g:lsp_highlight_references_enabled = 0
-" let g:lsp_diagnostics_echo_cursor = 1
+" ----------------------------------------------------------------------
+" Tabbing support
+" ----------------------------------------------------------------------
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
-" Allow LSP to fold methods/functions
-" ------------------------------------------------------
-" set foldmethod=expr
-"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
-"   \ foldtext=lsp#ui#vim#folding#foldtext()
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+imap <c-r> <Plug>(asyncomplete_force_refresh)
+
+" ----------------------------------------------------------------------
+" Snippet support
+" ----------------------------------------------------------------------
+let g:UltiSnipsExpandTrigger="<c-o>"
+if has('python3')
+    let g:UltiSnipsExpandTrigger="<c-o>"
+    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+endif
+
+" ----------------------------------------------------------------------
+" Asyncomplete file source completion
+" ----------------------------------------------------------------------
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+\ }))
+
