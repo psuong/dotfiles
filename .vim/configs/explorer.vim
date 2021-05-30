@@ -39,3 +39,10 @@ call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
+
+" ----------------------------------------------------------------------
+" Git Helpers
+" ----------------------------------------------------------------------
+command! Gpush Git push
+command! Gpull Git pull
+command! Gfetch Git fetch
