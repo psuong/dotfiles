@@ -65,6 +65,7 @@ Plug 'mingchaoyan/vim-shaderlab'                        " Shaderlab support
 Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisense/completion
 Plug 'tikhomirov/vim-glsl'                              " GLSL support
+Plug 'mattn/vim-lsp-settings'                           " Common LSP settings
 
 "------------------------------------------------------------------------------------------------
 " Markdown 

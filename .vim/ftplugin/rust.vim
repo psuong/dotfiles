@@ -17,7 +17,13 @@ if executable('rust-analyzer')
         \   'procMacro': {
         \     'enable': v:true,
         \   },
+        \   'completion': {
+        \     'autoimport': { 'enable': v:true },
+        \   }
         \ },
+        \ 'config': {
+        \   'snippets': 0
+        \ }
     \ })
 endif
 
