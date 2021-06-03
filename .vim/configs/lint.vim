@@ -2,7 +2,7 @@
 " Global ALE
 " ----------------------------------------------------------------------
 let g:ale_linters_explicit = 1
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_sign_column_always = 1
 let g:ale_set_balloons = 1
 let g:ale_hover_to_preview = 1
@@ -11,19 +11,21 @@ let g:ale_sign_error = '->'
 let g:ale_sign_warning = '!!'
 
 let g:ale_linters = {
-    \ 'cs': ['OmniSharp']
+    \ 'cs': ['OmniSharp'],
+    \ 'rust': ['rls', 'analyzer']
 \}
 
 " ----------------------------------------------------------------------
 " Global LSP Settings
 " ----------------------------------------------------------------------
-let g:lsp_diagnostics_enabled = 1
+let g:lsp_auto_enable = 1
+let g:lsp_diagnostics_enabled = 0
 let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_float_cursor = 1
 
-let g:lsp_signs_enabled = 1
-let g:lsp_auto_enable = 1
-let g:lsp_preview_float = 1
+let g:lsp_signs_enabled = 0
+let g:lsp_diagnostics_signs_enabled = 0
+let g:lsp_preview_float = 0
 
 let g:lsp_diagnostics_signs_error = {'text': '->'}
 let g:lsp_diagnostics_signs_warning = {'text': '!!'} 
