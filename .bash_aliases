@@ -29,5 +29,4 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export BASH_SILENCE_DEPRECATION_WARNING=1
     source ~/.git-prompt.sh
     source ~/.git-completion.bash
-    source /Users/psuong/sources/vulkansdk-macos-1.2.135.0/setup-env.sh
 fi
