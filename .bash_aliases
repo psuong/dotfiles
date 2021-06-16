@@ -27,6 +27,7 @@ fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
     [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
     export BASH_SILENCE_DEPRECATION_WARNING=1
+    export PATH="/usr/local/bin/git:${PATH}"
     source ~/.git-prompt.sh
     source ~/.git-completion.bash
 fi
