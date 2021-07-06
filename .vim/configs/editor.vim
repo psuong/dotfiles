@@ -77,3 +77,7 @@ let g:indentLine_char_list = ['|', '¦']
 " ----------------------------------------------------------------------
 set nolist
 set backspace=indent,eol,start
+
+if has('termguicolors')
+  set termguicolors
+endif

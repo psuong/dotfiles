@@ -11,21 +11,20 @@ let g:ale_sign_error = '->'
 let g:ale_sign_warning = '!!'
 
 let g:ale_linters = {
-    \ 'cs': ['OmniSharp'],
-    \ 'rust': ['rls', 'analyzer']
+    \ 'cs': ['OmniSharp']
 \}
 
 " ----------------------------------------------------------------------
 " Global LSP Settings
 " ----------------------------------------------------------------------
 let g:lsp_auto_enable = 1
-let g:lsp_diagnostics_enabled = 0
+let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_float_cursor = 1
 
-let g:lsp_signs_enabled = 0
-let g:lsp_diagnostics_signs_enabled = 0
-let g:lsp_preview_float = 0
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_preview_float = 1
 
 let g:lsp_diagnostics_signs_error = {'text': '->'}
 let g:lsp_diagnostics_signs_warning = {'text': '!!'} 
@@ -71,4 +70,3 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'priority': 10,
     \ 'completor': function('asyncomplete#sources#file#completor')
 \ }))
-

@@ -21,9 +21,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Statement'],
   \ 'header':  ['fg', 'Comment'] }
 
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10new' }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " ----------------------------------------------------------------------
 " Unix Preview Settings
@@ -32,12 +30,12 @@ let g:fzf_layout = { 'window': '10new' }
 " nnoremap <c-p> :FZF! --preview=head\ -50\ {}<CR>
 
 " Default no preview
-" nnoremap <c-p> :FZF<CR>
-if has('Unix')
-    nnoremap <c-p> :FZF<CR>
-elseif has('Windows')
-    nnoremap <c-p> :FZF! --preview=cat\ {}<CR>
-endif
+nnoremap <c-p> :FZF<CR>
+" if has('Unix')
+"     nnoremap <c-p> :FZF<CR>
+" elseif has('Windows')
+"     nnoremap <c-p> :FZF! --preview=bat\ {}<CR>
+" endif
 
 " ----------------------------------------------------------------------
 " Windows Preview Settings
