@@ -71,6 +71,9 @@ set diffopt+=vertical
 " ----------------------------------------------------------------------
 let g:indentLine_enabled = 1
 let g:indentLine_char_list = ['|', '¦']
+let g:indentLine_faster = 1
+let g:indentLine_bufNameExcluded = ['_.*', 'NERD_tree.*']
+let g:indentLine_bufTypeExclude = ['help', 'terminal']
 
 " ----------------------------------------------------------------------
 " Get a decent set up without the $ sign at eol and to allow backspace support

@@ -24,23 +24,18 @@ let g:fzf_colors =
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " ----------------------------------------------------------------------
-" Unix Preview Settings
-" ----------------------------------------------------------------------
-" So this is pretty laggy on WSL disabling it by default even though it's cool
-" nnoremap <c-p> :FZF! --preview=head\ -50\ {}<CR>
-
 " Default no preview
+" ----------------------------------------------------------------------
 nnoremap <c-p> :FZF<CR>
+
+" ----------------------------------------------------------------------
+" Preview settings, requires batcat
+" ----------------------------------------------------------------------
 " if has('Unix')
 "     nnoremap <c-p> :FZF<CR>
 " elseif has('Windows')
 "     nnoremap <c-p> :FZF! --preview=bat\ {}<CR>
 " endif
-
-" ----------------------------------------------------------------------
-" Windows Preview Settings
-" ----------------------------------------------------------------------
-"nnoremap <c-p> :FZF! --preview=cat\ {}<CR>
 
 augroup fzf
   autocmd!
