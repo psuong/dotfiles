@@ -14,11 +14,11 @@ Plug 'ryanoasis/vim-devicons'                           " Add icons
 Plug 'junegunn/seoul256.vim'                            " Default color scheme
 Plug 'gruvbox-community/gruvbox'                        " Gruvbox retro theme
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
-Plug 'preservim/nerdtree'                               " Default file tree explorer
 Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'itchyny/vim-gitbranch'                            " Display the current branch in vim
 Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
 Plug 'psliwka/vim-smoothie'                             " Adds some butterly smooth scrolling
+Plug 'lambdalisue/fern.vim'                             " Default file explorer
 
 "------------------------------------------------------------------------------------------------
 " Formats
