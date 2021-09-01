@@ -44,8 +44,9 @@ Plug 'rhysd/git-messenger.vim'                          " Git lens but with pop 
 Plug 'prabirshrestha/async.vim'                         " Base autocompletion
 Plug 'prabirshrestha/asyncomplete.vim'                  " Autocompletion Engine
 Plug 'prabirshrestha/asyncomplete-file.vim'             " File completion
-Plug 'prabirshrestha/asyncomplete-lsp.vim'              " Asyncomplete support for LSP
-Plug 'prabirshrestha/vim-lsp'                           " Language server support
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'              " Asyncomplete support for LSP
+" Plug 'prabirshrestha/vim-lsp'                           " Language server support
+" Plug 'rhysd/vim-lsp-ale'                                " ALE & vim-lsp configs
 
 "------------------------------------------------------------------------------------------------
 " Snippets

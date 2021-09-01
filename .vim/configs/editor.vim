@@ -23,12 +23,13 @@ set tabstop=4                       " Number of visual spaces per tabs
 set softtabstop=4                   " Number of spaces in tabs when editing
 set shiftwidth=4                    " Number of spaces text is indented
 set smartindent                     " Automate indenting on a new line
+set signcolumn=yes                  " Always enable the sign column
 
 " ----------------------------------------------------------------------
 " Basic Vim Settings
 " --------------------------------------------------------------------------
 set number                          " Show number lines
-set colorcolumn=120                 " Show the max number of lines
+set colorcolumn=100                 " Show the max number of lines
 set cursorline                      " Highlight the current line number
 set showcmd                         " Show the vim commands
 set wrap                            " Wrap horizontally long lines

@@ -1,31 +1,30 @@
 " ----------------------------------------------------------------------
 " Rust configurations
 " ----------------------------------------------------------------------
-
 " ----------------------------------------------------------------------
 " LSP Rust configuration
 " ----------------------------------------------------------------------
-if executable('rust-analyzer')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'Rust Language Server (Rust-Analyzer)',
-        \ 'cmd': {server_info->['rust-analyzer']},
-        \ 'whitelist': ['rust'],
-        \ 'initialization_options': {
-        \   'cargo': {
-        \     'loadOutDirsFromCheck': v:true,
-        \   },
-        \   'procMacro': {
-        \     'enable': v:true,
-        \   },
-        \   'completion': {
-        \     'autoimport': { 'enable': v:true },
-        \   }
-        \ },
-        \ 'config': {
-        \   'snippets': 0
-        \ }
-    \ })
-endif
+" if executable('rust-analyzer')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'Rust Language Server (Rust-Analyzer)',
+"         \ 'cmd': {server_info->['rust-analyzer']},
+"         \ 'whitelist': ['rust'],
+"         \ 'initialization_options': {
+"         \   'cargo': {
+"         \     'loadOutDirsFromCheck': v:true,
+"         \   },
+"         \   'procMacro': {
+"         \     'enable': v:true,
+"         \   },
+"         \   'completion': {
+"         \     'autoimport': { 'enable': v:true },
+"         \   }
+"         \ },
+"         \ 'config': {
+"         \   'snippets': 0
+"         \ }
+"     \ })
+" endif
 
 " ----------------------------------------------------------------------
 " LSP Settings for Rust
@@ -33,17 +32,16 @@ endif
 augroup rust_commands
     autocmd!
 
-    autocmd FileType rust nmap <silent> <buffer> <Leader>gd :LspDefinition<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>pd :LspPeekDefinition<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>pi :LspHover<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>fu :LspReferences<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>nm :LspRename<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>ra :LspCodeAction<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>cf :LspDocumentFormat<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>gd :ALEGoToDefinition<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>pd :ALEHover<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>fu :ALEFindReferences<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>nm :ALERename<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>ra :ALECodeAction<CR>
 
     " ----------------------------------------------------------------------
     " Server Actions
     " ----------------------------------------------------------------------
-    autocmd FileType rust nmap <silent> <buffer> <F5> :LspStatus<CR>
-    autocmd FileType rust nmap <silent> <buffer> <F7> :LspStopServer<CR>
+    autocmd FileType rust nmap <silent> <buffer> <F5> :ALEEnable<CR>
+    autocmd FileType rust nmap <silent> <buffer> <F6> :ALEDisable<CR>
+    autocmd FileType rust nmap <silent> <buffer> <F7> :ALEStopAllLSPs<CR>
 augroup END
