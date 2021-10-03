@@ -2,45 +2,28 @@
 " Global ALE
 " ----------------------------------------------------------------------
 let g:ale_linters_explicit = 1
-let g:ale_sign_column_always = 1
-let g:ale_hover_cursor = 1
-let g:ale_hover_to_preview = 1
-let g:ale_floating_preview = 1
-let g:ale_popup_menu_enabled = 1
 let g:ale_sign_error = '->'
-let g:ale_sign_warning = '!!'
-
+let g:ale_sign_warning = '‼'
 let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
-    \ 'rust': ['analyzer']
 \}
 
+" ----------------------------------------------------------------------
+" Global LSP
+" ----------------------------------------------------------------------
+let g:lsp_diagnostics_signs_delay = 0
+let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_signs_error = {'text': '✗'}
+let g:lsp_diagnostics_signs_warning = {'text': '‼'}
+let g:lsp_document_code_action_signs_hint = {'text': '?'}
+let g:lsp_document_code_action_signs_delay = 0
+
+" ----------------------------------------------------------------------
+" Asyncomplete register sources
+" ----------------------------------------------------------------------
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
   \ 'priority': 10,
   \ }))
- 
-" ----------------------------------------------------------------------
-" Global LSP Settings
-" ----------------------------------------------------------------------
-let g:lsp_auto_enable = 1
-" let g:lsp_diagnostics_enabled = 0
-" let g:lsp_diagnostics_virtual_text_enabled = 0
-" let g:lsp_diagnostics_float_cursor = 0
-" 
-" let g:lsp_signs_enabled = 0
-" let g:lsp_diagnostics_signs_enabled = 0
-" let g:lsp_preview_float = 0
-" 
-" let g:lsp_diagnostics_signs_error = {'text': '->'}
-" let g:lsp_diagnostics_signs_warning = {'text': '!!'} 
-" let g:lsp_diagnostics_signs_hint = { 'text': '?'}
-" let g:lsp_diagnostics_signs_information = {'text': '-'}
-
-" Disable LSP for C#
-" let g:lsp_settings = {
-"     \ 'cs': { 'disabled': v:false },
-"     \ 'omnisharp-lsp': { 'disabled': v:true }
-" \}
 
 " ----------------------------------------------------------------------
 " Tabbing support
@@ -56,7 +39,6 @@ imap <c-r> <Plug>(asyncomplete_force_refresh)
 " ----------------------------------------------------------------------
 " Snippet support
 " ----------------------------------------------------------------------
-let g:UltiSnipsExpandTrigger="<c-o>"
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-o>"
     call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
@@ -67,11 +49,25 @@ if has('python3')
 endif
 
 " ----------------------------------------------------------------------
-" Asyncomplete file source completion
+" NOTE: You can use other key to expand snippet.
 " ----------------------------------------------------------------------
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-\ }))
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+" imap <expr> <C-k> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
+" smap <expr> <C-k> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
+" imap <expr> <S-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-k>'
+" smap <expr> <S-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-k>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)

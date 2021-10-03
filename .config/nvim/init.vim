@@ -4,11 +4,6 @@
 call plug#begin('~/.vim/plugged')
 
 "------------------------------------------------------------------------------------------------
-" Icon Support
-"------------------------------------------------------------------------------------------------
-" Plug 'ryanoasis/vim-devicons'                           " Add icons
-
-"------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
 Plug 'junegunn/seoul256.vim'                            " Default color scheme
@@ -34,8 +29,6 @@ Plug 'junegunn/fzf.vim'                                 " Main fzf plugin
 "------------------------------------------------------------------------------------------------
 " Git
 "------------------------------------------------------------------------------------------------
-" Plug 'junegunn/gv.vim'                                  " Git history
-" Plug 'tpope/vim-fugitive'                               " For gv
 Plug 'rhysd/git-messenger.vim'                          " Git lens but with pop ups instead
 
 "------------------------------------------------------------------------------------------------
@@ -44,26 +37,26 @@ Plug 'rhysd/git-messenger.vim'                          " Git lens but with pop 
 Plug 'prabirshrestha/async.vim'                         " Base autocompletion
 Plug 'prabirshrestha/asyncomplete.vim'                  " Autocompletion Engine
 Plug 'prabirshrestha/asyncomplete-file.vim'             " File completion
+Plug 'prabirshrestha/asyncomplete-lsp.vim'              " Asyncomplete LSP
 
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
-" Plug 'prabirshrestha/asyncomplete-ultisnips.vim'        " Ultisnips support
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'        " Ultisnips support
 Plug 'SirVer/ultisnips'                                 " Snippet support
-" Plug 'honza/vim-snippets'                               " Default snippets
-" Plug 'thomasfaingnaert/vim-lsp-snippets'                " LSP Snippet support
-" Plug 'thomasfaingnaert/vim-lsp-ultisnips'               " Ultisnips LSP support
+Plug 'honza/vim-snippets'                               " Common snippets
+
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
 
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
-" Plug 'beyondmarc/hlsl.vim'                              " HLSL support
 Plug 'dense-analysis/ale'                               " Linting engine
-" Plug 'mingchaoyan/vim-shaderlab'                        " Shaderlab support
 Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisense/completion
-" Plug 'tikhomirov/vim-glsl'                              " GLSL support
-" Plug 'mattn/vim-lsp-settings'                           " Common LSP settings
+Plug 'prabirshrestha/vim-lsp'                           " LSP Implementation
 
 "------------------------------------------------------------------------------------------------
 " Markdown 
@@ -80,4 +73,3 @@ source ~/.vim/configs/format.vim
 source ~/.vim/ftplugin/csharp.vim
 source ~/.vim/ftplugin/rust.vim
 source ~/.vim/configs/statusline.vim
-
