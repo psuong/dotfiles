@@ -23,16 +23,14 @@ endif
 augroup rust_commands
     autocmd!
 
-    autocmd FileType rust nmap <silent> <buffer> <Leader>gd :ALEGoToDefinition<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>pd :ALEHover<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>fu :ALEFindReferences<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>nm :ALERename<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>ra :ALECodeAction<CR>
-
-    " ----------------------------------------------------------------------
-    " Server Actions
-    " ----------------------------------------------------------------------
-    autocmd FileType rust nmap <silent> <buffer> <F5> :ALEEnable<CR>
-    autocmd FileType rust nmap <silent> <buffer> <F6> :ALEDisable<CR>
-    autocmd FileType rust nmap <silent> <buffer> <F7> :ALEStopAllLSPs<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>gd :LspDefinition<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>pd :LspHover<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>fu :LspReferences<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>nm :LspRename<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>ra :LspCodeAction<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>cf :LspDocumentFormat<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>ne :LspNextError<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>nw :LspNextWarning<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>pe :LspPreviousError<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>pw :LspPreviousWarning<CR>
 augroup END

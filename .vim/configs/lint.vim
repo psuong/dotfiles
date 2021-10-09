@@ -12,11 +12,15 @@ let g:ale_linters = {
 " Global LSP
 " ----------------------------------------------------------------------
 let g:lsp_diagnostics_signs_delay = 0
-let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_virtual_text_enabled = 1
 let g:lsp_diagnostics_signs_error = {'text': '✗'}
 let g:lsp_diagnostics_signs_warning = {'text': '‼'}
+let g:lsp_diagnostics_signs_hint = {'text': '?'}
 let g:lsp_document_code_action_signs_hint = {'text': '?'}
 let g:lsp_document_code_action_signs_delay = 0
+let g:lsp_document_highlights_enabled = 0
+let g:lsp_diagnostics_highlights_enabled = 0
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
 
 " ----------------------------------------------------------------------
 " Asyncomplete register sources

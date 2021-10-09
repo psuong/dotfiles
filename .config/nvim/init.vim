@@ -30,6 +30,7 @@ Plug 'junegunn/fzf.vim'                                 " Main fzf plugin
 " Git
 "------------------------------------------------------------------------------------------------
 Plug 'rhysd/git-messenger.vim'                          " Git lens but with pop ups instead
+Plug 'lambdalisue/gina.vim'                             " Git integration
 
 "------------------------------------------------------------------------------------------------
 " Autocompletion
@@ -45,10 +46,8 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'              " Asyncomplete LSP
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'        " Ultisnips support
 Plug 'SirVer/ultisnips'                                 " Snippet support
 Plug 'honza/vim-snippets'                               " Common snippets
-
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-
+Plug 'hrsh7th/vim-vsnip'                                " Snippet support for LSP
+Plug 'hrsh7th/vim-vsnip-integ'                          " Asyncomplete snippet for LSP
 
 "------------------------------------------------------------------------------------------------
 " Language support
