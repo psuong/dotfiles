@@ -6,8 +6,7 @@ call plug#begin('~/.vim/plugged')
 "------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
-Plug 'junegunn/seoul256.vim'                            " Default color scheme
-Plug 'gruvbox-community/gruvbox'                        " Gruvbox retro theme
+Plug 'gruvbox-community/gruvbox'                        " Gruvbox
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
 Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'itchyny/vim-gitbranch'                            " Display the current branch in vim

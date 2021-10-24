@@ -40,10 +40,9 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " ----------------------------------------------------------------------
 " Colorschemes
 " ----------------------------------------------------------------------
-" colo seoul256-light
-" let g:seoul256_srgb = 1
 colorscheme gruvbox
-let g:gruvbox_bold = 0
+let g:gruvbox_bold=0
+let s:bold = ''
 
 " ----------------------------------------------------------------------
 " Font Settings
@@ -51,7 +50,7 @@ let g:gruvbox_bold = 0
 if has('Unix')
     set guifont=UbuntuMono\ Nerd\ Font:h14
 elseif has('Windows')
-    set guifont=UbuntuMono\ Nerd\ Font:h10
+    set guifont=UbuntuMono\ Nerd\ Font:h12
 elseif has('macunix')
     set guifont=UbuntuMono\ Nerd\ Font:h12
 endif
