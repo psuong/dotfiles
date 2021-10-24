@@ -40,9 +40,8 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " ----------------------------------------------------------------------
 " Colorschemes
 " ----------------------------------------------------------------------
-colorscheme gruvbox
 let g:gruvbox_bold=0
-let s:bold = ''
+colorscheme gruvbox
 
 " ----------------------------------------------------------------------
 " Font Settings
@@ -50,7 +49,7 @@ let s:bold = ''
 if has('Unix')
     set guifont=UbuntuMono\ Nerd\ Font:h14
 elseif has('Windows')
-    set guifont=UbuntuMono\ Nerd\ Font:h12
+    set guifont=UbuntuMono\ Nerd\ Font:h10
 elseif has('macunix')
     set guifont=UbuntuMono\ Nerd\ Font:h12
 endif
