@@ -29,6 +29,14 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
   \ 'priority': 10,
   \ }))
 
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+
+
 " ----------------------------------------------------------------------
 " Tabbing support
 " ----------------------------------------------------------------------
@@ -64,10 +72,10 @@ imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l
 smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 
 " Jump forward or backward
-" imap <expr> <C-k> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
-" smap <expr> <C-k> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
-" imap <expr> <S-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-k>'
-" smap <expr> <S-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-k>'
+imap <expr> <C-k> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
+smap <expr> <C-k> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
+imap <expr> <S-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-k>'
+smap <expr> <S-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-k>'
 
 " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
 " See https://github.com/hrsh7th/vim-vsnip/pull/50

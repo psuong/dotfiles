@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
 " Editor View
 "------------------------------------------------------------------------------------------------
 Plug 'gruvbox-community/gruvbox'                        " Gruvbox
+Plug 'tomasiser/vim-code-dark'                          " VsCode dark theme
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
 Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'itchyny/vim-gitbranch'                            " Display the current branch in vim
@@ -28,7 +29,6 @@ Plug 'junegunn/fzf.vim'                                 " Main fzf plugin
 "------------------------------------------------------------------------------------------------
 " Git
 "------------------------------------------------------------------------------------------------
-Plug 'rhysd/git-messenger.vim'                          " Git lens but with pop ups instead
 Plug 'lambdalisue/gina.vim'                             " Git integration
 
 "------------------------------------------------------------------------------------------------
@@ -38,6 +38,7 @@ Plug 'prabirshrestha/async.vim'                         " Base autocompletion
 Plug 'prabirshrestha/asyncomplete.vim'                  " Autocompletion Engine
 Plug 'prabirshrestha/asyncomplete-file.vim'             " File completion
 Plug 'prabirshrestha/asyncomplete-lsp.vim'              " Asyncomplete LSP
+Plug 'mattn/vim-lsp-settings'                           " Common LSP settings
 
 "------------------------------------------------------------------------------------------------
 " Snippets
@@ -55,6 +56,7 @@ Plug 'dense-analysis/ale'                               " Linting engine
 Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisense/completion
 Plug 'prabirshrestha/vim-lsp'                           " LSP Implementation
+Plug 'ron-rs/ron.vim'                                   " Rusty Object Notation
 
 "------------------------------------------------------------------------------------------------
 " Markdown 
