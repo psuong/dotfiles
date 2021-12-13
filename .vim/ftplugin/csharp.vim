@@ -31,7 +31,6 @@ if has('Unix')
     if has('macunix')
         let g:OmniSharp_server_use_mono = 1
         let g:Omnisharp_server_path = '$HOME/sources/omnisharp-osx/omnisharp/OmniSharp.exe'
-        echo "Hello"
     elseif filereadable("/proc/version")
         let lines = readfile("/proc/version")
         if lines[0] =~ "Microsoft"

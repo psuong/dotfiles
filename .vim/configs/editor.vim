@@ -51,7 +51,7 @@ if has('Unix')
 elseif has('Windows')
     set guifont=UbuntuMono\ Nerd\ Font:h10
 elseif has('macunix')
-    set guifont=UbuntuMono\ Nerd\ Font:h12
+    set guifont=UbuntuMono\ Nerd\ Font:h16
 endif
 
 " ----------------------------------------------------------------------
