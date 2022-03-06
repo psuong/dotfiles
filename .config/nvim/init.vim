@@ -62,6 +62,16 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 
 call plug#end()
 
+if exists('g:nvui')
+    NvuiCmdFontFamily UbuntuMono Nerd Font
+    NvuiCmdFontSize 14
+    NvuiScrollAnimationDuration 0.1
+    NvuiCmdCenterYPos 0.5
+    set mouse=a
+    NvuiFullscreen 1
+    NvuiPopupMenu 1
+endif
+
 source ~/.vim/configs/editor.vim
 source ~/.vim/configs/lint.vim
 source ~/.vim/configs/search.vim
