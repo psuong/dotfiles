@@ -49,7 +49,7 @@ colorscheme gruvbox
 if has('Unix')
     set guifont=UbuntuMono\ Nerd\ Font:h14
 elseif has('Windows')
-    set guifont=UbuntuMono\ Nerd\ Font:h12
+    set guifont=UbuntuMono\ Nerd\ Font:h11
 elseif has('macunix')
     set guifont=UbuntuMono\ Nerd\ Font:h16
 endif
