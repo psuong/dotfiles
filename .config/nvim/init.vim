@@ -21,8 +21,9 @@ Plug 'Yggdroot/indentLine'                              " Default indentation gu
 "------------------------------------------------------------------------------------------------
 " Search
 "------------------------------------------------------------------------------------------------
-Plug '~/.fzf'                                           " For manual installs
-Plug 'junegunn/fzf.vim'                                 " Main fzf plugin
+" Plug '~/.fzf'                                           " For manual installs
+" Plug 'junegunn/fzf.vim'                                 " Main fzf plugin
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 "------------------------------------------------------------------------------------------------
 " Git
@@ -62,6 +63,10 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 
 call plug#end()
 
+if (exists('g:nvy'))
+
+endif
+
 if exists('g:nvui')
     NvuiCmdFontFamily UbuntuMono Nerd Font
     NvuiCmdFontSize 14
@@ -70,6 +75,7 @@ if exists('g:nvui')
     set mouse=a
     NvuiFullscreen 1
     NvuiPopupMenu 1
+    NvuiCursorAnimationDuration 0.05
 endif
 
 source ~/.vim/configs/editor.vim

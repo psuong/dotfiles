@@ -19,8 +19,8 @@ let g:OmniSharp_want_snippet = 1
 " ----------------------------------------------------------------------
 " Use a preview window instead of echoing it in the cmd line
 let g:OmniSharp_typeLookupInPreview = 1
-let g:OmniSharp_selector_ui = 'fzf'
-let g:OmniSharp_selector_findusages = 'fzf'
+let g:OmniSharp_selector_ui = 'clap'
+let g:OmniSharp_selector_findusages = 'clap'
 set completeopt=longest,menuone,preview
 set previewheight=5
 
