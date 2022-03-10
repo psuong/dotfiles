@@ -25,9 +25,9 @@ let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
 " ----------------------------------------------------------------------
 " Asyncomplete register sources
 " ----------------------------------------------------------------------
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
-  \ 'priority': 10,
-  \ }))
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
+"   \ 'priority': 10,
+"   \ }))
 
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',

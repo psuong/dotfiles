@@ -12,6 +12,7 @@ Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
 Plug 'psliwka/vim-smoothie'                             " Adds some butterly smooth scrolling
 Plug 'lambdalisue/fern.vim'                             " Default file explorer
+Plug 'equalsraf/neovim-gui-shim'
 
 "------------------------------------------------------------------------------------------------
 " Formats
@@ -55,6 +56,7 @@ Plug 'dense-analysis/ale'                               " Linting engine
 Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisense/completion
 Plug 'prabirshrestha/vim-lsp'                           " LSP Implementation
+Plug 'halkn/lightline-lsp'
 
 "------------------------------------------------------------------------------------------------
 " Markdown 
@@ -62,21 +64,6 @@ Plug 'prabirshrestha/vim-lsp'                           " LSP Implementation
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}   " Markdown Support
 
 call plug#end()
-
-if (exists('g:nvy'))
-
-endif
-
-if exists('g:nvui')
-    NvuiCmdFontFamily UbuntuMono Nerd Font
-    NvuiCmdFontSize 14
-    NvuiScrollAnimationDuration 0.1
-    NvuiCmdCenterYPos 0.5
-    set mouse=a
-    NvuiFullscreen 1
-    NvuiPopupMenu 1
-    NvuiCursorAnimationDuration 0.05
-endif
 
 source ~/.vim/configs/editor.vim
 source ~/.vim/configs/lint.vim
