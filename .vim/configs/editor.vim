@@ -67,6 +67,11 @@ nnoremap k gk
 set diffopt+=vertical
 
 " ----------------------------------------------------------------------
+" Indent Guides
+" ----------------------------------------------------------------------
+let g:indent_blankline_filetype_exclude = ['fern']
+
+" ----------------------------------------------------------------------
 " Get a decent set up without the $ sign at eol and to allow backspace support
 " ----------------------------------------------------------------------
 set nolist
