@@ -17,7 +17,8 @@ Plug 'equalsraf/neovim-gui-shim'
 "------------------------------------------------------------------------------------------------
 " Formats
 "------------------------------------------------------------------------------------------------
-Plug 'Yggdroot/indentLine'                              " Default indentation guides
+" Plug 'Yggdroot/indentLine'                              " Default indentation guides
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 "------------------------------------------------------------------------------------------------
 " Search
