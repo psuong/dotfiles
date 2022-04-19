@@ -58,6 +58,7 @@ Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisense/completion
 Plug 'prabirshrestha/vim-lsp'                           " LSP Implementation
 Plug 'halkn/lightline-lsp'
+Plug 'beyondmarc/hlsl.vim'                              " HLSL syntax highlighting
 
 "------------------------------------------------------------------------------------------------
 " Markdown 
