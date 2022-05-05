@@ -65,7 +65,7 @@ nnoremap k gk
 " Terminal settings
 " ----------------------------------------------------------------------
 tnoremap <Esc> <C-\><C-n>
-set shell=pwsh
+" set shell=pwsh
 
 " ----------------------------------------------------------------------
 " Set splitting to be vertical by default

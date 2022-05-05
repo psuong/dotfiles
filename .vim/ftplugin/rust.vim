@@ -1,23 +1,4 @@
 " ----------------------------------------------------------------------
-" Rust LSP configurations
-" ---------------------------------------------------------------------
-" if executable('rust-analyzer')
-"   au User lsp_setup call lsp#register_server({
-"     \   'name': 'Rust Language Server',
-"     \   'cmd': {server_info->['rust-analyzer']},
-"     \   'whitelist': ['rust'],
-"     \   'initialization_options': {
-"     \     'cargo': {
-"     \       'loadOutDirsFromCheck': v:true,
-"     \     },
-"     \     'procMacro': {
-"     \       'enable': v:true,
-"     \     },
-"     \   },
-"     \ })
-" endif
-
-" ----------------------------------------------------------------------
 " LSP Settings for Rust
 " ----------------------------------------------------------------------
 augroup rust_commands
