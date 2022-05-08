@@ -39,7 +39,7 @@ if has('Unix')
         endif
     endif
 elseif has('Windows')
-    let g:OmniSharp_server_path = 'C:\\Users\\Blank\\sources\\omnisharp-win-x64\\OmniSharp.exe'
+    let g:OmniSharp_server_path = 'C:\\Users\\porri\\sources\\omnisharp-win-x64\\OmniSharp.exe'
 endif
 
 let g:OmniSharp_server_stdio = 1
