@@ -6,7 +6,8 @@ call plug#begin('~/.vim/plugged')
 "------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
-Plug 'gruvbox-community/gruvbox'                        " Gruvbox
+" Plug 'gruvbox-community/gruvbox'                        " Gruvbox
+Plug 'ellisonleao/gruvbox.nvim'                         " Gruvbox with treesitter
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
 Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
@@ -17,20 +18,19 @@ Plug 'equalsraf/neovim-gui-shim'
 "------------------------------------------------------------------------------------------------
 " Formats
 "------------------------------------------------------------------------------------------------
-" Plug 'Yggdroot/indentLine'                              " Default indentation guides
 Plug 'lukas-reineke/indent-blankline.nvim'
 
 "------------------------------------------------------------------------------------------------
 " Search
 "------------------------------------------------------------------------------------------------
-" Plug '~/.fzf'                                           " For manual installs
-" Plug 'junegunn/fzf.vim'                                 " Main fzf plugin
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 "------------------------------------------------------------------------------------------------
 " Git
 "------------------------------------------------------------------------------------------------
 " Plug 'lambdalisue/gina.vim'                             " Git integration
+Plug 'vim-denops/denops.vim'
+Plug 'lambdalisue/gin.vim'
 
 "------------------------------------------------------------------------------------------------
 " Autocompletion
@@ -49,6 +49,8 @@ Plug 'SirVer/ultisnips'                                 " Snippet support
 Plug 'honza/vim-snippets'                               " Common snippets
 Plug 'hrsh7th/vim-vsnip'                                " Snippet support for LSP
 Plug 'hrsh7th/vim-vsnip-integ'                          " Asyncomplete snippet for LSP
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
 
 "------------------------------------------------------------------------------------------------
 " Language support

@@ -5,6 +5,7 @@
 " ----------------------------------------------------------------------
 " Syntax Highlighting
 " ----------------------------------------------------------------------
+let g:OmniSharp_highlighting = 0
 " 2: for buffer enter/leave, 3 for any kind of typing
 let g:OmniSharp_highlight_types = 2 
 
