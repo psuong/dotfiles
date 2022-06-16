@@ -28,9 +28,7 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 "------------------------------------------------------------------------------------------------
 " Git
 "------------------------------------------------------------------------------------------------
-" Plug 'lambdalisue/gina.vim'                             " Git integration
-Plug 'vim-denops/denops.vim'
-Plug 'lambdalisue/gin.vim'
+Plug 'lambdalisue/gina.vim'                             " Git integration
 
 "------------------------------------------------------------------------------------------------
 " Autocompletion
