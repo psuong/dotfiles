@@ -9,76 +9,49 @@ let g:ale_linters = {
 \}
 
 " ----------------------------------------------------------------------
-" Global LSP
+" Autocompletion
 " ----------------------------------------------------------------------
-let g:lsp_diagnostics_signs_delay = 0
-let g:lsp_diagnostics_virtual_text_enabled = 1
-let g:lsp_diagnostics_signs_error = {'text': '✗'}
-let g:lsp_diagnostics_signs_warning = {'text': '‼'}
-let g:lsp_diagnostics_signs_hint = {'text': '?'}
-let g:lsp_document_code_action_signs_hint = {'text': '?'}
-let g:lsp_document_code_action_signs_delay = 0
-let g:lsp_document_highlights_enabled = 0
-let g:lsp_diagnostics_highlights_enabled = 0
-let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-
-" ----------------------------------------------------------------------
-" Asyncomplete register sources
-" ----------------------------------------------------------------------
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'allowlist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-
 
 " ----------------------------------------------------------------------
 " Tabbing support
 " ----------------------------------------------------------------------
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" Confirm by pressing enter
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+    \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-imap <c-r> <Plug>(asyncomplete_force_refresh)
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+endif
 
 " ----------------------------------------------------------------------
 " Snippet support
 " ----------------------------------------------------------------------
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-o>"
-    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-        \ 'name': 'ultisnips',
-        \ 'whitelist': ['*'],
-        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-        \ }))
+    " Use <C-l> for trigger snippet expand.
+    imap <C-l> <Plug>(coc-snippets-expand)
+    " Use <C-j> for select text for visual placeholder of snippet.
+    vmap <C-j> <Plug>(coc-snippets-select)
+    " Use <C-j> for both expand and jump (make expand higher priority.)
+    imap <C-j> <Plug>(coc-snippets-expand-jump)
+    " Use <leader>x for convert visual selected code to snippet
+    xmap <leader>x  <Plug>(coc-convert-snippet)
 endif
-
-" ----------------------------------------------------------------------
-" NOTE: You can use other key to expand snippet.
-" ----------------------------------------------------------------------
-" Expand
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
-" Expand or jump
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" Jump forward or backward
-imap <expr> <C-k> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
-smap <expr> <C-k> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
-imap <expr> <S-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-k>'
-smap <expr> <S-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-k>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
 
 " ----------------------------------------------------------------------
 " Treesitter syntax highlighting

@@ -2,39 +2,36 @@
 " C# Sharpen Up StatusLine
 " ---------------------------------------------------------------------
 let g:sharpenup_codeactions_glyph = '->'
-let g:sharpenup_statusline_opts = 'O#: •'
+let g:sharpenup_statusline_opts = 'O#: █'
+
+set laststatus=3
 
 augroup lightline_integration
   autocmd!
   autocmd User OmniSharpStarted,OmniSharpReady,OmniSharpStopped call lightline#update()
 augroup END
 
+
+" left': [[  'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ], [ 'coc_status'  ]]
 " ---------------------------------------------------------------------
 " Lightline Settings
 " ---------------------------------------------------------------------
 let g:lightline = {
     \ 'colorscheme': 'seoul256',
     \ 'active': {
-    \   'left': [[ 'gitbranch', 'readonly', 'filename', 'modified' ]],
-    \   'right': [['lineinfo', 'fileformat', 'fileencoding'], ['sharpenup'], ['lsp_errors', 'lsp_warnings', 'lsp_ok']]
+    \   'left': [['readonly', 'filename', 'modified']],
+    \   'right': [['lineinfo', 'fileformat', 'fileencoding'], ['sharpenup'], 
+    \            ['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok', 'coc_status']]
     \ },
     \ 'inactive': {
     \   'right': [['lineinfo'], ['sharpenup']]
     \ },
     \ 'component_function': {
-    \    'gitbranch': 'gitbranch#name',
+    \   'cocstatus': 'coc#status'
     \ },
     \ 'component': {
     \   'sharpenup': sharpenup#statusline#Build()
-    \ },
-    \ 'component_expand': {
-    \   'lsp_warnings': 'lightline_lsp#warnings',
-    \   'lsp_errors':   'lightline_lsp#errors',
-    \   'lsp_ok':       'lightline_lsp#ok',
-    \ },
-    \ 'component_type': {
-    \   'lsp_warnings': 'warning',
-    \   'lsp_errors':   'error',
-    \   'lsp_ok':       'middle',
-    \ },
+    \ }
 \}
+
+call lightline#coc#register()

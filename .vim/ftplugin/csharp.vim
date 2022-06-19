@@ -57,9 +57,9 @@ let g:sharpenup_codeactions_autocmd = 'CursorHold,CursorMoved,BufEnter'
 let g:OmniSharp = {
     \ 'popup': {
     \   'mappings': {
-    \     'sigNext': '<C-j>',
-    \     'sigPrev': '<C-k>',
-    \     'lineDown': ['<C-e>', 'j'],
+    \     'sigNext': '<C-g>',
+    \     'sigPrev': '<C-h>',
+    \     'lineDown': ['<C-t>', 'j'],
     \     'lineUp': ['<C-y>', 'k']
     \   }
     \ }
@@ -92,8 +92,9 @@ augroup omnisharp_commands
     autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
     autocmd FileType cs nmap <silent> <buffer> <Leader>fu <Plug>(omnisharp_find_usages)
     autocmd FileType cs nmap <silent> <buffer> <Leader>fi <Plug>(omnisharp_find_implementations)
-    autocmd FileType cs nmap <silent> <buffer> <Leader>pd <Plug>(omnisharp_preview_definition)
-    autocmd FileType cs nmap <silent> <buffer> <Leader>pi <Plug>(omnisharp_preview_implementations)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>pd <Plug>(omnisharp_documentation)
+    " autocmd FileType cs nmap <silent> <buffer> <Leader>pd <Plug>(omnisharp_preview_definition)
+    " autocmd FileType cs nmap <silent> <buffer> <Leader>pi <Plug>(omnisharp_preview_implementations)
     autocmd FileType cs nmap <silent> <buffer> <Leader>td <Plug>(omnisharp_documentation)
     autocmd FileType cs nmap <silent> <buffer> <Leader>fs <Plug>(omnisharp_find_symbol)
     autocmd FileType cs nmap <silent> <buffer> <Leader>fx <Plug>(omnisharp_fix_usings)

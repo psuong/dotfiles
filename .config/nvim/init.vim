@@ -11,10 +11,10 @@ Plug 'ellisonleao/gruvbox.nvim'                         " Gruvbox with treesitte
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
 Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
-Plug 'psliwka/vim-smoothie'                             " Adds some butterly smooth scrolling
 Plug 'lambdalisue/fern.vim'                             " Default file explorer
-Plug 'equalsraf/neovim-gui-shim'
-
+Plug 'equalsraf/neovim-gui-shim'                        " nvim-qt settings
+Plug 'josa42/vim-lightline-coc'                         " coc status line options
+Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 "------------------------------------------------------------------------------------------------
 " Formats
 "------------------------------------------------------------------------------------------------
@@ -33,32 +33,21 @@ Plug 'lambdalisue/gina.vim'                             " Git integration
 "------------------------------------------------------------------------------------------------
 " Autocompletion
 "------------------------------------------------------------------------------------------------
-Plug 'prabirshrestha/async.vim'                         " Base autocompletion
-Plug 'prabirshrestha/asyncomplete.vim'                  " Autocompletion Engine
-Plug 'prabirshrestha/asyncomplete-file.vim'             " File completion
-Plug 'prabirshrestha/asyncomplete-lsp.vim'              " Asyncomplete LSP
-Plug 'mattn/vim-lsp-settings'                           " Common LSP settings
+Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Default autocomplete
 
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'        " Ultisnips support
 Plug 'SirVer/ultisnips'                                 " Snippet support
 Plug 'honza/vim-snippets'                               " Common snippets
-Plug 'hrsh7th/vim-vsnip'                                " Snippet support for LSP
-Plug 'hrsh7th/vim-vsnip-integ'                          " Asyncomplete snippet for LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'wellle/context.vim'
 
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
 Plug 'dense-analysis/ale'                               " Linting engine
-Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisense/completion
-Plug 'prabirshrestha/vim-lsp'                           " LSP Implementation
-Plug 'halkn/lightline-lsp'
-Plug 'beyondmarc/hlsl.vim'                              " HLSL syntax highlighting
 
 "------------------------------------------------------------------------------------------------
 " Markdown 

@@ -1,17 +1,27 @@
 " ----------------------------------------------------------------------
 " LSP Settings for Rust
 " ----------------------------------------------------------------------
+function! ShowDocumentation()
+    if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+    endif
+endfunction
+
 augroup rust_commands
     autocmd!
 
-    autocmd FileType rust nmap <silent> <buffer> <Leader>gd :LspDefinition<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>pd :LspHover<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>fu :LspReferences<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>nm :LspRename<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>ra :LspCodeAction<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>cf :LspDocumentFormatSync<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>ne :LspNextError<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>nw :LspNextWarning<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>pe :LspPreviousError<CR>
-    autocmd FileType rust nmap <silent> <buffer> <Leader>pw :LspPreviousWarning<CR>
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    command! -nargs=0 Format :call CocActionAsync('format')
+
+    autocmd FileType rust nmap <silent> <Leader>gd <Plug>(coc-definition)
+    autocmd FileType rust nmap <silent> <buffer> <Leader>pd :call ShowDocumentation()<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>fu <Plug>(coc-references)
+    autocmd FileType rust nmap <silent> <buffer> <Leader>nm <Plug>(coc-rename)
+    autocmd FileType rust nmap <silent> <buffer> <Leader>ra <Plug>(coc-codeaction)
+    autocmd FileType rust nmap <silent> <Leader>cf :Format<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>gc :CocDiagnostics<CR>
+    autocmd FileType rust nmap <silent> [[ <Plug>(coc-diagnostic-next)
+    autocmd FileType rust nmap <silent> ]] <Plug>(coc-diagnostic-prev)
 augroup END
