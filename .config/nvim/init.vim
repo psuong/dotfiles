@@ -15,6 +15,7 @@ Plug 'lambdalisue/fern.vim'                             " Default file explorer
 Plug 'equalsraf/neovim-gui-shim'                        " nvim-qt settings
 Plug 'josa42/vim-lightline-coc'                         " coc status line options
 Plug 'nickspoons/vim-sharpenup'                         " C# status line options
+Plug 'karb94/neoscroll.nvim'                            " Smooth scrolling in lua
 "------------------------------------------------------------------------------------------------
 " Formats
 "------------------------------------------------------------------------------------------------

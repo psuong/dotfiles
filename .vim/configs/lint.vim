@@ -57,6 +57,7 @@ endif
 " Treesitter syntax highlighting
 " ----------------------------------------------------------------------
 lua <<EOF
+  require('neoscroll').setup()
   require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
   require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all"
