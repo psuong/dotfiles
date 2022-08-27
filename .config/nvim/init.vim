@@ -6,8 +6,7 @@ call plug#begin('~/.vim/plugged')
 "------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
-" Plug 'gruvbox-community/gruvbox'                        " Gruvbox
-Plug 'ellisonleao/gruvbox.nvim'                         " Gruvbox with treesitter
+Plug 'sainnhe/gruvbox-material'                         " Gruvbox material design w/ treesitter
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
 Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
@@ -20,6 +19,7 @@ Plug 'karb94/neoscroll.nvim'                            " Smooth scrolling in lu
 " Formats
 "------------------------------------------------------------------------------------------------
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'preservim/tagbar'
 
 "------------------------------------------------------------------------------------------------
 " Search
@@ -40,7 +40,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Default autocomplete
 " Snippets
 "------------------------------------------------------------------------------------------------
 Plug 'SirVer/ultisnips'                                 " Snippet support
-Plug 'honza/vim-snippets'                               " Common snippets
+" Plug 'honza/vim-snippets'                               " Common snippets
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'wellle/context.vim'
 
