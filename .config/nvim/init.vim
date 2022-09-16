@@ -50,6 +50,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'dense-analysis/ale'                               " Linting engine
 Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisense/completion
 Plug 'nickspoons/vim-sharpenup'                         " C# status line options
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
 "------------------------------------------------------------------------------------------------
 " Markdown 
