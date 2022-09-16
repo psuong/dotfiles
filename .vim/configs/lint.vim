@@ -13,6 +13,7 @@ let g:ale_linters = {
 " ----------------------------------------------------------------------
 set updatetime=300
 
+let g:float_preview#docked = 0
 let g:asyncomplete_auto_completeopt = 0
 set completeopt=menuone,noinsert,noselect
 
