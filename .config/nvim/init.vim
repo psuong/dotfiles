@@ -12,9 +12,9 @@ Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
 Plug 'lambdalisue/fern.vim'                             " Default file explorer
 Plug 'equalsraf/neovim-gui-shim'                        " nvim-qt settings
-Plug 'josa42/vim-lightline-coc'                         " coc status line options
-Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 Plug 'karb94/neoscroll.nvim'                            " Smooth scrolling in lua
+Plug 'ncm2/float-preview.nvim'                          " Preview window that is floating
+
 "------------------------------------------------------------------------------------------------
 " Formats
 "------------------------------------------------------------------------------------------------
@@ -34,21 +34,22 @@ Plug 'lambdalisue/gina.vim'                             " Git integration
 "------------------------------------------------------------------------------------------------
 " Autocompletion
 "------------------------------------------------------------------------------------------------
-Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Default autocomplete
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
 Plug 'SirVer/ultisnips'                                 " Snippet support
-" Plug 'honza/vim-snippets'                               " Common snippets
+Plug 'honza/vim-snippets'                               " Common snippets
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'wellle/context.vim'
 
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
 Plug 'dense-analysis/ale'                               " Linting engine
 Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisense/completion
+Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 
 "------------------------------------------------------------------------------------------------
 " Markdown 

@@ -14,6 +14,7 @@ filetype plugin indent on           " Allow different indents per filetypes
 " Font Encoding
 " ----------------------------------------------------------------------
 set encoding=UTF-8
+scriptencoding utf-8
 
 " ----------------------------------------------------------------------
 " Visual Studio Like Settings
@@ -67,7 +68,6 @@ nnoremap k gk
 " Terminal settings
 " ----------------------------------------------------------------------
 tnoremap <Esc> <C-\><C-n>
-" set shell=pwsh
 
 " ----------------------------------------------------------------------
 " Set splitting to be vertical by default

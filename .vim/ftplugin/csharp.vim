@@ -5,9 +5,7 @@
 " ----------------------------------------------------------------------
 " Syntax Highlighting
 " ----------------------------------------------------------------------
-let g:OmniSharp_highlighting = 0
-" 2: for buffer enter/leave, 3 for any kind of typing
-let g:OmniSharp_highlight_types = 2 
+let g:OmniSharp_highlighting = 0 " Defer to treesitter instead
 
 " ----------------------------------------------------------------------
 " Snippet settings
@@ -22,8 +20,6 @@ let g:OmniSharp_want_snippet = 1
 let g:OmniSharp_typeLookupInPreview = 1
 let g:OmniSharp_selector_ui = 'clap'
 let g:OmniSharp_selector_findusages = 'clap'
-set completeopt=longest,menuone,preview
-set previewheight=5
 
 " ----------------------------------------------------------------------
 " OmniSharp Server Settings
