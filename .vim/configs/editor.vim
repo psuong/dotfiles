@@ -25,6 +25,7 @@ set softtabstop=4                   " Number of spaces in tabs when editing
 set shiftwidth=4                    " Number of spaces text is indented
 set smartindent                     " Automate indenting on a new line
 set signcolumn=yes                  " Always enable the sign column
+set title
 
 " ----------------------------------------------------------------------
 " Basic Vim Settings
@@ -41,10 +42,26 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " ----------------------------------------------------------------------
 " Colorschemes
 " ----------------------------------------------------------------------
-let g:gruvbox_material_disable_italic_comment = 1
-let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_background = 'hard'
-colorscheme gruvbox-material
+set background=dark
+lua <<EOF
+require("gruvbox").setup({
+  undercurl = true,
+  underline = true,
+  bold = false,
+  italic = false,
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = false, -- invert background for search, diffs, statuslines and errors
+  contrast = "hard", -- can be "hard", "soft" or empty string
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = false,
+})
+EOF
+colorscheme gruvbox
 
 " ----------------------------------------------------------------------
 " Font Settings
@@ -65,11 +82,6 @@ nnoremap j gj
 nnoremap k gk
 
 " ----------------------------------------------------------------------
-" Terminal settings
-" ----------------------------------------------------------------------
-tnoremap <Esc> <C-\><C-n>
-
-" ----------------------------------------------------------------------
 " Set splitting to be vertical by default
 " ----------------------------------------------------------------------
 set diffopt+=vertical
@@ -88,3 +100,70 @@ set backspace=indent,eol,start
 if has('termguicolors')
   set termguicolors
 endif
+
+" ----------------------------------------------------------------------
+" Vim Easy Align
+" ----------------------------------------------------------------------
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" ----------------------------------------------------------------------
+" Lightline
+" ----------------------------------------------------------------------
+augroup OmniSharpIntegrations
+  autocmd!
+  autocmd User OmniSharpProjectUpdated,OmniSharpReady call lightline#update()
+augroup END
+
+set laststatus=3
+
+let g:sharpenup_statusline_opts = {
+    \ 'TextLoading': ' O#: %s... (%p/%P) ',
+    \ 'TextReady': ' O#: %s ',
+    \ 'TextDead': ' O#: -- ',
+    \ 'Highlight': 1,
+    \ 'HiLoading': 'SharpenUpLoading',
+    \ 'HiReady': 'SharpenUpReady',
+    \ 'HiDead': 'SharpenUpDead'
+\}
+
+let g:lightline = {
+\ 'colorscheme': 'gruvbox',
+\ 'active': {
+\   'right': [
+\     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
+\     ['lineinfo'], ['percent'],
+\     ['fileformat', 'fileencoding', 'filetype', 'sharpenup']
+\   ]
+\ },
+\ 'inactive': {
+\   'right': [['lineinfo'], ['percent'], ['sharpenup']]
+\ },
+\ 'component': {
+\   'sharpenup': sharpenup#statusline#Build()
+\ },
+\ 'component_expand': {
+\   'linter_checking': 'lightline#ale#checking',
+\   'linter_infos': 'lightline#ale#infos',
+\   'linter_warnings': 'lightline#ale#warnings',
+\   'linter_errors': 'lightline#ale#errors',
+\   'linter_ok': 'lightline#ale#ok'
+  \  },
+  \ 'component_type': {
+  \   'linter_checking': 'right',
+  \   'linter_infos': 'right',
+  \   'linter_warnings': 'warning',
+  \   'linter_errors': 'error',
+  \   'linter_ok': 'right'
+\  }
+\}
+
+" Use unicode chars for ale indicators in the statusline
+let g:lightline#ale#indicator_checking = "\uf110 "
+let g:lightline#ale#indicator_infos = "\uf129 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "

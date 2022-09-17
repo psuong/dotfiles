@@ -1,17 +1,6 @@
-" ----------------------------------------------------------------------
-" Omnisharp key configs
-" ----------------------------------------------------------------------
-
-" ----------------------------------------------------------------------
-" Syntax Highlighting
-" ----------------------------------------------------------------------
-let g:OmniSharp_highlighting = 0 " Defer to treesitter instead
-
-" ----------------------------------------------------------------------
-" Snippet settings
-" ----------------------------------------------------------------------
-" Uses Ultisnips to fill out the function params if enabled
 let g:OmniSharp_want_snippet = 1
+let g:OmniSharp_highlighting = 0
+let g:sharpenup_codeactions_glyph = '->'
 
 " ----------------------------------------------------------------------
 " Nvim documenation preview (No popup support)
@@ -47,25 +36,12 @@ let g:Omnisharp_timeout = 5
 " -----------------------------------------------------------------------
 let g:sharpenup_codeactions_autocmd = 'CursorHold,CursorMoved,BufEnter'
 
-" ----------------------------------------------------------------------
-" Popup Options
-" -----------------------------------------------------------------------
-let g:OmniSharp = {
-    \ 'popup': {
-    \   'mappings': {
-    \     'sigNext': '<C-g>',
-    \     'sigPrev': '<C-h>',
-    \     'lineDown': ['<C-t>', 'j'],
-    \     'lineUp': ['<C-y>', 'k']
-    \   }
-    \ }
+let g:OmniSharp_popup_mappings = {
+    \ 'sigNext': '<C-n>',
+    \ 'sigPrev': '<C-p>',
+    \ 'pageDown': ['<C-f>', '<PageDown>'],
+    \ 'pageUp': ['<C-b>', '<PageUp>']
 \ }
-
-" OmniSharp pop up support Nvim styling
-let g:OmniSharp.popup.options = {
-    \ 'winblend': 30,
-    \ 'winhl': 'Normal:Normal'
-\}
 
 " ----------------------------------------------------------------------
 " Omnisharp commands

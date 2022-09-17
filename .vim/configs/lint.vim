@@ -4,6 +4,9 @@
 let g:ale_linters_explicit = 1
 let g:ale_sign_error = '->'
 let g:ale_sign_warning = '‼'
+let g:ale_sign_info = '·'
+let g:ale_sign_style_error = '·'
+let g:ale_sign_style_warning = '·'
 let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
 \}
@@ -14,6 +17,9 @@ let g:ale_linters = {
 let g:float_preview#docked = 0
 let g:asyncomplete_auto_completeopt = 0
 set completeopt=menuone,noinsert,noselect
+
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 0
 
 " ----------------------------------------------------------------------
 " Tabbing support
@@ -29,7 +35,6 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 " ----------------------------------------------------------------------
 " Snippet support
 " ----------------------------------------------------------------------
-let g:UltiSnipsExpandTrigger="<c-o>"
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-o>"
     call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({

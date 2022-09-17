@@ -39,3 +39,11 @@ augroup fern-custom
 augroup END
 
 autocmd vimenter * ++nested Fern . -drawer -toggle
+
+" ----------------------------------------------------------------------
+" Vim Clap
+" ----------------------------------------------------------------------
+nmap <c-p> :Clap files<CR>
+let g:clap_layout = { 
+    \ 'relative': 'editor'
+\ }
