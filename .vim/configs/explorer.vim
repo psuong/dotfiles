@@ -47,3 +47,5 @@ nmap <c-p> :Clap files<CR>
 let g:clap_layout = { 
     \ 'relative': 'editor'
 \ }
+
+autocmd FileType clap_input let g:asyncomplete_auto_popup = 0

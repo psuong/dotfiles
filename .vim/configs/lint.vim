@@ -37,11 +37,13 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 " ----------------------------------------------------------------------
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-o>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
     call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-        \ 'name': 'ultisnips',
-        \ 'whitelist': ['*'],
-        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-        \ }))
+      \ 'name': 'ultisnips',
+      \ 'allowlist': ['*'],
+      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+      \ }))
 endif
 
 " ----------------------------------------------------------------------
