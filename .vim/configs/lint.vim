@@ -11,8 +11,6 @@ let g:ale_linters = {
 " ----------------------------------------------------------------------
 " Autocompletion
 " ----------------------------------------------------------------------
-set updatetime=300
-
 let g:float_preview#docked = 0
 let g:asyncomplete_auto_completeopt = 0
 set completeopt=menuone,noinsert,noselect
@@ -22,16 +20,23 @@ set completeopt=menuone,noinsert,noselect
 " ----------------------------------------------------------------------
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 imap <c-space> <Plug>(asyncomplete_force_refresh)
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " ----------------------------------------------------------------------
 " Snippet support
 " ----------------------------------------------------------------------
+let g:UltiSnipsExpandTrigger="<c-o>"
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-o>"
+    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
 endif
 
 " ----------------------------------------------------------------------

@@ -42,7 +42,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 "------------------------------------------------------------------------------------------------
 Plug 'SirVer/ultisnips'                                 " Snippet support
 Plug 'honza/vim-snippets'                               " Common snippets
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
 "------------------------------------------------------------------------------------------------
 " Language support
@@ -52,6 +52,7 @@ Plug 'OmniSharp/omnisharp-vim'                          " Default C# intellisens
 Plug 'nickspoons/vim-sharpenup'                         " C# status line options
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 "------------------------------------------------------------------------------------------------
 " Markdown 
