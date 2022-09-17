@@ -134,6 +134,7 @@ let g:lightline = {
 \ 'colorscheme': 'gruvbox',
 \ 'active': {
 \   'right': [
+\     [ 'lsp_errors', 'lsp_warnings', 'lsp_ok', 'lineinfo' ],
 \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
 \     ['lineinfo'], ['percent'],
 \     ['fileformat', 'fileencoding', 'filetype', 'sharpenup']
@@ -150,14 +151,20 @@ let g:lightline = {
 \   'linter_infos': 'lightline#ale#infos',
 \   'linter_warnings': 'lightline#ale#warnings',
 \   'linter_errors': 'lightline#ale#errors',
-\   'linter_ok': 'lightline#ale#ok'
-  \  },
-  \ 'component_type': {
-  \   'linter_checking': 'right',
-  \   'linter_infos': 'right',
-  \   'linter_warnings': 'warning',
-  \   'linter_errors': 'error',
-  \   'linter_ok': 'right'
+\   'linter_ok': 'lightline#ale#ok',
+\   'lsp_warnings': 'lightline_lsp#warnings',
+\   'lsp_errors':   'lightline_lsp#errors',
+\   'lsp_ok':       'lightline_lsp#ok',
+\  },
+\ 'component_type': {
+\   'linter_checking': 'right',
+\   'linter_infos': 'right',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error',
+\   'linter_ok': 'right',
+\   'lsp_warnings': 'warning',
+\   'lsp_errors':   'error',
+\   'lsp_ok':       'middle',
 \  }
 \}
 

@@ -11,6 +11,19 @@ let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
 \}
 
+"" ----------------------------------------------------------------------
+" Global vim-lsp Settings
+" ----------------------------------------------------------------------
+let g:lsp_settings_enable_suggestions = 0
+let g:lsp_document_code_action_signs_hint = { 'text': '?' }
+let g:lsp_diagnostics_signs_error = { 'text': '->' }
+let g:lsp_diagnostics_signs_warning = { 'text': '‼' }
+let g:lsp_diagnostics_signs_hint = { 'text': '-' }
+let g:lsp_diagnostics_virtual_text_delay = 0
+let g:lsp_document_code_action_signs_delay = 0
+let g:lsp_inlay_hints_delay = 0
+let g:lsp_document_code_action_signs_delay = 0
+
 " ----------------------------------------------------------------------
 " Autocompletion
 " ----------------------------------------------------------------------

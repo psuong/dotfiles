@@ -18,7 +18,8 @@ Plug 'ncm2/float-preview.nvim'                          " Preview window that is
 "------------------------------------------------------------------------------------------------
 Plug 'itchyny/lightline.vim'                            " Status bar for Vim
 Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'maximbaz/lightline-ale'
+Plug 'maximbaz/lightline-ale'                           " ALE diagnostic in vim-lsp
+Plug 'halkn/lightline-lsp'                              " vim-lsp lightling integration
 
 "------------------------------------------------------------------------------------------------
 " Formats
@@ -40,14 +41,14 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 " Autocompletion
 "------------------------------------------------------------------------------------------------
 Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
 Plug 'SirVer/ultisnips'                                         " Snippet support
 Plug 'honza/vim-snippets'                                       " Common snippets
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                " Autocompletion for support Ultisnips
 
 "------------------------------------------------------------------------------------------------
 " Language support
@@ -55,9 +56,9 @@ Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 Plug 'dense-analysis/ale'                                       " Linting engine
 Plug 'OmniSharp/omnisharp-vim'                                  " Default C# intellisense/completion
 Plug 'nickspoons/vim-sharpenup'                                 " C# status line options
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " Treesitter parsing
+Plug 'prabirshrestha/vim-lsp'                                   " Lsp implementation
+Plug 'mattn/vim-lsp-settings'                                   " Common settings
 
 "------------------------------------------------------------------------------------------------
 " Markdown 
