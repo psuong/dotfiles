@@ -67,7 +67,7 @@ lua <<EOF
   require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
   require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "c_sharp", "rust" },
+    ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -88,3 +88,9 @@ EOF
 " Tagbar
 " ----------------------------------------------------------------------
 nmap <c-]> :TagbarToggle<CR>
+
+" ----------------------------------------------------------------------
+" Filetype extensions
+" ----------------------------------------------------------------------
+au! BufRead,BufNewFile *.shader setfiletype glsl
+

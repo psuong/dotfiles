@@ -49,3 +49,17 @@ let g:clap_layout = {
 \ }
 
 autocmd FileType clap_input let g:asyncomplete_auto_popup = 0
+
+augroup VimClapEnterExitGroup
+  autocmd!
+  autocmd User ClapOnEnter   call DisableAsyncomplete()
+  autocmd User ClapOnExit    call EnableAsyncomplete()
+augroup END
+
+:function DisableAsyncomplete()
+:   let g:asyncomplete_auto_popup = 0
+:endfunction
+
+:function EnableAsyncomplete()
+:   let g:asyncomplete_auto_popup = 1
+:endfunction
