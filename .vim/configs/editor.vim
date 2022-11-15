@@ -7,8 +7,8 @@ set noswapfile                      " Don't generate swap files
 " ----------------------------------------------------------------------
 " Plugin availability
 " ----------------------------------------------------------------------
-filetype plugin on                  " Enable plugins based on their extension
-filetype plugin indent on           " Allow different indents per filetypes
+" filetype plugin on                  " Enable plugins based on their extension
+" filetype plugin indent on           " Allow different indents per filetypes
 
 " ----------------------------------------------------------------------
 " Font Encoding

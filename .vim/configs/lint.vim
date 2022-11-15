@@ -7,6 +7,9 @@ let g:ale_sign_warning = '‼'
 let g:ale_sign_info = '·'
 let g:ale_sign_style_error = '·'
 let g:ale_sign_style_warning = '·'
+let g:ale_sign_column_always = 1
+let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_delay = 5
 let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
 \}
