@@ -70,6 +70,7 @@ call plug#end()
 source ~/.vim/configs/editor.vim
 source ~/.vim/configs/lint.vim
 source ~/.vim/configs/explorer.vim
+source ~/.vim/ftplugin/shaders.vim
 source ~/.vim/ftplugin/csharp.vim
 source ~/.vim/ftplugin/rust.vim
 source ~/.vim/configs/statusline.vim
