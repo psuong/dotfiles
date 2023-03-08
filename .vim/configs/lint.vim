@@ -34,9 +34,6 @@ let g:float_preview#docked = 0
 let g:asyncomplete_auto_completeopt = 0
 set completeopt=menuone,noinsert,noselect
 
-let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_auto_completeopt = 0
-
 " ----------------------------------------------------------------------
 " Tabbing support
 " ----------------------------------------------------------------------
