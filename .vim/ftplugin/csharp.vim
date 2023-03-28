@@ -1,5 +1,5 @@
 let g:OmniSharp_want_snippet = 1
-let g:OmniSharp_highlighting = 0
+let g:OmniSharp_highlighting = 1
 let g:sharpenup_codeactions_glyph = '->'
 
 " ----------------------------------------------------------------------
