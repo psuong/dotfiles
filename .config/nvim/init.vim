@@ -53,12 +53,12 @@ Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                " Autocompletion
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
-Plug 'dense-analysis/ale'                                       " Linting engine
-Plug 'OmniSharp/omnisharp-vim'                                  " Default C# intellisense/completion
-Plug 'nickspoons/vim-sharpenup'                                 " C# status line options
-" Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }   " Treesitter parsing
-Plug 'prabirshrestha/vim-lsp'                                   " Lsp implementation
-Plug 'mattn/vim-lsp-settings'                                   " Common settings
+Plug 'dense-analysis/ale'                                                       " Linting engine
+Plug 'OmniSharp/omnisharp-vim'                                                  " Default C# intellisense/completion
+Plug 'nickspoons/vim-sharpenup'                                                 " C# status line options
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate', 'tag': '0v.7.2' }  " Treesitter parsing
+Plug 'prabirshrestha/vim-lsp'                                                   " Lsp implementation
+Plug 'mattn/vim-lsp-settings'                                                   " Common settings
 
 "------------------------------------------------------------------------------------------------
 " Markdown 
