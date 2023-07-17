@@ -3,12 +3,12 @@
 " ----------------------------------------------------------------------
 set hidden                          " Stops the buffer from closing
 set noswapfile                      " Don't generate swap files
+syntax off                          " Turn off syntax highlighting
 
 " ----------------------------------------------------------------------
 " Plugin availability
 " ----------------------------------------------------------------------
-" filetype plugin on                  " Enable plugins based on their extension
-" filetype plugin indent on           " Allow different indents per filetypes
+filetype plugin indent on
 
 " ----------------------------------------------------------------------
 " Font Encoding
@@ -30,7 +30,7 @@ set title
 " ----------------------------------------------------------------------
 " Basic Vim Settings
 " --------------------------------------------------------------------------
-set number                          " Show number lines
+set nonumber                        " Hide number lines
 set colorcolumn=100                 " Show the max number of lines
 set cursorline                      " Highlight the current line number
 set showcmd                         " Show the vim commands
@@ -45,20 +45,22 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 set background=dark
 lua <<EOF
 require("gruvbox").setup({
-  undercurl = true,
-  underline = true,
-  bold = false,
-  italic = false,
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = false, -- invert background for search, diffs, statuslines and errors
-  contrast = "hard", -- can be "hard", "soft" or empty string
-  overrides = {},
-  dim_inactive = false,
-  transparent_mode = false,
+    italic = {
+        strings = true,
+    },
+    undercurl = true,
+    underline = true,
+    bold = false,
+    strikethrough = true,
+    invert_selection = false,
+    invert_signs = false,
+    invert_tabline = false,
+    invert_intend_guides = false,
+    inverse = false, -- invert background for search, diffs, statuslines and errors
+    contrast = "hard", -- can be "hard", "soft" or empty string
+    overrides = {},
+    dim_inactive = false,
+    transparent_mode = false,
 })
 EOF
 colorscheme gruvbox
@@ -118,66 +120,42 @@ nmap ga <Plug>(EasyAlign)
 " ----------------------------------------------------------------------
 " Lightline
 " ----------------------------------------------------------------------
-augroup OmniSharpIntegrations
-  autocmd!
-  autocmd User OmniSharpProjectUpdated,OmniSharpReady call lightline#update()
-augroup END
 
-set laststatus=3
+" ----------------------------------------------------------------------
+" Floating window
+" ----------------------------------------------------------------------
+let g:float_preview#docked=0
 
-let g:sharpenup_statusline_opts = {
-    \ 'TextLoading': ' O#: %s... (%p/%P) ',
-    \ 'TextReady': ' O#: %s ',
-    \ 'TextDead': ' O#: -- ',
-    \ 'Highlight': 1,
-    \ 'HiLoading': 'SharpenUpLoading',
-    \ 'HiReady': 'SharpenUpReady',
-    \ 'HiDead': 'SharpenUpDead'
-\}
+" ----------------------------------------------------------------------
+" Smoothscrolling
+" ----------------------------------------------------------------------
+lua <<EOF
+  require('neoscroll').setup()
+EOF
 
-let g:lightline = {
-\ 'colorscheme': 'gruvbox',
-\ 'active': {
-\   'right': [
-\     [ 'lsp_errors', 'lsp_warnings', 'lsp_ok', 'lineinfo' ],
-\     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
-\     ['lineinfo'], ['percent'],
-\     ['fileformat', 'fileencoding', 'filetype', 'sharpenup']
-\   ]
-\ },
-\ 'inactive': {
-\   'right': [['lineinfo'], ['percent'], ['sharpenup']]
-\ },
-\ 'component': {
-\   'sharpenup': sharpenup#statusline#Build()
-\ },
-\ 'component_expand': {
-\   'linter_checking': 'lightline#ale#checking',
-\   'linter_infos': 'lightline#ale#infos',
-\   'linter_warnings': 'lightline#ale#warnings',
-\   'linter_errors': 'lightline#ale#errors',
-\   'linter_ok': 'lightline#ale#ok',
-\   'lsp_warnings': 'lightline_lsp#warnings',
-\   'lsp_errors':   'lightline_lsp#errors',
-\   'lsp_ok':       'lightline_lsp#ok',
-\  },
-\ 'component_type': {
-\   'linter_checking': 'right',
-\   'linter_infos': 'right',
-\   'linter_warnings': 'warning',
-\   'linter_errors': 'error',
-\   'linter_ok': 'right',
-\   'lsp_warnings': 'warning',
-\   'lsp_errors':   'error',
-\   'lsp_ok':       'middle',
-\  }
-\}
+" ----------------------------------------------------------------------
+" Treesitter
+" ----------------------------------------------------------------------
+lua <<EOF
+    require('nvim-treesitter.install').compilers = { "clang", "gcc" }
+    require('nvim-treesitter.configs').setup {
+      -- A list of parser names, or "all"
+      ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl" },
 
-" Use unicode chars for ale indicators in the statusline
-let g:lightline#ale#indicator_checking = "\uf110 "
-let g:lightline#ale#indicator_infos = "\uf129 "
-let g:lightline#ale#indicator_warnings = "\uf071 "
-let g:lightline#ale#indicator_errors = "\uf05e "
-let g:lightline#ale#indicator_ok = "\uf00c "
+      -- Install parsers synchronously (only applied to `ensure_installed`)
+      sync_install = false,
 
-
+      highlight = {
+        -- `false` will disable the whole extension
+        enable = true,
+        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+        -- Using this option may slow down your editor, and you may see some duplicate highlights.
+        -- Instead of true it can also be a list of languages
+        additional_vim_regex_highlighting = false,
+      },
+    }
+    vim.keymap.set("n", "[c", function()
+        require("treesitter-context").go_to_context()
+    end, { silent = true })
+EOF

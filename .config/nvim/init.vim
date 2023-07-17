@@ -16,10 +16,10 @@ Plug 'ncm2/float-preview.nvim'                          " Preview window that is
 "------------------------------------------------------------------------------------------------
 " Statusbar
 "------------------------------------------------------------------------------------------------
-Plug 'itchyny/lightline.vim'                            " Status bar for Vim
-Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'maximbaz/lightline-ale'                           " ALE diagnostic in vim-lsp
-Plug 'halkn/lightline-lsp'                              " vim-lsp lightling integration
+" Plug 'itchyny/lightline.vim'                            " Status bar for Vim
+" Plug 'shinchu/lightline-gruvbox.vim'
+" Plug 'maximbaz/lightline-ale'                           " ALE diagnostic in vim-lsp
+" Plug 'halkn/lightline-lsp'                              " vim-lsp lightling integration
 
 "------------------------------------------------------------------------------------------------
 " Formats
@@ -56,14 +56,9 @@ Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                " Autocompletion
 Plug 'dense-analysis/ale'                                                       " Linting engine
 Plug 'OmniSharp/omnisharp-vim'                                                  " Default C# intellisense/completion
 Plug 'nickspoons/vim-sharpenup'                                                 " C# status line options
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate', 'tag': 'v0.7.2' }  " Treesitter parsing
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }                   " Treesitter parsing
 Plug 'prabirshrestha/vim-lsp'                                                   " Lsp implementation
 Plug 'mattn/vim-lsp-settings'                                                   " Common settings
-
-"------------------------------------------------------------------------------------------------
-" Markdown 
-"------------------------------------------------------------------------------------------------
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}   " Markdown Support
 
 call plug#end()
 
