@@ -57,6 +57,7 @@ Plug 'dense-analysis/ale'                                                       
 Plug 'OmniSharp/omnisharp-vim'                                                  " Default C# intellisense/completion
 Plug 'nickspoons/vim-sharpenup'                                                 " C# status line options
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }                   " Treesitter parsing
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'prabirshrestha/vim-lsp'                                                   " Lsp implementation
 Plug 'mattn/vim-lsp-settings'                                                   " Common settings
 
