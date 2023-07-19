@@ -45,25 +45,29 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 set background=dark
 lua <<EOF
 require("gruvbox").setup({
-    italic = {
-        strings = true,
-    },
-    undercurl = true,
-    underline = true,
-    bold = false,
-    strikethrough = true,
-    invert_selection = false,
-    invert_signs = false,
-    invert_tabline = false,
-    invert_intend_guides = false,
-    inverse = false, -- invert background for search, diffs, statuslines and errors
-    contrast = "hard", -- can be "hard", "soft" or empty string
-    overrides = {},
-    dim_inactive = false,
-    transparent_mode = false,
+  undercurl = true,
+  underline = true,
+  bold = false,
+  italic = {
+    strings = true,
+    comments = true,
+    operators = false,
+    folds = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "hard", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = false,
 })
+vim.cmd("colorscheme gruvbox")
 EOF
-colorscheme gruvbox
 
 " ----------------------------------------------------------------------
 " Font Settings
@@ -72,6 +76,8 @@ if has('Unix')
     set guifont=UbuntuMono\ Nerd\ Font:h14
 elseif has('Windows') && exists("g:nvy")
     " Disabled for now since I am sticking with nvim-qt
+    set guifont=UbuntuMono\ Nerd\ Font:h11
+elseif has('Windows') && exists('g:nvui')
     set guifont=UbuntuMono\ Nerd\ Font:h11
 elseif has('macunix')
     set guifont=UbuntuMono\ Nerd\ Font:h16
