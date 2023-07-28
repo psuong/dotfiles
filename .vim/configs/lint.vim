@@ -63,7 +63,6 @@ endif
 " Treesitter syntax highlighting
 " ----------------------------------------------------------------------
 lua <<EOF
-    require('neoscroll').setup()
     require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
     require'nvim-treesitter.configs'.setup {
         -- A list of parser names, or "all"
@@ -94,4 +93,3 @@ let g:tagbar_foldlevel = 3
 " Filetype extensions
 " ----------------------------------------------------------------------
 au! BufRead,BufNewFile *.shader setfiletype glsl
-
