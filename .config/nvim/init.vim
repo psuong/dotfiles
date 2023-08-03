@@ -46,20 +46,20 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
-Plug 'SirVer/ultisnips'                                         " Snippet support
-Plug 'honza/vim-snippets'                                       " Common snippets
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                " Autocompletion for support Ultisnips
+Plug 'SirVer/ultisnips'                                                     " Snippet support
+Plug 'honza/vim-snippets'                                                   " Common snippets
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                            " Autocompletion for support Ultisnips
 
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
-Plug 'dense-analysis/ale'                                                       " Linting engine
-Plug 'OmniSharp/omnisharp-vim'                                                  " Default C# intellisense/completion
-Plug 'nickspoons/vim-sharpenup'                                                 " C# status line options
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }                   " Treesitter parsing
-Plug 'nvim-treesitter/nvim-treesitter-context'
-Plug 'prabirshrestha/vim-lsp'                                                   " Lsp implementation
-Plug 'mattn/vim-lsp-settings'                                                   " Common settings
+Plug 'dense-analysis/ale'                                                   " Linting engine
+Plug 'OmniSharp/omnisharp-vim'                                              " Default C# intellisense/completion
+Plug 'nickspoons/vim-sharpenup'                                             " C# status line options
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
+Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
+Plug 'prabirshrestha/vim-lsp'                                               " Lsp implementation
+Plug 'mattn/vim-lsp-settings'                                               " Common settings
 
 call plug#end()
 

@@ -33,7 +33,21 @@ let g:Omnisharp_timeout = 5
 
 " ----------------------------------------------------------------------
 " C# SharpenUp
-" -----------------------------------------------------------------------
+" ----------------------------------------------------------------------
+let g:sharpenup_statusline_opts = {
+\ 'TextLoading': ' O#: %s loading... (%p of %P) ',
+\ 'TextReady': ' O#: %s ',
+\ 'TextDead': ' O#: Not running ',
+\ 'Highlight': 1,
+\ 'HiLoading': 'SharpenUpLoading',
+\ 'HiReady': 'SharpenUpReady',
+\ 'HiDead': 'SharpenUpDead'
+\}
+
+set statusline=%<%f%h%m%r%=%b\ \ %l,%c%V
+let &statusline .= sharpenup#statusline#Build()
+set statusline+=\ %P
+
 let g:sharpenup_codeactions_autocmd = 'CursorHold,CursorMoved,BufEnter'
 
 let g:OmniSharp_popup_mappings = {
