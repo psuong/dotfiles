@@ -70,7 +70,7 @@ augroup omnisharp_commands
     " Show type information automatically when the cursor stops moving.
     " Note that the type is echoed to the Vim command line, and will overwrite
     " any other messages in this space including e.g. ALE linting messages.
-    autocmd CursorHold *.cs OmniSharpTypeLookup
+    " autocmd CursorHold *.cs OmniSharpTypeLookup
 
     " ----------------------------------------------------------------------
     " Code Actions
@@ -85,6 +85,9 @@ augroup omnisharp_commands
     autocmd FileType cs nmap <silent> <buffer> <Leader>ra <Plug>(omnisharp_code_actions)
     autocmd FileType cs nmap <silent> <buffer> <Leader>gc <Plug>(omnisharp_global_code_check)
     autocmd FileType cs nmap <silent> <buffer> <Leader>cf <Plug>(omnisharp_code_format)
+
+    autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+    autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
 
     " ----------------------------------------------------------------------
     " Rename

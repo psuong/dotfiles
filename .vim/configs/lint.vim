@@ -10,6 +10,8 @@ let g:ale_sign_style_warning = '·'
 let g:ale_sign_column_always = 1
 let g:ale_virtualtext_cursor = 0
 let g:ale_virtualtext_delay = 5
+let g:ale_set_highlights = 0
+let g:ale_use_neovim_diagnostics_api = 0
 let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
 \}
