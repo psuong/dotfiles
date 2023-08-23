@@ -26,6 +26,7 @@ set shiftwidth=4                    " Number of spaces text is indented
 set smartindent                     " Automate indenting on a new line
 set signcolumn=yes                  " Always enable the sign column
 set title
+set linespace=1
 
 " ----------------------------------------------------------------------
 " Basic Vim Settings
@@ -79,7 +80,7 @@ elseif has('Windows') && exists("g:nvy")
 elseif has('Windows') && exists('g:nvui')
     set guifont=UbuntuMono\ Nerd\ Font:h11
 elseif has('Windows') && exists('g:neovide')
-    set guifont=UbuntuMono\ Nerd\ Font:h12
+    set guifont=UbuntuMono\ Nerd\ Font:h10
     let g:neovide_cursor_animation_length = 0
     let g:neovide_cursor_vfx_mode = ""
 elseif has('macunix')
