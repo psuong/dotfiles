@@ -31,7 +31,7 @@ set linespace=1
 " ----------------------------------------------------------------------
 " Basic Vim Settings
 " --------------------------------------------------------------------------
-set nonumber                        " Hide number lines
+set number                          " Show number lines
 set colorcolumn=100                 " Show the max number of lines
 set cursorline                      " Highlight the current line number
 set showcmd                         " Show the vim commands
@@ -43,32 +43,92 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " ----------------------------------------------------------------------
 " Colorschemes
 " ----------------------------------------------------------------------
-set background=dark
 lua <<EOF
-require("gruvbox").setup({
-  undercurl = true,
-  underline = true,
-  bold = false,
-  italic = {
-    strings = true,
-    comments = true,
-    operators = false,
-    folds = true,
-  },
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "hard", -- can be "hard", "soft" or empty string
-  palette_overrides = {},
-  overrides = {},
-  dim_inactive = false,
-  transparent_mode = false,
+vim.o.background = 'dark'
+
+local c = require('vscode.colors').get_colors()
+require('vscode').setup({
+    -- Alternatively set style in setup
+    -- style = 'light'
+
+    -- Enable transparent background
+    transparent = false,
+
+    -- Enable italic comment
+    italic_comments = false,
+
+    -- Disable nvim-tree background color
+    disable_nvimtree_bg = true,
+
+    -- Override colors (see ./lua/vscode/colors.lua)
+    color_overrides = {
+        vscLineNumber = '#FFFFFF',
+    },
+
+    -- Override highlight groups (see ./lua/vscode/theme.lua)
+    group_overrides = {
+        -- this supports the same val table as vim.api.nvim_set_hl
+        -- use colors from this colorscheme by requiring vscode.colors!
+        Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
+    }
 })
-vim.cmd("colorscheme gruvbox")
+require('vscode').load()
 EOF
+
+" --------------------------------------------------------
+" Add Tab Bars
+" --------------------------------------------------------
+" Move to previous/next
+nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
+nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
+
+" Re-order to previous/next
+nnoremap <silent>    <A-<> <Cmd>BufferMovePrevious<CR>
+nnoremap <silent>    <A->> <Cmd>BufferMoveNext<CR>
+
+" Goto buffer in position...
+nnoremap <silent>    <A-1> <Cmd>BufferGoto 1<CR>
+nnoremap <silent>    <A-2> <Cmd>BufferGoto 2<CR>
+nnoremap <silent>    <A-3> <Cmd>BufferGoto 3<CR>
+nnoremap <silent>    <A-4> <Cmd>BufferGoto 4<CR>
+nnoremap <silent>    <A-5> <Cmd>BufferGoto 5<CR>
+nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
+nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
+nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
+nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
+nnoremap <silent>    <A-0> <Cmd>BufferLast<CR>
+
+" Pin/unpin buffer
+nnoremap <silent>    <A-p> <Cmd>BufferPin<CR>
+
+" Close buffer
+nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
+" Restore buffer
+nnoremap <silent>    <A-s-c> <Cmd>BufferRestore<CR>
+
+" Wipeout buffer
+"                          :BufferWipeout
+" Close commands
+"                          :BufferCloseAllButCurrent
+"                          :BufferCloseAllButVisible
+"                          :BufferCloseAllButPinned
+"                          :BufferCloseAllButCurrentOrPinned
+"                          :BufferCloseBuffersLeft
+"                          :BufferCloseBuffersRight
+
+" Magic buffer-picking mode
+nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
+nnoremap <silent> <C-p>    <Cmd>BufferPickDelete<CR>
+
+" Sort automatically by...
+nnoremap <silent> <Space>bb <Cmd>BufferOrderByBufferNumber<CR>
+nnoremap <silent> <Space>bd <Cmd>BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl <Cmd>BufferOrderByLanguage<CR>
+nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
+
+" Other:
+" :BarbarEnable - enables barbar (enabled by default)
+" :BarbarDisable - very bad command, should never be used
 
 " ----------------------------------------------------------------------
 " Font Settings
@@ -171,3 +231,6 @@ lua <<EOF
         require("treesitter-context").go_to_context()
     end, { silent = true })
 EOF
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')

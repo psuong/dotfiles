@@ -6,7 +6,10 @@ call plug#begin('~/.vim/plugged')
 "------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
-Plug 'ellisonleao/gruvbox.nvim'
+Plug 'Mofiqul/vscode.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 Plug 'junegunn/vim-easy-align'                          " Align by expressions
 Plug 'lambdalisue/fern.vim'                             " Default file explorer
 Plug 'equalsraf/neovim-gui-shim'                        " nvim-qt settings
