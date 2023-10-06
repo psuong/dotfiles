@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 "------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
-Plug 'Mofiqul/vscode.nvim'
+Plug 'ellisonleo/gruvbox.nvim'                          " Going back to gruvbox
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'

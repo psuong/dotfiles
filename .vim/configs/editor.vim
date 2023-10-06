@@ -45,6 +45,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " ----------------------------------------------------------------------
 lua <<EOF
 vim.o.background = 'dark'
+colorscheme gruvbox
 
 local c = require('vscode.colors').get_colors()
 require('vscode').setup({
