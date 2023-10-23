@@ -181,16 +181,13 @@ nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
 " ----------------------------------------------------------------------
 if has('Unix')
     set guifont=UbuntuMono\ Nerd\ Font:h14
-elseif has('Windows') && exists("g:nvy")
+elseif has('Windows')
     set guifont=UbuntuMono\ Nerd\ Font:h11
-elseif has('Windows') && exists('g:nvui')
-    set guifont=UbuntuMono\ Nerd\ Font:h11
-elseif has('Windows') && exists('g:neovide')
-    set guifont=UbuntuMono\ Nerd\ Font:h11
+endif
+
+if exists('g:neovide')
     let g:neovide_cursor_animation_length = 0
     let g:neovide_cursor_vfx_mode = ""
-elseif has('macunix')
-    set guifont=UbuntuMono\ Nerd\ Font:h16
 endif
 
 " ----------------------------------------------------------------------
