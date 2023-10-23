@@ -186,7 +186,7 @@ elseif has('Windows') && exists("g:nvy")
 elseif has('Windows') && exists('g:nvui')
     set guifont=UbuntuMono\ Nerd\ Font:h11
 elseif has('Windows') && exists('g:neovide')
-    set guifont=UbuntuMono\ Nerd\ Font:h10
+    set guifont=UbuntuMono\ Nerd\ Font:h11
     let g:neovide_cursor_animation_length = 0
     let g:neovide_cursor_vfx_mode = ""
 elseif has('macunix')
