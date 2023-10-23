@@ -43,37 +43,82 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " ----------------------------------------------------------------------
 " Colorschemes
 " ----------------------------------------------------------------------
+" ----------------------------------------------------------------------
+" ALE implementation for OmniSharp
+" ----------------------------------------------------------------------
+augroup ColorschemePreferences
+  autocmd!
+  " These preferences clear some gruvbox background colours, allowing transparency
+  autocmd ColorScheme * highlight Normal     ctermbg=NONE guibg=NONE
+  autocmd ColorScheme * highlight SignColumn ctermbg=NONE guibg=NONE
+  autocmd ColorScheme * highlight Todo       ctermbg=NONE guibg=NONE
+  " Link ALE sign highlights to similar equivalents without background colours
+  autocmd ColorScheme * highlight link ALEErrorSign   WarningMsg
+  autocmd ColorScheme * highlight link ALEWarningSign ModeMsg
+  autocmd ColorScheme * highlight link ALEInfoSign    Identifier
+augroup END
+
+" Use truecolor in the terminal, when it is supported
+if has('termguicolors')
+  set termguicolors
+endif
+
 lua <<EOF
 vim.o.background = 'dark'
-colorscheme gruvbox
+vim.cmd([[colorscheme gruvbox]])
 
-local c = require('vscode.colors').get_colors()
-require('vscode').setup({
-    -- Alternatively set style in setup
-    -- style = 'light'
-
-    -- Enable transparent background
-    transparent = false,
-
-    -- Enable italic comment
-    italic_comments = false,
-
-    -- Disable nvim-tree background color
-    disable_nvimtree_bg = true,
-
-    -- Override colors (see ./lua/vscode/colors.lua)
-    color_overrides = {
-        vscLineNumber = '#FFFFFF',
-    },
-
-    -- Override highlight groups (see ./lua/vscode/theme.lua)
-    group_overrides = {
-        -- this supports the same val table as vim.api.nvim_set_hl
-        -- use colors from this colorscheme by requiring vscode.colors!
-        Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
-    }
+-- Default options:
+require("gruvbox").setup({
+  terminal_colors = true, -- add neovim terminal colors
+  undercurl = false,
+  underline = true,
+  bold = false,
+  italic = {
+    strings = false,
+    emphasis = true,
+    comments = false,
+    operators = false,
+    folds = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = true,
 })
-require('vscode').load()
+vim.cmd("colorscheme gruvbox")
+
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
+
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+require("ibl").setup { indent = { highlight = highlight } }
+
 EOF
 
 " --------------------------------------------------------

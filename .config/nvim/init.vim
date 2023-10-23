@@ -1,12 +1,13 @@
 "------------------------------------------------------------------------------------------------
 " Vim Plugins
 "------------------------------------------------------------------------------------------------
+let g:plug_url_format = 'git@github.com:%s.git'
 call plug#begin('~/.vim/plugged')
 
 "------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
-Plug 'ellisonleo/gruvbox.nvim'                          " Going back to gruvbox
+Plug 'ellisonleao/gruvbox.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
