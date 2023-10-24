@@ -100,3 +100,22 @@ let g:tagbar_foldlevel = 3
 " Filetype extensions
 " ----------------------------------------------------------------------
 au! BufRead,BufNewFile *.shader setfiletype glsl
+
+" ----------------------------------------------------------------------
+" Vim Doge (DocGen)
+" ----------------------------------------------------------------------
+let g:doge_enable_mappings = 0
+" Generate comments
+nmap <silent> <Leader>d <Plug>(doge-generate)
+
+let g:doge_mapping='<Leader>d'
+let g:doge_mapping_comment_jump_forward='<C-j>'
+let g:doge_mapping_comment_jump_backward='<C-k>'
+
+" Interactive mode comment todo-jumping.
+nmap <silent> <C-j> <Plug>(doge-comment-jump-forward)
+nmap <silent> <C-k> <Plug>(doge-comment-jump-backward)
+imap <silent> <C-j> <Plug>(doge-comment-jump-forward)
+imap <silent> <C-k> <Plug>(doge-comment-jump-backward)
+smap <silent> <C-j> <Plug>(doge-comment-jump-forward)
+smap <silent> <C-k> <Plug>(doge-comment-jump-backward)

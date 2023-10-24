@@ -63,6 +63,9 @@ if has('termguicolors')
   set termguicolors
 endif
 
+" ----------------------------------------------------------------------
+" ColorScheme + IndentLine
+" ----------------------------------------------------------------------
 lua <<EOF
 vim.o.background = 'dark'
 vim.cmd([[colorscheme gruvbox]])

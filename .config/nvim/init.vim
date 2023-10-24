@@ -7,35 +7,35 @@ call plug#begin('~/.vim/plugged')
 "------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
-Plug 'ellisonleao/gruvbox.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
-Plug 'junegunn/vim-easy-align'                          " Align by expressions
-Plug 'lambdalisue/fern.vim'                             " Default file explorer
-Plug 'equalsraf/neovim-gui-shim'                        " nvim-qt settings
-Plug 'karb94/neoscroll.nvim'                            " Smooth scrolling in lua
-Plug 'ncm2/float-preview.nvim'                          " Preview window that is floating
+Plug 'ellisonleao/gruvbox.nvim'                                             " Main theme
+Plug 'lewis6991/gitsigns.nvim'                                              " Git signs
+Plug 'nvim-tree/nvim-web-devicons'                                          " Web devicons
+Plug 'romgrk/barbar.nvim'                                                   " Tab supports
+Plug 'junegunn/vim-easy-align'                                              " Align by expressions
+Plug 'lambdalisue/fern.vim'                                                 " Default file explorer
+Plug 'equalsraf/neovim-gui-shim'                                            " nvim-qt settings
+Plug 'karb94/neoscroll.nvim'                                                " Smooth scrolling in lua
+Plug 'ncm2/float-preview.nvim'                                              " Preview window that is floating
 
 "------------------------------------------------------------------------------------------------
 " Statusbar
 "------------------------------------------------------------------------------------------------
-" Plug 'itchyny/lightline.vim'                            " Status bar for Vim
-" Plug 'shinchu/lightline-gruvbox.vim'
-" Plug 'maximbaz/lightline-ale'                           " ALE diagnostic in vim-lsp
-" Plug 'halkn/lightline-lsp'                              " vim-lsp lightling integration
+" Plug 'itchyny/lightline.vim'                                              " Status bar for Vim
+" Plug 'shinchu/lightline-gruvbox.vim'                                      " Lightline theme
+" Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
+" Plug 'halkn/lightline-lsp'                                                " vim-lsp lightling integration
 
 "------------------------------------------------------------------------------------------------
 " Formats
 "------------------------------------------------------------------------------------------------
-Plug 'editorconfig/editorconfig-vim'                    " Unified file formats
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'preservim/tagbar'
+Plug 'editorconfig/editorconfig-vim'                                        " Unified file formats
+Plug 'lukas-reineke/indent-blankline.nvim'                                  " Blankline indentation
+Plug 'preservim/tagbar'                                                     " Tagbar
 
 "------------------------------------------------------------------------------------------------
 " Search
 "------------------------------------------------------------------------------------------------
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }                " Default searcher
 
 "------------------------------------------------------------------------------------------------
 " Git
@@ -44,8 +44,10 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 "------------------------------------------------------------------------------------------------
 " Autocompletion
 "------------------------------------------------------------------------------------------------
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'                                      " Autocomplete engine
+Plug 'prabirshrestha/asyncomplete-lsp.vim'                                  " Default autocomplete for lsp
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
+
 
 "------------------------------------------------------------------------------------------------
 " Snippets
