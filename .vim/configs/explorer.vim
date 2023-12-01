@@ -1,12 +1,26 @@
 " ----------------------------------------------------------------------
 " Fern Settings
 " ----------------------------------------------------------------------
-let g:fern#mark_symbol                       = '● '
-let g:fern#renderer#default#collapsed_symbol = '+ '
-let g:fern#renderer#default#expanded_symbol  = '- '
-let g:fern#renderer#default#leading          = ' '
-let g:fern#renderer#default#leaf_symbol      = ' '
-let g:fern#renderer#default#root_symbol      = '~ '
+let g:fern#renderer = "nvim-web-devicons"
+let g:fern#hide_cursor = 1
+
+augroup my-glyph-palette
+  autocmd! *
+  autocmd FileType fern call glyph_palette#apply()
+  autocmd FileType nerdtree,startify call glyph_palette#apply()
+augroup END
+
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+endfunction
+
+augroup fern-settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END
 
 function! s:init_fern() abort
   " ----------------------------------------------------------------
@@ -24,7 +38,7 @@ function! s:init_fern() abort
   " ----------------------------------------------------------------
   " Bind opening and closing the fern buffer
   " ----------------------------------------------------------------
-  nmap <c-n> :Fern . -drawer -toggle<CR>
+  nmap <c-n> :Fern . -drawer -toggle -width=35<CR>
   nmap <c-b> :FernDo close<CR>
 
   " ----------------------------------------------------------------
@@ -38,7 +52,7 @@ augroup fern-custom
   autocmd FileType fern call s:init_fern()
 augroup END
 
-autocmd vimenter * ++nested Fern . -drawer -toggle
+autocmd vimenter * ++nested Fern . -drawer -toggle -width=35
 
 " ----------------------------------------------------------------------
 " Vim Clap

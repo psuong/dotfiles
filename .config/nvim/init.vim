@@ -8,14 +8,23 @@ call plug#begin('~/.vim/plugged')
 " Editor View
 "------------------------------------------------------------------------------------------------
 Plug 'ellisonleao/gruvbox.nvim'                                             " Main theme
-Plug 'lewis6991/gitsigns.nvim'                                              " Git signs
 Plug 'nvim-tree/nvim-web-devicons'                                          " Web devicons
-Plug 'romgrk/barbar.nvim'                                                   " Tab supports
 Plug 'junegunn/vim-easy-align'                                              " Align by expressions
-Plug 'lambdalisue/fern.vim'                                                 " Default file explorer
-Plug 'equalsraf/neovim-gui-shim'                                            " nvim-qt settings
+Plug 'lambdalisue/glyph-palette.vim'                                        " Adds palette colors
 Plug 'karb94/neoscroll.nvim'                                                " Smooth scrolling in lua
 Plug 'ncm2/float-preview.nvim'                                              " Preview window that is floating
+
+"------------------------------------------------------------------------------------------------
+" Tabs
+"------------------------------------------------------------------------------------------------
+Plug 'romgrk/barbar.nvim'                                                   " Tab supports
+
+"------------------------------------------------------------------------------------------------
+" Explorer
+"------------------------------------------------------------------------------------------------
+Plug 'lambdalisue/fern.vim'                                                 " Default file explorer
+Plug 'TheLeoP/fern-renderer-web-devicons.nvim'                              " Fern with dev icons
+Plug 'yuki-yano/fern-preview.vim'                                           " Previewing 
 
 "------------------------------------------------------------------------------------------------
 " Statusbar
