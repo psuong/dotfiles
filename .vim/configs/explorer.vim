@@ -1,6 +1,10 @@
 " ----------------------------------------------------------------------
 " Fern Settings
 " ----------------------------------------------------------------------
+let hide_dirs  = '^\%(\.git\)$'  " here you write the dir names 
+let hide_files = '\%(\.meta\)\+'    " here you write the file names
+let g:fern#default_exclude = hide_dirs . '\|' . hide_files  " here you exclude them
+
 let g:fern#renderer = "nvim-web-devicons"
 let g:fern#hide_cursor = 1
 
