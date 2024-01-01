@@ -75,6 +75,7 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Tr
 Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
 Plug 'prabirshrestha/vim-lsp'                                               " Lsp implementation
 Plug 'mattn/vim-lsp-settings'                                               " Common settings
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 
 call plug#end()
 
