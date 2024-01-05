@@ -14,7 +14,6 @@ let g:ale_set_highlights = 0
 let g:ale_use_neovim_diagnostics_api = 0
 let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
-    " \ 'rust': ['analyzer']
 \}
 " let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
 
@@ -22,6 +21,12 @@ let g:ale_linters = {
 " Global vim-lsp Settings
 " ----------------------------------------------------------------------
 " let g:lsp_diagnostics_enabled = 0
+let g:lsp_inlay_hints = 1
+let g:lsp_inlay_hints_mode = {
+\  'normal': ['always'],
+\  'insert': ['always']
+\}
+let g:lsp_document_highlight_enabled = 0
 let g:lsp_settings_enable_suggestions = 0
 let g:lsp_document_code_action_signs_hint = { 'text': '💡' }
 let g:lsp_diagnostics_signs_error = { 'text': '•' }
