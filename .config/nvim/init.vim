@@ -57,17 +57,19 @@ Plug 'prabirshrestha/asyncomplete.vim'                                      " Au
 Plug 'prabirshrestha/asyncomplete-lsp.vim'                                  " Default autocomplete for lsp
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
 
-
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
-Plug 'SirVer/ultisnips'                                                     " Snippet support
-Plug 'honza/vim-snippets'                                                   " Common snippets
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'                            " Autocompletion for support Ultisnips
+Plug 'SirVer/ultisnips'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
+Plug 'rust-lang/rust.vim'
 Plug 'dense-analysis/ale'                                                   " Linting engine
 Plug 'OmniSharp/omnisharp-vim'                                              " Default C# intellisense/completion
 Plug 'nickspoons/vim-sharpenup'                                             " C# status line options

@@ -14,11 +14,12 @@ augroup rust_commands
     autocmd FileType rust nmap <silent> <buffer> <Leader>rc :LspCargoReload<CR>
     autocmd FileType rust nmap <silent> <buffer> [[ :LspPreviousError<CR>
     autocmd FileType rust nmap <silent> <buffer> ]] :LspNextError<CR>
+    autocmd FileType rust nnoremap <C-LeftMouse> :LspDefinition<CR>
 
     " ----------------------------------------------------------------------
     " Server Actions
     " ----------------------------------------------------------------------
     autocmd FileType rust nmap <silent> <buffer> <F5> :LspStartServer<CR>
     autocmd FileType rust nmap <silent> <buffer> <F6> :LspStopServer<CR>
-
+    autocmd FileType rust setlocal omnifunc=lsp#complete
 augroup END

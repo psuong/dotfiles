@@ -14,16 +14,19 @@ let g:ale_set_highlights = 0
 let g:ale_use_neovim_diagnostics_api = 0
 let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
+    " \ 'rust': ['analyzer']
 \}
+" let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
 
 "" ----------------------------------------------------------------------
 " Global vim-lsp Settings
 " ----------------------------------------------------------------------
+" let g:lsp_diagnostics_enabled = 0
 let g:lsp_settings_enable_suggestions = 0
-let g:lsp_document_code_action_signs_hint = { 'text': '?' }
-let g:lsp_diagnostics_signs_error = { 'text': '->' }
+let g:lsp_document_code_action_signs_hint = { 'text': '💡' }
+let g:lsp_diagnostics_signs_error = { 'text': '•' }
 let g:lsp_diagnostics_signs_warning = { 'text': '‼' }
-let g:lsp_diagnostics_signs_hint = { 'text': '-' }
+let g:lsp_diagnostics_signs_hint = { 'text': '💡' }
 let g:lsp_diagnostics_virtual_text_delay = 0
 let g:lsp_document_code_action_signs_delay = 0
 let g:lsp_inlay_hints_delay = 0
@@ -34,7 +37,7 @@ let g:lsp_document_code_action_signs_delay = 0
 " ----------------------------------------------------------------------
 let g:float_preview#docked = 0
 let g:asyncomplete_auto_completeopt = 0
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noinsert,noselect,preview
 
 " ----------------------------------------------------------------------
 " Tabbing support
@@ -42,9 +45,7 @@ set completeopt=menuone,noinsert,noselect
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " ----------------------------------------------------------------------
@@ -54,11 +55,6 @@ if has('python3')
     let g:UltiSnipsExpandTrigger="<c-o>"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-      \ 'name': 'ultisnips',
-      \ 'allowlist': ['*'],
-      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-      \ }))
 endif
 
 " ----------------------------------------------------------------------
