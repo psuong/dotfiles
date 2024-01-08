@@ -42,7 +42,7 @@ let g:lsp_document_code_action_signs_delay = 0
 " ----------------------------------------------------------------------
 let g:float_preview#docked = 0
 let g:asyncomplete_auto_completeopt = 0
-set completeopt=menuone,noinsert,noselect,preview
+set completeopt=menuone,noinsert,noselect
 
 " ----------------------------------------------------------------------
 " Tabbing support
