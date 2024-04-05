@@ -67,6 +67,8 @@ endif
 " ColorScheme + IndentLine
 " ----------------------------------------------------------------------
 lua <<EOF
+require'nvim-web-devicons'.get_icons()
+
 vim.o.background = 'dark'
 vim.cmd([[colorscheme gruvbox]])
 
@@ -187,12 +189,13 @@ nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
 if has('Unix')
     set guifont=UbuntuMono\ Nerd\ Font:h14
 elseif has('Windows')
-    set guifont=UbuntuMono\ Nerd\ Font:h11
+    set guifont=UbuntuMono\ Nerd\ Font:h12
 endif
 
 if exists('g:neovide')
     let g:neovide_cursor_animation_length = 0
     let g:neovide_cursor_vfx_mode = ""
+    let g:neovide_floating_shadow = v:false
 endif
 
 " ----------------------------------------------------------------------

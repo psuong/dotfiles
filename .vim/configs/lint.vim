@@ -27,6 +27,7 @@ let g:lsp_inlay_hints_mode = {
 \  'insert': ['always']
 \}
 let g:lsp_document_highlight_enabled = 0
+let g:lsp_diagnostics_highlights_enabled = 0
 let g:lsp_settings_enable_suggestions = 0
 let g:lsp_document_code_action_signs_hint = { 'text': '💡' }
 let g:lsp_diagnostics_signs_error = { 'text': '•' }
@@ -69,7 +70,7 @@ lua <<EOF
     require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
     require'nvim-treesitter.configs'.setup {
         -- A list of parser names, or "all"
-        ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl" },
+        ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl", "yaml" },
   
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -91,6 +92,31 @@ EOF
 " ----------------------------------------------------------------------
 nmap <S-o> :TagbarToggle<CR>
 let g:tagbar_foldlevel = 3
+let g:tagbar_iconchars = ['▸', '▾']
+
+let g:tagbar_scopestrs = {
+\   'class': "\uf0e8",
+\   'const': "\uf8ff",
+\   'constant': "\uf8ff",
+\   'enum': "\uf702",
+\   'field': "\uf30b",
+\   'func': "\uf794",
+\   'function': "\uf794",
+\   'getter': "\ufab6",
+\   'implementation': "\uf776",
+\   'interface': "\uf7fe",
+\   'map': "\ufb44",
+\   'member': "\uf02b",
+\   'method': "\uf6a6",
+\   'setter': "\uf7a9",
+\   'variable': "\uf71b",
+\ }
+let g:tagbar_show_tag_linenumbers = 1
+let g:tagbar_visibility_symbols = {
+\   'public'    : '+',
+\   'protected' : '*',
+\   'private'   : '-'
+\ }
 
 " ----------------------------------------------------------------------
 " Filetype extensions
