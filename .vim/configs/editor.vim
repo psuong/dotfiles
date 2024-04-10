@@ -3,7 +3,7 @@
 " ----------------------------------------------------------------------
 set hidden                          " Stops the buffer from closing
 set noswapfile                      " Don't generate swap files
-syntax off                          " Turn off syntax highlighting
+syntax manual                       " Make syntax highlighting manual
 
 " ----------------------------------------------------------------------
 " Plugin availability
@@ -263,7 +263,7 @@ lua <<EOF
     require('nvim-treesitter.install').compilers = { "clang", "gcc" }
     require('nvim-treesitter.configs').setup {
       -- A list of parser names, or "all"
-      ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl" },
+      ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl", "vimdoc" },
 
       -- Install parsers synchronously (only applied to `ensure_installed`)
       sync_install = false,
@@ -285,3 +285,6 @@ EOF
 
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
+
+" Vim Clap
+" let g:clap_theme = 'material_design_dark'

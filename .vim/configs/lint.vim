@@ -101,15 +101,17 @@ let g:tagbar_scopestrs = {
 \   'enum': "\uf702",
 \   'field': "\uf30b",
 \   'func': "\uf794",
-\   'function': "\uf794",
+\   'method': "\u21d2",
+\   'function': "\u21d2",
 \   'getter': "\ufab6",
 \   'implementation': "\uf776",
 \   'interface': "\uf7fe",
 \   'map': "\ufb44",
 \   'member': "\uf02b",
-\   'method': "\uf6a6",
 \   'setter': "\uf7a9",
 \   'variable': "\uf71b",
+\   'namespace': "\u2026",
+\   'struct': "\u03C8",
 \ }
 let g:tagbar_show_tag_linenumbers = 1
 let g:tagbar_visibility_symbols = {
@@ -117,6 +119,18 @@ let g:tagbar_visibility_symbols = {
 \   'protected' : '*',
 \   'private'   : '-'
 \ }
+
+augroup BufferEnter
+    autocmd!
+    autocmd BufEnter * call CheckBufferName()
+augroup END
+
+function! CheckBufferName()
+    let buffer_name = bufname('%')
+    if stridx(buffer_name, 'Tagbar') != -1
+        set syntax=ON
+    endif
+endfunction
 
 " ----------------------------------------------------------------------
 " Filetype extensions
