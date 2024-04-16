@@ -186,11 +186,7 @@ nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
 " ----------------------------------------------------------------------
 " Font Settings
 " ----------------------------------------------------------------------
-if has('Unix')
-    set guifont=UbuntuMono\ Nerd\ Font:h14
-elseif has('Windows')
-    set guifont=UbuntuMono\ Nerd\ Font:h12
-endif
+set guifont=UbuntuMono\ Nerd\ Font\ Propo:h12
 
 if exists('g:neovide')
     let g:neovide_cursor_animation_length = 0

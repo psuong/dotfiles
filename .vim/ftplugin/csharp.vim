@@ -73,6 +73,7 @@ augroup omnisharp_commands
     autocmd FileType cs nmap <silent> <buffer> <Leader>fs <Plug>(omnisharp_find_symbol)
     autocmd FileType cs nmap <silent> <buffer> <Leader>fx <Plug>(omnisharp_fix_usings)
     autocmd FileType cs nmap <silent> <buffer> <Leader>ra <Plug>(omnisharp_code_actions)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>rr <Plug>(omnisharp_code_action_repeat)
     autocmd FileType cs nmap <silent> <buffer> <Leader>gc <Plug>(omnisharp_global_code_check)
     autocmd FileType cs nmap <silent> <buffer> <Leader>cf <Plug>(omnisharp_code_format)
 
@@ -102,6 +103,11 @@ augroup omnisharp_commands
     " ----------------------------------------------------------------------
     autocmd FileType cs nmap <silent> <buffer> <Leader>ad <Plug>(sharpenup_add_to_csproj)
     autocmd FileType cs nmap <silent> <buffer> <Leader>ln <Plug>(sharpenup_rename_in_csproj)
+
+    " ----------------------------------------------------------------------
+    " ALE Diagnostics
+    " ----------------------------------------------------------------------
+    autocmd FileType cs nnoremap <Leader>sd :ALEDetail<CR>
 
     " ----------------------------------------------------------------------
     " New settings END
