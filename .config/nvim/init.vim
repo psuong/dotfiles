@@ -9,10 +9,10 @@ call plug#begin('~/.vim/plugged')
 "------------------------------------------------------------------------------------------------
 Plug 'ellisonleao/gruvbox.nvim'                                             " Main theme
 Plug 'nvim-tree/nvim-web-devicons'                                          " Web devicons
-Plug 'junegunn/vim-easy-align'                                              " Align by expressions
 Plug 'lambdalisue/glyph-palette.vim'                                        " Adds palette colors
 Plug 'karb94/neoscroll.nvim'                                                " Smooth scrolling in lua
 Plug 'ncm2/float-preview.nvim'                                              " Preview window that is floating
+Plug 'itchyny/vim-cursorword'                                               " Underlines the current word and occurences
 
 "------------------------------------------------------------------------------------------------
 " Tabs
@@ -29,9 +29,9 @@ Plug 'yuki-yano/fern-preview.vim'                                           " Pr
 "------------------------------------------------------------------------------------------------
 " Statusbar
 "------------------------------------------------------------------------------------------------
-" Plug 'itchyny/lightline.vim'                                              " Status bar for Vim
-" Plug 'shinchu/lightline-gruvbox.vim'                                      " Lightline theme
-" Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
+Plug 'itchyny/lightline.vim'                                              " Status bar for Vim
+Plug 'shinchu/lightline-gruvbox.vim'                                      " Lightline theme
+Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
 " Plug 'halkn/lightline-lsp'                                                " vim-lsp lightling integration
 
 "------------------------------------------------------------------------------------------------

@@ -47,6 +47,11 @@ let g:OmniSharp_popup_mappings = {
     \ 'pageUp': ['<C-b>', '<PageUp>']
 \ }
 
+augroup lightline_integration
+  autocmd!
+  autocmd User OmniSharpStarted,OmniSharpReady,OmniSharpStopped call lightline#update()
+augroup END
+
 " ----------------------------------------------------------------------
 " Omnisharp commands
 " -----------------------------------------------------------------------
@@ -95,8 +100,8 @@ augroup omnisharp_commands
     " ----------------------------------------------------------------------
     " Method Actions
     " ----------------------------------------------------------------------
-    autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
-    autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
+    autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(ale_previous_wrap_error)
+    autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(ale_next_wrap_error)
 
     " ----------------------------------------------------------------------
     " C# Legacy Utils

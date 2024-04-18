@@ -75,7 +75,7 @@ vim.cmd([[colorscheme gruvbox]])
 -- Default options:
 require("gruvbox").setup({
   terminal_colors = true, -- add neovim terminal colors
-  undercurl = false,
+  undercurl = true,
   underline = true,
   bold = false,
   italic = {
@@ -126,7 +126,6 @@ require("ibl").setup { indent = {
     highlight = highlight,
     char = "│"
 } }
-
 EOF
 
 " --------------------------------------------------------
@@ -192,6 +191,7 @@ if exists('g:neovide')
     let g:neovide_cursor_animation_length = 0
     let g:neovide_cursor_vfx_mode = ""
     let g:neovide_floating_shadow = v:false
+    let g:neovide_scroll_animation_length = 0
 endif
 
 " ----------------------------------------------------------------------
@@ -226,19 +226,50 @@ if has('termguicolors')
 endif
 
 " ----------------------------------------------------------------------
-" Vim Easy Align
-" ----------------------------------------------------------------------
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" ----------------------------------------------------------------------
 " Lightline
 " ----------------------------------------------------------------------
-" Not really using lightline atm
 set laststatus=3
+let g:sharpenup_statusline_opts = {
+\   'TextLoading': ' O#: %s ... (%p / %P) ',
+\   'TextReady': ' O#: %s ✓ ',
+\   'TextDead': ' O#: ✖ ',
+\   'Highlight': 1,
+\   'HiLoading': 'SharpenUpLoading',
+\   'HiReady': 'SharpenUpReady',
+\   'HiDead': 'SharpenUpDead'
+\}
+
+let g:lightline = {
+\   'active': {
+\       'right': [['filetype'], ['sharpenup']],
+\       'left': [['mode'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok']],
+\   },
+\   'inactive': {
+\       'right': [['sharpenup']]
+\   },
+\   'component': {
+\       'sharpenup': sharpenup#statusline#Build()
+\   },
+\   'component_expand': {
+\       'linter_checking': 'lightline#ale#checking',
+\       'linter_infos': 'lightline#ale#infos',
+\       'linter_warnings': 'lightline#ale#warnings',
+\       'linter_errors': 'lightline#ale#errors',
+\       'linter_ok': 'lightline#ale#ok',
+\   },
+\   'component_type':  {
+\       'linter_checking': 'right',
+\       'linter_infos': 'right',
+\       'linter_warnings': 'warning',
+\       'linter_errors': 'error',
+\       'linter_ok': 'right',
+\   }
+\}
+
+augroup lightline_integration
+  autocmd!
+  autocmd User OmniSharpStarted,OmniSharpReady,OmniSharpStopped call lightline#update()
+augroup END
 
 " ----------------------------------------------------------------------
 " Floating window
@@ -281,6 +312,3 @@ EOF
 
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
-
-" Vim Clap
-" let g:clap_theme = 'material_design_dark'
