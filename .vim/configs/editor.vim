@@ -242,7 +242,7 @@ let g:sharpenup_statusline_opts = {
 let g:lightline = {
 \   'active': {
 \       'right': [['filetype'], ['sharpenup']],
-\       'left': [['mode'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok']],
+\       'left': [['mode'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'], ['lsp_errors', 'lsp_warnings', 'lsp_ok']]
 \   },
 \   'inactive': {
 \       'right': [['sharpenup']]
@@ -256,6 +256,9 @@ let g:lightline = {
 \       'linter_warnings': 'lightline#ale#warnings',
 \       'linter_errors': 'lightline#ale#errors',
 \       'linter_ok': 'lightline#ale#ok',
+\       'lsp_warnings': 'lightline_lsp#warnings',
+\       'lsp_errors':   'lightline_lsp#errors',
+\       'lsp_ok':       'lightline_lsp#ok',
 \   },
 \   'component_type':  {
 \       'linter_checking': 'right',
@@ -263,6 +266,9 @@ let g:lightline = {
 \       'linter_warnings': 'warning',
 \       'linter_errors': 'error',
 \       'linter_ok': 'right',
+\       'lsp_warnings': 'warning',
+\       'lsp_errors':   'error',
+\       'lsp_ok':       'middle',
 \   }
 \}
 

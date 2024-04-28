@@ -32,7 +32,7 @@ Plug 'yuki-yano/fern-preview.vim'                                           " Pr
 Plug 'itchyny/lightline.vim'                                              " Status bar for Vim
 Plug 'shinchu/lightline-gruvbox.vim'                                      " Lightline theme
 Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
-" Plug 'halkn/lightline-lsp'                                                " vim-lsp lightling integration
+Plug 'halkn/lightline-lsp'                                                " vim-lsp lightling integration
 
 "------------------------------------------------------------------------------------------------
 " Formats
