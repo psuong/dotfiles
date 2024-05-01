@@ -22,28 +22,44 @@ let g:ale_linters = {
 \}
 let g:OmniSharp_diagnostic_showid = 1
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
-" let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
 
 "" ----------------------------------------------------------------------
 " Global vim-lsp Settings
 " ----------------------------------------------------------------------
-" let g:lsp_diagnostics_enabled = 0
-let g:lsp_inlay_hints = 1
+let g:lsp_settings = {
+\   'omnisharp-lsp': {
+\       'disabled': 1
+\   }
+\ }
+
+let g:lsp_inlay_hints_enabled = 1
+let g:lsp_inlay_hints_delay = 0
 let g:lsp_inlay_hints_mode = {
-\  'normal': ['always'],
-\  'insert': ['always']
+\  'normal': ['!curline'],
+\  'insert': ['!curline']
 \}
+
+" vim-lsp virtual text settings
+let g:lsp_diagnostics_virtual_text_enabled = 1
+let g:lsp_diagnostics_virtual_text_delay = 0
+
+let g:lsp_diagnostics_float_cursor = 1
+
+" vim-lsp highlighting settings
 let g:lsp_document_highlight_enabled = 0
 let g:lsp_diagnostics_highlights_enabled = 0
-let g:lsp_settings_enable_suggestions = 0
+
+" vim-lsp document signs
+let g:lsp_document_code_action_signs_delay = 0
 let g:lsp_document_code_action_signs_hint = { 'text': '💡' }
-let g:lsp_diagnostics_signs_error = { 'text': '•' }
-let g:lsp_diagnostics_signs_warning = { 'text': '‼' }
+let g:lsp_diagnostics_signs_error = { 'text': 'E' }
+let g:lsp_diagnostics_signs_warning = { 'text': 'W' }
 let g:lsp_diagnostics_signs_hint = { 'text': '💡' }
-let g:lsp_diagnostics_virtual_text_delay = 0
-let g:lsp_document_code_action_signs_delay = 0
-let g:lsp_inlay_hints_delay = 0
-let g:lsp_document_code_action_signs_delay = 0
+
+highlight link LspErrorText GruvboxRedUnderline
+highlight link LspWarningText GruvboxYellowUnderline
+highlight link LspInformation GruvboxGray
+highlight link LspHint GruvboxGray
 
 " ----------------------------------------------------------------------
 " Autocompletion

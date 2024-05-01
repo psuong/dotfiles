@@ -11,7 +11,7 @@ Plug 'ellisonleao/gruvbox.nvim'                                             " Ma
 Plug 'nvim-tree/nvim-web-devicons'                                          " Web devicons
 Plug 'lambdalisue/glyph-palette.vim'                                        " Adds palette colors
 Plug 'karb94/neoscroll.nvim'                                                " Smooth scrolling in lua
-Plug 'ncm2/float-preview.nvim'                                              " Preview window that is floating
+" Plug 'ncm2/float-preview.nvim'                                              " Preview window that is floating
 Plug 'itchyny/vim-cursorword'                                               " Underlines the current word and occurences
 
 "------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Plug 'yuki-yano/fern-preview.vim'                                           " Pr
 Plug 'itchyny/lightline.vim'                                              " Status bar for Vim
 Plug 'shinchu/lightline-gruvbox.vim'                                      " Lightline theme
 Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
-Plug 'halkn/lightline-lsp'                                                " vim-lsp lightling integration
+" Plug 'halkn/lightline-lsp'                                                " vim-lsp lightling integration
 
 "------------------------------------------------------------------------------------------------
 " Formats
@@ -76,6 +76,7 @@ Plug 'nickspoons/vim-sharpenup'                                             " C#
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
 Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
 Plug 'prabirshrestha/vim-lsp'                                               " Lsp implementation
+Plug 'rhysd/vim-lsp-ale'                                                    " Config between vim-lsp & ale
 Plug 'mattn/vim-lsp-settings'                                               " Common settings
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 

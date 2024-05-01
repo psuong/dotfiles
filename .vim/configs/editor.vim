@@ -239,10 +239,12 @@ let g:sharpenup_statusline_opts = {
 \   'HiDead': 'SharpenUpDead'
 \}
 
+let g:lightline_lsp_signs_ok = '✓'
+
 let g:lightline = {
 \   'active': {
 \       'right': [['filetype'], ['sharpenup']],
-\       'left': [['mode'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'], ['lsp_errors', 'lsp_warnings', 'lsp_ok']]
+\       'left': [['mode'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok']]
 \   },
 \   'inactive': {
 \       'right': [['sharpenup']]
@@ -256,9 +258,6 @@ let g:lightline = {
 \       'linter_warnings': 'lightline#ale#warnings',
 \       'linter_errors': 'lightline#ale#errors',
 \       'linter_ok': 'lightline#ale#ok',
-\       'lsp_warnings': 'lightline_lsp#warnings',
-\       'lsp_errors':   'lightline_lsp#errors',
-\       'lsp_ok':       'lightline_lsp#ok',
 \   },
 \   'component_type':  {
 \       'linter_checking': 'right',
@@ -266,9 +265,6 @@ let g:lightline = {
 \       'linter_warnings': 'warning',
 \       'linter_errors': 'error',
 \       'linter_ok': 'right',
-\       'lsp_warnings': 'warning',
-\       'lsp_errors':   'error',
-\       'lsp_ok':       'middle',
 \   }
 \}
 
@@ -276,11 +272,6 @@ augroup lightline_integration
   autocmd!
   autocmd User OmniSharpStarted,OmniSharpReady,OmniSharpStopped call lightline#update()
 augroup END
-
-" ----------------------------------------------------------------------
-" Floating window
-" ----------------------------------------------------------------------
-let g:float_preview#docked=0
 
 " ----------------------------------------------------------------------
 " Smoothscrolling
