@@ -69,15 +69,28 @@ Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
-Plug 'rust-lang/rust.vim'
 Plug 'dense-analysis/ale'                                                   " Linting engine
-Plug 'OmniSharp/omnisharp-vim'                                              " Default C# intellisense/completion
-Plug 'nickspoons/vim-sharpenup'                                             " C# status line options
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
-Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
 Plug 'prabirshrestha/vim-lsp'                                               " Lsp implementation
 Plug 'rhysd/vim-lsp-ale'                                                    " Config between vim-lsp & ale
 Plug 'mattn/vim-lsp-settings'                                               " Common settings
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
+Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
+
+"------------------------------------------------------------------------------------------------
+" Rust Support
+"------------------------------------------------------------------------------------------------
+Plug 'rust-lang/rust.vim'                                                   " Rust Utils
+Plug 'saecki/crates.nvim', { 'tag': 'stable' }                              " Managing crates
+
+"------------------------------------------------------------------------------------------------
+" CSharp Support
+"------------------------------------------------------------------------------------------------
+Plug 'OmniSharp/omnisharp-vim'                                              " Default C# intellisense/completion
+Plug 'nickspoons/vim-sharpenup'                                             " C# status line options
+
+"------------------------------------------------------------------------------------------------
+" Markdown Support
+"------------------------------------------------------------------------------------------------
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 
 call plug#end()
