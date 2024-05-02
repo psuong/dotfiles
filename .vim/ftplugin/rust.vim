@@ -19,7 +19,8 @@ augroup rust_commands
     autocmd FileType rust nmap <silent> <buffer> [[ :LspPreviousError<CR>
     autocmd FileType rust nmap <silent> <buffer> ]] :LspNextError<CR>
     autocmd FileType rust nnoremap <C-LeftMouse> :LspDefinition<CR>
-    autocmd FileType rust nmap <silent> <buffer> rt :RustTest<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>rt :RustTest<CR>
+    autocmd FileType rust nmap <silent> <buffer> <Leader>ru :RustTest!<CR>
 
     " ----------------------------------------------------------------------
     " Server Actions
