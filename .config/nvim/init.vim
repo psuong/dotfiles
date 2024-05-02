@@ -80,6 +80,7 @@ Plug 'nvim-treesitter/nvim-treesitter-context'                              " Co
 " Rust Support
 "------------------------------------------------------------------------------------------------
 Plug 'rust-lang/rust.vim'                                                   " Rust Utils
+Plug 'nvim-lua/plenary.nvim'                                                " async modules
 Plug 'saecki/crates.nvim', { 'tag': 'stable' }                              " Managing crates
 
 "------------------------------------------------------------------------------------------------
