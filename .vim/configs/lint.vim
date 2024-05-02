@@ -93,7 +93,7 @@ lua <<EOF
     require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
     require'nvim-treesitter.configs'.setup {
         -- A list of parser names, or "all"
-        ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl", "yaml" },
+        ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl", "yaml", "toml", "xml" },
   
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
