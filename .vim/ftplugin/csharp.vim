@@ -103,6 +103,9 @@ augroup omnisharp_commands
     autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(ale_previous_wrap_error)
     autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(ale_next_wrap_error)
 
+    autocmd FileType cs nmap <silent> <buffer> .. <Plug>(ale_next_wrap_warning)
+    autocmd FileType cs nmap <silent> <buffer> ,, <Plug>(ale_previous_wrap_warning)
+
     " ----------------------------------------------------------------------
     " C# Legacy Utils
     " ----------------------------------------------------------------------

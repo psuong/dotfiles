@@ -17,7 +17,9 @@ augroup rust_commands
     autocmd FileType rust nmap <silent> <buffer> <Leader>co :LspOpenCargoToml<CR>
     autocmd FileType rust nmap <silent> <buffer> <Leader>rc :LspCargoReload<CR>
     autocmd FileType rust nmap <silent> <buffer> [[ :LspPreviousError<CR>
+    autocmd FileType rust nmap <silent> <buffer> ,, :LspPreviousWarning<CR>
     autocmd FileType rust nmap <silent> <buffer> ]] :LspNextError<CR>
+    autocmd FileType rust nmap <silent> <buffer> .. :LspNextWarning<CR>
     autocmd FileType rust nnoremap <C-LeftMouse> :LspDefinition<CR>
     autocmd FileType rust nmap <silent> <buffer> <Leader>rt :RustTest<CR>
     autocmd FileType rust nmap <silent> <buffer> <Leader>ru :RustTest!<CR>
