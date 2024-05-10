@@ -54,6 +54,7 @@ endfunction
 augroup fern-custom
   autocmd! *
   autocmd FileType fern call s:init_fern()
+  autocmd! FileType fern :set nonumber
 augroup END
 
 autocmd vimenter * ++nested Fern . -drawer -toggle -width=35
