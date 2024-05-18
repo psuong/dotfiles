@@ -19,6 +19,7 @@ let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
 let g:ale_linters = {
     \ 'cs': ['OmniSharp'],
+    \ 'rust': ['vim-lsp', 'analyzer']
 \}
 let g:OmniSharp_diagnostic_showid = 1
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
@@ -39,15 +40,22 @@ let g:lsp_inlay_hints_mode = {
 \  'insert': ['!curline']
 \}
 
-" vim-lsp virtual text settings
-let g:lsp_diagnostics_virtual_text_enabled = 1
-let g:lsp_diagnostics_virtual_text_delay = 0
+" ---------------------------------------------------------------
+" Because I'm using vim-lsp-ale, this section
+" represents the value when g:lsp_ale_auto_config_vim_lsp is true
+" ---------------------------------------------------------------
+" let g:lsp_diagnostics_enabled = 1
+" let g:lsp_diagnostics_echo_cursor = 0
+" let g:lsp_diagnostics_float_cursor = 0
+" let g:lsp_diagnostics_highlights_enabled = 0
+" let g:lsp_diagnostics_signs_enabled = 0
+" let g:lsp_diagnostics_virtual_text_enabled = 0
 
-let g:lsp_diagnostics_float_cursor = 1
+" vim-lsp virtual text settings
+let g:lsp_diagnostics_virtual_text_delay = 0
 
 " vim-lsp highlighting settings
 let g:lsp_document_highlight_enabled = 0
-let g:lsp_diagnostics_highlights_enabled = 0
 
 " vim-lsp document signs
 let g:lsp_document_code_action_signs_delay = 0
