@@ -1,6 +1,7 @@
 " ----------------------------------------------------------------------
 " Buffer Settings
 " ----------------------------------------------------------------------
+set autoread                        " Automatically reload the buffer when changed outside of Vim
 set hidden                          " Stops the buffer from closing
 set noswapfile                      " Don't generate swap files
 syntax manual                       " Make syntax highlighting manual
