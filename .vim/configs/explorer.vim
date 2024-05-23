@@ -63,6 +63,7 @@ autocmd vimenter * ++nested Fern . -drawer -toggle -width=35
 " Vim Clap
 " ----------------------------------------------------------------------
 let g:clap_enable_icon=1
+let g:clap_plugin_experimental = v:true
 nmap <c-p> :Clap files<CR>
 let g:clap_layout = { 
 \   'relative': 'editor'
