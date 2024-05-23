@@ -65,6 +65,7 @@ autocmd vimenter * ++nested Fern . -drawer -toggle -width=35
 let g:clap_enable_icon=1
 let g:clap_plugin_experimental = v:true
 nmap <c-p> :Clap files<CR>
+nmap <c-g> :Clap grep<CR>
 let g:clap_layout = { 
 \   'relative': 'editor'
 \ }
