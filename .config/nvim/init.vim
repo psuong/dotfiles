@@ -25,7 +25,6 @@ Plug 'romgrk/barbar.nvim'                                                   " Ta
 Plug 'lambdalisue/fern.vim'                                                 " Default file explorer
 Plug 'TheLeoP/fern-renderer-web-devicons.nvim'                              " Fern with dev icons
 Plug 'yuki-yano/fern-preview.vim'                                           " Previewing 
-Plug 'andykog/fern-highlight.vim'                                           " Highlight the correct node
 
 "------------------------------------------------------------------------------------------------
 " Statusbar
