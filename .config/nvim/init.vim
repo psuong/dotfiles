@@ -73,6 +73,7 @@ Plug 'dense-analysis/ale'                                                   " Li
 Plug 'prabirshrestha/vim-lsp'                                               " Lsp implementation
 Plug 'rhysd/vim-lsp-ale'                                                    " Config between vim-lsp & ale
 Plug 'mattn/vim-lsp-settings'                                               " Common settings
+Plug 'Canop/nvim-bacon'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
 Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
 
