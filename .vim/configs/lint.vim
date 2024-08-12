@@ -31,8 +31,12 @@ let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '�
 " ----------------------------------------------------------------------
 " Autocompletion
 " ----------------------------------------------------------------------
-let g:float_preview#docked = 0
+let g:float_preview#docked = 1
 set completeopt=menuone,noinsert,noselect
+
+let g:UltiSnipsExpandTrigger="<c-o>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 call ddc#custom#patch_global({
     \ 'ui': 'native',
@@ -46,7 +50,7 @@ call ddc#custom#patch_global({
     \   'omnisharp-vim': {
     \       'mark': 'OMNI',
     \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-    \       'maxItems': 10,
+    \       'maxItems': 15,
     \   },
     \   'around': {
     \       'mark': 'AROUND',
@@ -59,26 +63,16 @@ call ddc#custom#patch_global({
     \ },
 \ })
 
-" ----------------------------------------------------------------------
-" Tabbing support
-" ----------------------------------------------------------------------
-" " Mappings
-" 
-" " <TAB>: completion.
-" " NOTE: It does not work for pum.vim
-" inoremap <expr> <TAB>
-" \ pumvisible() ? '<C-n>' :
-" \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-" \ '<TAB>' : ddc#map#manual_complete()
-" 
-" " <S-TAB>: completion back.
-" " NOTE: It does not work for pum.vim
-" inoremap <expr> <S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
-" 
-" inoremap <silent> <expr> <S-Tab> pumvisible() ? '<up>' : ddc#map#manual_complete(#{sources: ['around'], ui: 'native'})
-" inoremap <silent> <expr> <Tab> pumvisible() ? '<down>' : '<tab>'
-" inoremap <silent> <expr> <esc> pumvisible() ? '<c-e>' : '<esc>'
-" inoremap <silent> <expr> <cr> pumvisible() ? '<c-y>' : '<cr>'
+inoremap <expr> <TAB>
+    \ pumvisible() ? '<C-n>' :
+    \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+    \ '<TAB>' : ddc#map#manual_complete()
+
+" <S-TAB>: completion back.
+inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+
+" Press enter to confirm the selection
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Use ddc.
 call ddc#enable()

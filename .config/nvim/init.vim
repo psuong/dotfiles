@@ -11,7 +11,6 @@ Plug 'ellisonleao/gruvbox.nvim'                                             " Ma
 Plug 'nvim-tree/nvim-web-devicons'                                          " Web devicons
 Plug 'lambdalisue/glyph-palette.vim'                                        " Adds palette colors
 Plug 'karb94/neoscroll.nvim'                                                " Smooth scrolling in lua
-" Plug 'ncm2/float-preview.nvim'                                              " Preview window that is floating
 Plug 'itchyny/vim-cursorword'                                               " Underlines the current word and occurences
 
 "------------------------------------------------------------------------------------------------
@@ -32,7 +31,6 @@ Plug 'yuki-yano/fern-preview.vim'                                           " Pr
 Plug 'itchyny/lightline.vim'                                              " Status bar for Vim
 Plug 'shinchu/lightline-gruvbox.vim'                                      " Lightline theme
 Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
-" Plug 'halkn/lightline-lsp'                                                " vim-lsp lightling integration
 
 "------------------------------------------------------------------------------------------------
 " Formats
@@ -53,37 +51,27 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }                " De
 "------------------------------------------------------------------------------------------------
 " Autocompletion
 "------------------------------------------------------------------------------------------------
-" Plug 'prabirshrestha/asyncomplete.vim'                                      " Autocomplete engine
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'                                  " Default autocomplete for lsp
 Plug 'vim-denops/denops.vim'
 Plug 'Shougo/ddc.vim'
-" Plug 'Shougo/pum.vim'
-" Plug 'Shougo/ddc-ui-pum'
 Plug 'Shougo/ddc-source-around'
 Plug 'matsui54/ddc-source-buffer'
-" Plug 'matsui54/denops-popup-preview.vim'
-Plug 'Shougo/ddc-ui-native'
 Plug 'tani/ddc-fuzzy'
 Plug 'gabriel-gardner/ddc-omnisharp-vim'
-
+Plug 'Shougo/ddc-ui-native'
+Plug 'matsui54/ddc-ultisnips'
+" Plug 'matsui54/denops-popup-preview.vim'
+"
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
 
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
 Plug 'SirVer/ultisnips'
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'thomasfaingnaert/vim-lsp-snippets'
-" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
 Plug 'dense-analysis/ale'                                                   " Linting engine
-" Plug 'prabirshrestha/vim-lsp'                                               " Lsp implementation
-" Plug 'rhysd/vim-lsp-ale'                                                    " Config between vim-lsp & ale
-" Plug 'mattn/vim-lsp-settings'                                               " Common settings
 Plug 'Canop/nvim-bacon'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
 Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
