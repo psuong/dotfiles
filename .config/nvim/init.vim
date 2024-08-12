@@ -53,26 +53,29 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }                " De
 "------------------------------------------------------------------------------------------------
 " Autocompletion
 "------------------------------------------------------------------------------------------------
-Plug 'prabirshrestha/asyncomplete.vim'                                      " Autocomplete engine
-Plug 'prabirshrestha/asyncomplete-lsp.vim'                                  " Default autocomplete for lsp
+" Plug 'prabirshrestha/asyncomplete.vim'                                      " Autocomplete engine
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'                                  " Default autocomplete for lsp
+Plug 'vim-denops/denops.vim'
+Plug 'Shougo/ddc.vim'
+Plug 'gabriel-gardner/ddc-omnisharp-vim'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
 
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
-Plug 'SirVer/ultisnips'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
-Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+" Plug 'SirVer/ultisnips'
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'thomasfaingnaert/vim-lsp-snippets'
+" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 "------------------------------------------------------------------------------------------------
 " Language support
 "------------------------------------------------------------------------------------------------
 Plug 'dense-analysis/ale'                                                   " Linting engine
-Plug 'prabirshrestha/vim-lsp'                                               " Lsp implementation
-Plug 'rhysd/vim-lsp-ale'                                                    " Config between vim-lsp & ale
-Plug 'mattn/vim-lsp-settings'                                               " Common settings
+" Plug 'prabirshrestha/vim-lsp'                                               " Lsp implementation
+" Plug 'rhysd/vim-lsp-ale'                                                    " Config between vim-lsp & ale
+" Plug 'mattn/vim-lsp-settings'                                               " Common settings
 Plug 'Canop/nvim-bacon'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
 Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing

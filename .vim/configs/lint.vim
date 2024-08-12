@@ -27,63 +27,16 @@ let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '�
 "" ----------------------------------------------------------------------
 " Global vim-lsp Settings
 " ----------------------------------------------------------------------
-let g:lsp_settings = {
-\   'omnisharp-lsp': {
-\       'disabled': 1
-\   }
-\ }
-
-let g:lsp_inlay_hints_enabled = 1
-let g:lsp_inlay_hints_delay = 0
-let g:lsp_inlay_hints_mode = {
-\  'normal': ['!curline'],
-\  'insert': ['!curline']
-\}
-
-" ---------------------------------------------------------------
-" Because I'm using vim-lsp-ale, this section
-" represents the value when g:lsp_ale_auto_config_vim_lsp is true
-" ---------------------------------------------------------------
-" let g:lsp_diagnostics_enabled = 1
-" let g:lsp_diagnostics_echo_cursor = 0
-" let g:lsp_diagnostics_float_cursor = 0
-" let g:lsp_diagnostics_highlights_enabled = 0
-" let g:lsp_diagnostics_signs_enabled = 0
-" let g:lsp_diagnostics_virtual_text_enabled = 0
-
-" vim-lsp virtual text settings
-let g:lsp_diagnostics_virtual_text_delay = 0
-
-" vim-lsp highlighting settings
-let g:lsp_document_highlight_enabled = 0
-
-" vim-lsp document signs
-let g:lsp_document_code_action_signs_delay = 0
-let g:lsp_document_code_action_signs_hint = { 'text': '💡' }
-let g:lsp_diagnostics_signs_error = { 'text': 'E' }
-let g:lsp_diagnostics_signs_warning = { 'text': 'W' }
-let g:lsp_diagnostics_signs_hint = { 'text': '💡' }
-
-highlight link LspErrorText GruvboxRedUnderline
-highlight link LspWarningText GruvboxYellowUnderline
-highlight link LspInformation GruvboxGray
-highlight link LspHint GruvboxGray
 
 " ----------------------------------------------------------------------
 " Autocompletion
 " ----------------------------------------------------------------------
 let g:float_preview#docked = 0
-let g:asyncomplete_auto_completeopt = 0
 set completeopt=menuone,noinsert,noselect
 
 " ----------------------------------------------------------------------
 " Tabbing support
 " ----------------------------------------------------------------------
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " ----------------------------------------------------------------------
 " Snippet support
