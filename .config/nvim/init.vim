@@ -57,13 +57,21 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }                " De
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'                                  " Default autocomplete for lsp
 Plug 'vim-denops/denops.vim'
 Plug 'Shougo/ddc.vim'
+" Plug 'Shougo/pum.vim'
+" Plug 'Shougo/ddc-ui-pum'
+Plug 'Shougo/ddc-source-around'
+Plug 'matsui54/ddc-source-buffer'
+" Plug 'matsui54/denops-popup-preview.vim'
+Plug 'Shougo/ddc-ui-native'
+Plug 'tani/ddc-fuzzy'
 Plug 'gabriel-gardner/ddc-omnisharp-vim'
+
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
 
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'thomasfaingnaert/vim-lsp-snippets'

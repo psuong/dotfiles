@@ -1,4 +1,4 @@
-let g:OmniSharp_want_snippet = 1
+let g:OmniSharp_want_snippet = 0
 let g:OmniSharp_highlighting = 0
 
 " ----------------------------------------------------------------------
@@ -116,6 +116,16 @@ augroup omnisharp_commands
     " ALE Diagnostics
     " ----------------------------------------------------------------------
     autocmd FileType cs nnoremap <Leader>sd :ALEDetail<CR>
+
+    "inoremap <expr> <Tab> ddc#map#manual_complete()
+
+    "inoremap <expr> <C-y> pumvisible() ? (vsnip#expandable() ? "\<Plug>(vsnip-expand)" : "\<C-y>") : "\<C-y>"
+    "inoremap <expr> <C-Space> ddc#map#manual_complete()
+
+    inoremap <silent> <expr> <S-Tab> pumvisible() ? '<up>' : ddc#map#manual_complete(#{sources: ['around'], ui: 'native'})
+inoremap <silent> <expr> <Tab> pumvisible() ? '<down>' : '<tab>'
+inoremap <silent> <expr> <esc> pumvisible() ? '<c-e>' : '<esc>'
+inoremap <silent> <expr> <cr> pumvisible() ? '<c-y>' : '<cr>'
 
     " ----------------------------------------------------------------------
     " New settings END
