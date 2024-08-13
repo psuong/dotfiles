@@ -2,7 +2,7 @@
 " Vim Plugins
 "------------------------------------------------------------------------------------------------
 let g:plug_url_format = 'git@github.com:%s.git'
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 "------------------------------------------------------------------------------------------------
 " Editor View
@@ -53,18 +53,19 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }                " De
 "------------------------------------------------------------------------------------------------
 " Autocompletion
 "------------------------------------------------------------------------------------------------
+Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'                                      " Autocomplete engine
 Plug 'prabirshrestha/asyncomplete-lsp.vim'                                  " Default autocomplete for lsp
+Plug 'prabirshrestha/vim-lsp'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
 
 "------------------------------------------------------------------------------------------------
 " Snippets
 "------------------------------------------------------------------------------------------------
 Plug 'SirVer/ultisnips'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
 "------------------------------------------------------------------------------------------------
 " Language support
@@ -97,10 +98,10 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' 
 
 call plug#end()
 
-source ~/.vim/configs/editor.vim
-source ~/.vim/configs/lint.vim
-source ~/.vim/configs/explorer.vim
-source ~/.vim/ftplugin/shaders.vim
-source ~/.vim/ftplugin/csharp.vim
-source ~/.vim/ftplugin/rust.vim
-source ~/.vim/ftplugin/uxml.vim
+source ~/AppData/Local/nvim/configs/editor.vim
+source ~/AppData/Local/nvim/configs/lint.vim
+source ~/AppData/Local/nvim/configs/explorer.vim
+" source ~/AppData/Local/nvim/ftplugin/shaders.vim
+" source ~/AppData/Local/nvim/ftplugin/csharp.vim
+" source ~/AppData/Local/nvim/ftplugin/rust.vim
+" source ~/AppData/Local/nvim/ftplugin/uxml.vim

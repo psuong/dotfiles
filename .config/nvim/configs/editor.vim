@@ -64,71 +64,6 @@ if has('termguicolors')
   set termguicolors
 endif
 
-" ----------------------------------------------------------------------
-" ColorScheme + IndentLine
-" ----------------------------------------------------------------------
-lua <<EOF
-require'nvim-web-devicons'.get_icons()
-
-vim.o.background = 'dark'
-vim.cmd([[colorscheme gruvbox]])
-
--- Default options:
-require("gruvbox").setup({
-  terminal_colors = true, -- add neovim terminal colors
-  undercurl = true,
-  underline = true,
-  bold = false,
-  italic = {
-    strings = false,
-    emphasis = true,
-    comments = false,
-    operators = false,
-    folds = true,
-  },
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "", -- can be "hard", "soft" or empty string
-  palette_overrides = {},
-  overrides = {},
-  dim_inactive = false,
-  transparent_mode = false,
-})
-vim.cmd("colorscheme gruvbox")
-
-local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
-}
-
-local hooks = require "ibl.hooks"
--- create the highlight groups in the highlight setup hook, so they are reset
--- every time the colorscheme changes
-hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-end)
-
-require("ibl").setup { indent = { 
-    highlight = highlight,
-    char = "│"
-} }
-EOF
-
 " --------------------------------------------------------
 " Add Tab Bars
 " --------------------------------------------------------
@@ -212,11 +147,6 @@ let mapleader = ","
 set diffopt+=vertical
 
 " ----------------------------------------------------------------------
-" Indent Guides
-" ----------------------------------------------------------------------
-let g:indent_blankline_filetype_exclude = ['fern']
-
-" ----------------------------------------------------------------------
 " Get a decent set up without the $ sign at eol and to allow backspace support
 " ----------------------------------------------------------------------
 set nolist
@@ -277,31 +207,105 @@ augroup END
 " ----------------------------------------------------------------------
 " Smoothscrolling
 " ----------------------------------------------------------------------
-lua <<EOF
-  require('neoscroll').setup()
-EOF
 
 " ----------------------------------------------------------------------
 " Treesitter
 " ----------------------------------------------------------------------
 lua <<EOF
+    ----------------------
+    -- Smooth Scrolling --
+    ----------------------
+    require('neoscroll').setup()
+
+    ------------
+    -- Glyphs --
+    ------------
+    require'nvim-web-devicons'.get_icons()
+
+    -----------------
+    -- ColorScheme --
+    -----------------
+    vim.o.background = 'dark'
+    vim.cmd([[colorscheme gruvbox]])
+
+    -- Default options:
+    require("gruvbox").setup({
+      terminal_colors = true, -- add neovim terminal colors
+      undercurl = true,
+      underline = true,
+      bold = false,
+      italic = {
+        strings = false,
+        emphasis = true,
+        comments = false,
+        operators = false,
+        folds = true,
+      },
+      strikethrough = true,
+      invert_selection = false,
+      invert_signs = false,
+      invert_tabline = false,
+      invert_intend_guides = false,
+      inverse = true, -- invert background for search, diffs, statuslines and errors
+      contrast = "", -- can be "hard", "soft" or empty string
+      palette_overrides = {},
+      overrides = {},
+      dim_inactive = false,
+      transparent_mode = false,
+    })
+    vim.cmd("colorscheme gruvbox")
+
+    -------------------
+    -- Indent Guides --
+    -------------------
+    local highlight = {
+        "RainbowRed",
+        "RainbowYellow",
+        "RainbowBlue",
+        "RainbowOrange",
+        "RainbowGreen",
+        "RainbowViolet",
+        "RainbowCyan",
+    }
+
+    local hooks = require "ibl.hooks"
+    -- create the highlight groups in the highlight setup hook, so they are reset
+    -- every time the colorscheme changes
+    hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+        vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+        vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+        vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+        vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+    end)
+
+    require("ibl").setup { indent = { 
+        highlight = highlight,
+        char = "│"
+    } }
+
+    -------------------------
+    -- Syntax Highlighting --
+    -------------------------
     require('nvim-treesitter.install').compilers = { "clang", "gcc" }
     require('nvim-treesitter.configs').setup {
-      -- A list of parser names, or "all"
-      ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl", "vimdoc" },
+        -- A list of parser names, or "all"
+        ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl", "vimdoc" },
 
-      -- Install parsers synchronously (only applied to `ensure_installed`)
-      sync_install = false,
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = false,
 
-      highlight = {
-        -- `false` will disable the whole extension
-        enable = true,
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
-      },
+        highlight = {
+            -- `false` will disable the whole extension
+            enable = true,
+            -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+            -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+            -- Using this option may slow down your editor, and you may see some duplicate highlights.
+            -- Instead of true it can also be a list of languages
+            additional_vim_regex_highlighting = false,
+        },
     }
     vim.keymap.set("n", "[c", function()
         require("treesitter-context").go_to_context()

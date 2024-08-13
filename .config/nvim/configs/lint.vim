@@ -88,11 +88,6 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 " ----------------------------------------------------------------------
 " Snippet support
 " ----------------------------------------------------------------------
-if has('python3')
-    let g:UltiSnipsExpandTrigger="<c-o>"
-    let g:UltiSnipsJumpForwardTrigger="<c-j>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-endif
 
 " ----------------------------------------------------------------------
 " Treesitter syntax highlighting
@@ -186,3 +181,78 @@ imap <silent> <C-j> <Plug>(doge-comment-jump-forward)
 imap <silent> <C-k> <Plug>(doge-comment-jump-backward)
 smap <silent> <C-j> <Plug>(doge-comment-jump-forward)
 smap <silent> <C-k> <Plug>(doge-comment-jump-backward)
+
+" -----------------------------------------------------------------------
+" Ultisnips
+" -----------------------------------------------------------------------
+if has('python3')
+    let g:UltiSnipsExpandTrigger="<c-o>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'allowlist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+endif
+
+" ----------------------------------------------------------------------
+" Omnisharp commands
+" -----------------------------------------------------------------------
+augroup omnisharp_commands
+    autocmd!
+    " Show type information automatically when the cursor stops moving.
+    " Note that the type is echoed to the Vim command line, and will overwrite
+    " any other messages in this space including e.g. ALE linting messages.
+    " autocmd CursorHold *.cs OmniSharpTypeLookup
+
+    " ----------------------------------------------------------------------
+    " Code Actions
+    " ----------------------------------------------------------------------
+    autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>fu <Plug>(omnisharp_find_usages)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>fi <Plug>(omnisharp_find_implementations)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>pd <Plug>(omnisharp_documentation)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>td <Plug>(omnisharp_documentation)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>fs <Plug>(omnisharp_find_symbol)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>fx <Plug>(omnisharp_fix_usings)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>ra <Plug>(omnisharp_code_actions)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>rr <Plug>(omnisharp_code_action_repeat)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>gc <Plug>(omnisharp_global_code_check)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>cf <Plug>(omnisharp_code_format)
+
+    autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+    autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+
+    " ----------------------------------------------------------------------
+    " Rename
+    " ----------------------------------------------------------------------
+    autocmd FileType cs nmap <silent> <buffer> <Leader>nm <Plug>(omnisharp_rename)
+
+    " ----------------------------------------------------------------------
+    " Server Actions
+    " ----------------------------------------------------------------------
+    autocmd FileType cs nmap <silent> <buffer> <F5> <Plug>(omnisharp_restart_server)
+    autocmd FileType cs nmap <silent> <buffer> <F6> <Plug>(omnisharp_start_server)
+    autocmd FileType cs nmap <silent> <buffer> <F7> <Plug>(omnisharp_stop_server)
+
+    " ----------------------------------------------------------------------
+    " Method Actions
+    " ----------------------------------------------------------------------
+    autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(ale_previous_wrap_error)
+    autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(ale_next_wrap_error)
+
+    autocmd FileType cs nmap <silent> <buffer> .. <Plug>(ale_next_wrap_warning)
+    autocmd FileType cs nmap <silent> <buffer> ,, <Plug>(ale_previous_wrap_warning)
+
+    " ----------------------------------------------------------------------
+    " C# Legacy Utils
+    " ----------------------------------------------------------------------
+    autocmd FileType cs nmap <silent> <buffer> <Leader>ad <Plug>(sharpenup_add_to_csproj)
+    autocmd FileType cs nmap <silent> <buffer> <Leader>ln <Plug>(sharpenup_rename_in_csproj)
+
+    " ----------------------------------------------------------------------
+    " ALE Diagnostics
+    " ----------------------------------------------------------------------
+    autocmd FileType cs nnoremap <Leader>sd :ALEDetail<CR>
+augroup END
