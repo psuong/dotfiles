@@ -13,10 +13,6 @@ Plug 'lambdalisue/glyph-palette.vim'                                        " Ad
 Plug 'karb94/neoscroll.nvim'                                                " Smooth scrolling in lua
 Plug 'itchyny/vim-cursorword'                                               " Underlines the current word and occurences
 Plug 'lukas-reineke/indent-blankline.nvim'                                  " Blankline indentation
-
-"------------------------------------------------------------------------------------------------
-" Tabs
-"------------------------------------------------------------------------------------------------
 Plug 'romgrk/barbar.nvim'                                                   " Tab supports
 
 "------------------------------------------------------------------------------------------------
@@ -31,7 +27,7 @@ Plug 'yuki-yano/fern-preview.vim'                                           " Pr
 "------------------------------------------------------------------------------------------------
 Plug 'itchyny/lightline.vim'                                              " Status bar for Vim
 Plug 'shinchu/lightline-gruvbox.vim'                                      " Lightline theme
-" Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
+Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
 
 "------------------------------------------------------------------------------------------------
 " Formats
@@ -44,20 +40,9 @@ Plug 'editorconfig/editorconfig-vim'                                        " Un
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }                " Default searcher
 
 "------------------------------------------------------------------------------------------------
-" Autocompletion
+" LSP Config
 "------------------------------------------------------------------------------------------------
-Plug 'vim-denops/denops.vim'
-Plug 'Shougo/ddc.vim'
-Plug 'Shougo/ddc-source-around'
-Plug 'matsui54/ddc-source-buffer'
-Plug 'tani/ddc-fuzzy'
-Plug 'Shougo/ddc-ui-native'
-Plug 'matsui54/denops-popup-preview.vim'
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
-
-"------------------------------------------------------------------------------------------------
-" Snippets
-"------------------------------------------------------------------------------------------------
+Plug 'neovim/nvim-lspconfig'
 
 "------------------------------------------------------------------------------------------------
 " Syntax Highlighting
@@ -65,6 +50,38 @@ Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Do
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
 Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
 Plug 'preservim/tagbar'                                                     " Table of contents for functions/variables
+
+"------------------------------------------------------------------------------------------------
+" Autocompletion
+"------------------------------------------------------------------------------------------------
+Plug 'vim-denops/denops.vim'
+Plug 'Shougo/ddc.vim'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
+
+"------------------------------------------------------------------------------------------------
+" UI
+"------------------------------------------------------------------------------------------------
+Plug 'Shougo/ddc-ui-native'
+Plug 'matsui54/denops-popup-preview.vim'
+
+"------------------------------------------------------------------------------------------------
+" Sources
+"------------------------------------------------------------------------------------------------
+Plug 'Shougo/ddc-source-lsp'
+Plug 'matsui54/ddc-source-buffer'
+Plug 'tani/ddc-fuzzy'
+
+"------------------------------------------------------------------------------------------------
+" Linting
+"------------------------------------------------------------------------------------------------
+Plug 'dense-analysis/ale'
+
+"------------------------------------------------------------------------------------------------
+" Snippets
+"------------------------------------------------------------------------------------------------
+Plug 'SirVer/ultisnips'
+Plug 'matsui54/ddc-ultisnips'
+Plug 'honza/vim-snippets'
 
 "------------------------------------------------------------------------------------------------
 " Rust Support
@@ -77,13 +94,9 @@ Plug 'saecki/crates.nvim', { 'tag': 'stable' }                              " Ma
 "------------------------------------------------------------------------------------------------
 " CSharp Support
 "------------------------------------------------------------------------------------------------
-" Plug 'OmniSharp/omnisharp-vim'                                              " Default C# intellisense/completion
-" Plug 'nickspoons/vim-sharpenup'                                             " C# status line options
-
-"------------------------------------------------------------------------------------------------
-" Markdown Support
-"------------------------------------------------------------------------------------------------
-" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+Plug 'psuong/omnisharp-vim'                                              " Default C# intellisense/completion
+Plug 'gabriel-gardner/ddc-omnisharp-vim'
+Plug 'nickspoons/vim-sharpenup'                                             " C# status line options
 
 call plug#end()
 

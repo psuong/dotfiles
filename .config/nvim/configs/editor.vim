@@ -134,10 +134,47 @@ set diffopt+=vertical
 set nolist
 set backspace=indent,eol,start
 
-" ----------------------------------------------------------------------
-" Lightline
-" ----------------------------------------------------------------------
+" --------------------------
+" Lightline + Status Line
+" --------------------------
 set laststatus=3
+
+let g:sharpenup_statusline_opts = {
+\   'TextLoading': ' O#: %s ... (%p / %P) ',
+\   'TextReady': ' O#: %s ✓ ',
+\   'TextDead': ' O#: ✖ ',
+\   'Highlight': 1,
+\   'HiLoading': 'SharpenUpLoading',
+\   'HiReady': 'SharpenUpReady',
+\   'HiDead': 'SharpenUpDead'
+\}
+
+let g:lightline = {
+\   'active': {
+\       'right': [['filetype'], ['sharpenup']],
+\       'left': [['mode'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok']]
+\   },
+\   'inactive': {
+\       'right': [['sharpenup']]
+\   },
+\   'component': {
+\       'sharpenup': sharpenup#statusline#Build()
+\   },
+\   'component_expand': {
+\       'linter_checking': 'lightline#ale#checking',
+\       'linter_infos': 'lightline#ale#infos',
+\       'linter_warnings': 'lightline#ale#warnings',
+\       'linter_errors': 'lightline#ale#errors',
+\       'linter_ok': 'lightline#ale#ok',
+\   },
+\   'component_type':  {
+\       'linter_checking': 'right',
+\       'linter_infos': 'right',
+\       'linter_warnings': 'warning',
+\       'linter_errors': 'error',
+\       'linter_ok': 'right',
+\   }
+\}
 
 lua <<EOF
     --------------------
@@ -315,24 +352,55 @@ smap <silent> <C-k> <Plug>(doge-comment-jump-backward)
 " ----------------------------------------------------------------------
 set completeopt=menuone,noinsert,noselect
 
+" -------------------------
+" Unset ultisnips from tab
+" -------------------------
+if has('python3')
+    let g:UltiSnipsExpandTrigger="<c-q>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+endif
+
 call ddc#custom#patch_global({
     \ 'ui': 'native',
-    \ 'sources': ['around', 'buffer'],
+    \ 'sources': [  'ultisnips', 'lsp', 'omnisharp-vim', 'buffer'],
     \ 'sourceOptions': {
     \   '_': {
     \       'matchers': ['matcher_fuzzy'],
     \       'sorters' : ['sorter_fuzzy'],
     \       'converters' : ['converter_fuzzy'],
     \   },
-    \   'around': {
-    \       'mark': 'AROUND',
-    \       'maxItems': 5,
+    \   'lsp': {
+    \       'mark': 'lsp',
+    \       'minAutoCompleteLength': 1,
+    \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \   },
     \   'buffer': {
     \       'mark': 'BUFFER',
-    \       'maxItems': 5,
+    \       'maxItems': 3,
+    \   },
+    \   'omnisharp-vim': {
+    \       'mark': 'OMNI',
+    \       'maxItems': 75,
+    \   },
+    \   'ultisnips': {
+    \       'mark': 'SNIP',
+    \       'maxItems': 5
     \   },
     \ },
+    \ 'sourceParams': {
+    \   'lsp': {
+    \       
+    \   },
+    \   'buffer': {
+    \       'requireSameFiletype': v:false,
+    \       'limitBytes': 5000000,
+    \       'fromAltBuf': v:true,
+    \       'forceCollect': v:true,
+    \   },
+    \   'enableResolveItem': v:true,
+    \   'enableAdditionalTextEdit': v:true,
+    \ }
 \ })
 
 inoremap <expr> <TAB>
