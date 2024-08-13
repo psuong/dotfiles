@@ -47,10 +47,6 @@ Plug 'preservim/tagbar'                                                     " Ta
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }                " Default searcher
 
 "------------------------------------------------------------------------------------------------
-" Git
-"------------------------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------------------------
 " Autocompletion
 "------------------------------------------------------------------------------------------------
 Plug 'prabirshrestha/async.vim'
@@ -63,6 +59,7 @@ Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Do
 " Snippets
 "------------------------------------------------------------------------------------------------
 Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
@@ -90,11 +87,6 @@ Plug 'saecki/crates.nvim', { 'tag': 'stable' }                              " Ma
 "------------------------------------------------------------------------------------------------
 Plug 'OmniSharp/omnisharp-vim'                                              " Default C# intellisense/completion
 Plug 'nickspoons/vim-sharpenup'                                             " C# status line options
-
-"------------------------------------------------------------------------------------------------
-" Markdown Support
-"------------------------------------------------------------------------------------------------
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 
 call plug#end()
 

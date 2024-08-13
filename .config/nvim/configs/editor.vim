@@ -204,13 +204,6 @@ augroup lightline_integration
   autocmd User OmniSharpStarted,OmniSharpReady,OmniSharpStopped call lightline#update()
 augroup END
 
-" ----------------------------------------------------------------------
-" Smoothscrolling
-" ----------------------------------------------------------------------
-
-" ----------------------------------------------------------------------
-" Treesitter
-" ----------------------------------------------------------------------
 lua <<EOF
     ----------------------
     -- Smooth Scrolling --

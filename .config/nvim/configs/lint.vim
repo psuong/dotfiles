@@ -79,38 +79,24 @@ set completeopt=menuone,noinsert,noselect
 " ----------------------------------------------------------------------
 " Tabbing support
 " ----------------------------------------------------------------------
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-imap <c-space> <Plug>(asyncomplete_force_refresh)
+let g:asyncomplete_auto_popup = 0
 
-" ----------------------------------------------------------------------
-" Snippet support
-" ----------------------------------------------------------------------
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+\   pumvisible() ? "\<C-n>" :
+\   <SID>check_back_space() ? "\<TAB>" :
+\   asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " ----------------------------------------------------------------------
 " Treesitter syntax highlighting
 " ----------------------------------------------------------------------
 lua <<EOF
-    require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
-    require'nvim-treesitter.configs'.setup {
-        -- A list of parser names, or "all"
-        ensure_installed = { "c", "c_sharp", "rust", "hlsl", "glsl", "yaml", "toml", "xml" },
-  
-        -- Install parsers synchronously (only applied to `ensure_installed`)
-        sync_install = false,
-  
-        highlight = {
-          -- `false` will disable the whole extension
-          enable = true,
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = false,
-        },
-    }
 EOF
 
 " ----------------------------------------------------------------------

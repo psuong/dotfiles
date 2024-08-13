@@ -10,10 +10,10 @@ let g:OmniSharp_selector_ui = 'clap'
 let g:OmniSharp_selector_findusages = 'clap'
 
 let g:OmniSharp_popup_options = {
-\ 'winblend': 0,
-\ 'winhl': 'Normal:Normal,FloatBorder:Special',
-\ 'border': 'single'
-\}
+\   'winblend': 0,
+\   'winhl': 'Normal:Normal,FloatBorder:Special',
+\   'border': 'single'
+\ }
 
 " ----------------------------------------------------------------------
 " OmniSharp Server Settings
