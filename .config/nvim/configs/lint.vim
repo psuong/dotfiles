@@ -91,7 +91,8 @@ inoremap <silent><expr> <TAB>
 \   <SID>check_back_space() ? "\<TAB>" :
 \   asyncomplete#force_refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 " ----------------------------------------------------------------------
 " Treesitter syntax highlighting
