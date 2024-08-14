@@ -176,6 +176,11 @@ let g:lightline = {
 \   }
 \}
 
+augroup lightline_integration
+    autocmd!
+    autocmd User OmniSharpStarted,OmniSharpReady,OmniSharpStopped call lightline#update()
+augroup END
+
 lua <<EOF
     --------------------
     -- Smooth scrolling
@@ -363,7 +368,7 @@ endif
 
 call ddc#custom#patch_global({
     \ 'ui': 'native',
-    \ 'sources': [  'ultisnips', 'lsp', 'omnisharp-vim', 'buffer'],
+    \ 'sources': [ 'ultisnips', 'lsp', 'omnisharp-vim'],
     \ 'sourceOptions': {
     \   '_': {
     \       'matchers': ['matcher_fuzzy'],
@@ -381,7 +386,7 @@ call ddc#custom#patch_global({
     \   },
     \   'omnisharp-vim': {
     \       'mark': 'OMNI',
-    \       'maxItems': 75,
+    \       'maxItems': 30,
     \   },
     \   'ultisnips': {
     \       'mark': 'SNIP',

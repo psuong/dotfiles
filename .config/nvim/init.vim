@@ -90,12 +90,13 @@ Plug 'Canop/nvim-bacon'                                                     " Ru
 Plug 'rust-lang/rust.vim'                                                   " Rust Utils
 Plug 'nvim-lua/plenary.nvim'                                                " async modules
 Plug 'saecki/crates.nvim', { 'tag': 'stable' }                              " Managing crates
+Plug 'mrcjkb/rustaceanvim'                                                  " Rust power tools
 
 "------------------------------------------------------------------------------------------------
 " CSharp Support
 "------------------------------------------------------------------------------------------------
-Plug 'psuong/omnisharp-vim'                                              " Default C# intellisense/completion
-Plug 'gabriel-gardner/ddc-omnisharp-vim'
+Plug 'psuong/omnisharp-vim'                                                 " Default C# intellisense/completion
+Plug 'gabriel-gardner/ddc-omnisharp-vim'                                    " Source configurations
 Plug 'nickspoons/vim-sharpenup'                                             " C# status line options
 
 call plug#end()
@@ -104,5 +105,5 @@ source ~/AppData/Local/nvim/configs/editor.vim
 source ~/AppData/Local/nvim/configs/lint.vim
 source ~/AppData/Local/nvim/configs/explorer.vim
 " source ~/.vim/ftplugin/shaders.vim
-" source ~/.vim/ftplugin/rust.vim
+" source ~/AppData/Local/nvim/ftplugin/rust.vim
 " source ~/.vim/ftplugin/uxml.vim
