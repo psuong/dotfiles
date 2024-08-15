@@ -376,7 +376,7 @@ call ddc#custom#patch_global({
     \       'converters' : ['converter_fuzzy'],
     \   },
     \   'lsp': {
-    \       'mark': 'lsp',
+    \       'mark': 'LSP',
     \       'minAutoCompleteLength': 1,
     \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \   },
@@ -386,6 +386,7 @@ call ddc#custom#patch_global({
     \   },
     \   'omnisharp-vim': {
     \       'mark': 'OMNI',
+    \       'minAutoCompleteLength': 1,
     \       'maxItems': 30,
     \   },
     \   'ultisnips': {
@@ -395,7 +396,8 @@ call ddc#custom#patch_global({
     \ },
     \ 'sourceParams': {
     \   'lsp': {
-    \       
+    \       'enableResolveItem': v:true,
+    \       'enableAdditionalTextEdit': v:true,
     \   },
     \   'buffer': {
     \       'requireSameFiletype': v:false,
@@ -421,3 +423,5 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Use ddc.
 call ddc#enable()
+" Enable pop up previews
+call popup_preview#enable()

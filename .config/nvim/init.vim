@@ -7,37 +7,37 @@ call plug#begin()
 "------------------------------------------------------------------------------------------------
 " Editor View
 "------------------------------------------------------------------------------------------------
-Plug 'ellisonleao/gruvbox.nvim'                                             " Main theme
-Plug 'nvim-tree/nvim-web-devicons'                                          " Web devicons
-Plug 'lambdalisue/glyph-palette.vim'                                        " Adds palette colors
-Plug 'karb94/neoscroll.nvim'                                                " Smooth scrolling in lua
-Plug 'itchyny/vim-cursorword'                                               " Underlines the current word and occurences
-Plug 'lukas-reineke/indent-blankline.nvim'                                  " Blankline indentation
-Plug 'romgrk/barbar.nvim'                                                   " Tab supports
+Plug 'ellisonleao/gruvbox.nvim'                                 " Main theme
+Plug 'nvim-tree/nvim-web-devicons'                              " Web devicons
+Plug 'lambdalisue/glyph-palette.vim'                            " Adds palette colors
+Plug 'karb94/neoscroll.nvim'                                    " Smooth scrolling in lua
+" Plug 'itchyny/vim-cursorword'                                   " Underlines the current word and occurences
+Plug 'lukas-reineke/indent-blankline.nvim'                      " Blankline indentation
+Plug 'romgrk/barbar.nvim'                                       " Tab supports
 
 "------------------------------------------------------------------------------------------------
 " Explorer
 "------------------------------------------------------------------------------------------------
-Plug 'lambdalisue/fern.vim'                                                 " Default file explorer
-Plug 'TheLeoP/fern-renderer-web-devicons.nvim'                              " Fern with dev icons
-Plug 'yuki-yano/fern-preview.vim'                                           " Previewing 
+Plug 'lambdalisue/fern.vim'                                     " Default file explorer
+Plug 'TheLeoP/fern-renderer-web-devicons.nvim'                  " Fern with dev icons
+Plug 'yuki-yano/fern-preview.vim'                               " Previewing 
 
 "------------------------------------------------------------------------------------------------
 " Statusbar
 "------------------------------------------------------------------------------------------------
-Plug 'itchyny/lightline.vim'                                              " Status bar for Vim
-Plug 'shinchu/lightline-gruvbox.vim'                                      " Lightline theme
-Plug 'maximbaz/lightline-ale'                                             " ALE diagnostic in vim-lsp
+Plug 'itchyny/lightline.vim'                                    " Status bar for Vim
+Plug 'shinchu/lightline-gruvbox.vim'                            " Lightline theme
+Plug 'maximbaz/lightline-ale'                                   " ALE diagnostic in vim-lsp
 
 "------------------------------------------------------------------------------------------------
 " Formats
 "------------------------------------------------------------------------------------------------
-Plug 'editorconfig/editorconfig-vim'                                        " Unified file formats
+Plug 'editorconfig/editorconfig-vim'                            " Unified file formats
 
 "------------------------------------------------------------------------------------------------
 " Search
 "------------------------------------------------------------------------------------------------
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }                " Default searcher
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }    " Default searcher
 
 "------------------------------------------------------------------------------------------------
 " LSP Config
@@ -47,16 +47,16 @@ Plug 'neovim/nvim-lspconfig'
 "------------------------------------------------------------------------------------------------
 " Syntax Highlighting
 "------------------------------------------------------------------------------------------------
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }               " Treesitter parsing
-Plug 'nvim-treesitter/nvim-treesitter-context'                              " Context showing
-Plug 'preservim/tagbar'                                                     " Table of contents for functions/variables
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }   " Treesitter parsing
+Plug 'nvim-treesitter/nvim-treesitter-context'                  " Context showing
+Plug 'preservim/tagbar'                                         " Table of contents for functions/variables
 
 "------------------------------------------------------------------------------------------------
 " Autocompletion
 "------------------------------------------------------------------------------------------------
 Plug 'vim-denops/denops.vim'
 Plug 'Shougo/ddc.vim'
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }                    " Doc generation
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }        " Doc generation
 
 "------------------------------------------------------------------------------------------------
 " UI
@@ -86,18 +86,18 @@ Plug 'honza/vim-snippets'
 "------------------------------------------------------------------------------------------------
 " Rust Support
 "------------------------------------------------------------------------------------------------
-Plug 'Canop/nvim-bacon'                                                     " Runs cargo check
-Plug 'rust-lang/rust.vim'                                                   " Rust Utils
-Plug 'nvim-lua/plenary.nvim'                                                " async modules
-Plug 'saecki/crates.nvim', { 'tag': 'stable' }                              " Managing crates
-Plug 'mrcjkb/rustaceanvim'                                                  " Rust power tools
+Plug 'Canop/nvim-bacon'                                         " Runs cargo check
+Plug 'rust-lang/rust.vim'                                       " Rust Utils
+Plug 'nvim-lua/plenary.nvim'                                    " async modules
+Plug 'saecki/crates.nvim', { 'tag': 'stable' }                  " Managing crates
+Plug 'mrcjkb/rustaceanvim'                                      " Rust power tools
 
 "------------------------------------------------------------------------------------------------
 " CSharp Support
 "------------------------------------------------------------------------------------------------
-Plug 'psuong/omnisharp-vim'                                                 " Default C# intellisense/completion
-Plug 'gabriel-gardner/ddc-omnisharp-vim'                                    " Source configurations
-Plug 'nickspoons/vim-sharpenup'                                             " C# status line options
+Plug 'psuong/omnisharp-vim'                                     " Default C# intellisense/completion
+Plug 'gabriel-gardner/ddc-omnisharp-vim'                        " Source configurations
+Plug 'nickspoons/vim-sharpenup'                                 " C# status line options
 
 call plug#end()
 
