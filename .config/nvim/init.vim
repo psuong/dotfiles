@@ -82,6 +82,10 @@ Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips'
 Plug 'matsui54/ddc-ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'uga-rosa/ddc-source-vsnip'
 
 "------------------------------------------------------------------------------------------------
 " Rust Support

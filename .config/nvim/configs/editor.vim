@@ -368,7 +368,7 @@ endif
 
 call ddc#custom#patch_global({
     \ 'ui': 'native',
-    \ 'sources': [ 'ultisnips', 'lsp', 'omnisharp-vim'],
+    \ 'sources': [ 'lsp', 'omnisharp-vim', 'ultisnips', 'vsnip' ],
     \ 'sourceOptions': {
     \   '_': {
     \       'matchers': ['matcher_fuzzy'],
@@ -393,6 +393,10 @@ call ddc#custom#patch_global({
     \       'mark': 'SNIP',
     \       'maxItems': 5
     \   },
+	\   'vsnip': {
+	\       'mark': 'SNIP',
+    \       'maxItems': 5,
+	\   },
     \ },
     \ 'sourceParams': {
     \   'lsp': {
@@ -425,3 +429,24 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 call ddc#enable()
 " Enable pop up previews
 call popup_preview#enable()
+
+" Expand
+imap <expr> <C-w>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-w>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-h>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-h>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
