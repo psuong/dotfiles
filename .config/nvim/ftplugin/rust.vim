@@ -41,6 +41,8 @@ lua <<EOF
                 local_map("n", "gI", vim.lsp.buf.implementation, "Goto implementation")
                 local_map("n", "go", vim.lsp.buf.type_definition, "Goto type definition")
                 local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol")
+                local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic")
+                local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic")
             end,
             default_settings = {
                 -- rust-analyzer language server configuration
