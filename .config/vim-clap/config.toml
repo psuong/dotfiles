@@ -61,7 +61,7 @@ max-file-size = 4194304
 
 [plugin.git]
 # Whether to enable this plugin.
-enable = true
+enable = false
 
 [plugin.linter]
 # Whether to enable this plugin.
@@ -146,7 +146,7 @@ share-input-history = false
 # Specify the syntax highlight engine for the provider preview.
 #
 # Possible values: `vim`, `sublime-syntax` and `tree-sitter`
-preview-highlight-engine = "vim"
+preview-highlight-engine = "tree-sitter"
 
 # Ignore configuration per project, with paths specified as
 # absolute path or relative to the home directory.
@@ -180,6 +180,7 @@ preview-highlight-engine = "vim"
 ignore-comments = false
 # Whether to include only results from files tracked by git, if in a git repository.
 git-tracked-only = false
+
 # Patterns for ignoring files based on their names.
 #
 # For instance, to exclude results from files whose names contain "test" for
@@ -189,7 +190,7 @@ git-tracked-only = false
 # [provider.provider-ignores.dumb_jump]
 # ignore-file-name-pattern = ["test"]
 # ```
-ignore-file-name-pattern = []
+ignore-file-name-pattern = ["meta"]
 # Patterns for ignoring files based on their paths.
 #
 # For instance, to exclude the results from the folder whose names contain `test`
