@@ -280,44 +280,6 @@ lua <<EOF
     vim.keymap.set("n", "[c", function()
         require("treesitter-context").go_to_context()
     end, { silent = true })
-
-    ------------------
-    --Ex Command UI --
-    ------------------
-    vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', {noremap = true})
-    local fineline = require('fine-cmdline')
-    local fn = fineline.fn
-      
-    fineline.setup({
-        cmdline = {
-            -- Prompt can influence the completion engine.
-            -- Change it to something that works for you
-            prompt = ': ',
-            -- Let the user handle the keybindings
-            enable_keymaps = true,
-            smart_history = true,
-        },
-        popup = {
-            buf_options = {
-                -- Setup a special file type if you need to
-                filetype = 'FineCmdlinePrompt'
-            },
-            position = {
-                row = '10%',
-                col = '50%',
-            },
-            size = {
-                width = '60%',
-            },
-            border = {
-                style = 'rounded',
-            },
-            win_options = {
-                winhighlight = 'Normal:Normal,FloatBorder:FloatBorder',
-            },
-        },
-        -- Use the default keymaps provided by the plugin
-    })
 EOF
 
 " ----------------------------------------------------------------------

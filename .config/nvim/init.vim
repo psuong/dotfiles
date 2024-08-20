@@ -63,8 +63,6 @@ Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }        " Doc generation
 Plug 'Shougo/ddc-ui-native'
 Plug 'matsui54/denops-popup-preview.vim'
 Plug 'stevearc/dressing.nvim'
-Plug 'MunifTanjim/nui.nvim'
-Plug 'VonHeikemen/fine-cmdline.nvim'
 
 "------------------------------------------------------------------------------------------------
 " Sources
