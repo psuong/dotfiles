@@ -11,7 +11,6 @@ Plug 'ellisonleao/gruvbox.nvim'                                 " Main theme
 Plug 'nvim-tree/nvim-web-devicons'                              " Web devicons
 Plug 'lambdalisue/glyph-palette.vim'                            " Adds palette colors
 Plug 'karb94/neoscroll.nvim'                                    " Smooth scrolling in lua
-" Plug 'itchyny/vim-cursorword'                                   " Underlines the current word and occurences
 Plug 'lukas-reineke/indent-blankline.nvim'                      " Blankline indentation
 Plug 'romgrk/barbar.nvim'                                       " Tab supports
 
@@ -64,6 +63,8 @@ Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }        " Doc generation
 Plug 'Shougo/ddc-ui-native'
 Plug 'matsui54/denops-popup-preview.vim'
 Plug 'stevearc/dressing.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'VonHeikemen/fine-cmdline.nvim'
 
 "------------------------------------------------------------------------------------------------
 " Sources
@@ -107,6 +108,3 @@ call plug#end()
 source ~/AppData/Local/nvim/configs/editor.vim
 source ~/AppData/Local/nvim/configs/lint.vim
 source ~/AppData/Local/nvim/configs/explorer.vim
-" source ~/.vim/ftplugin/shaders.vim
-" source ~/AppData/Local/nvim/ftplugin/rust.vim
-" source ~/.vim/ftplugin/uxml.vim

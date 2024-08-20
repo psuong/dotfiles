@@ -182,20 +182,19 @@ augroup lightline_integration
 augroup END
 
 lua <<EOF
-    --------------------
-    -- Smooth scrolling
-    --------------------
+    ----------------------
+    -- Smooth scrolling --
+    ----------------------
     require('neoscroll').setup()
 
-    -------------------
-    -- Glyphs
-    -------------------
+    ------------
+    -- Glyphs --
+    ------------
     require'nvim-web-devicons'.get_icons()
 
-    ------------------
-    -- Theme
-    ------------------
-    
+    -----------
+    -- Theme --
+    -----------
     vim.o.background = 'dark'
     vim.cmd([[colorscheme gruvbox]])
     
@@ -249,17 +248,17 @@ lua <<EOF
         vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
     end)
     
-    -----------------------
-    -- Indent guides
-    -----------------------
+    -------------------
+    -- Indent guides --
+    -------------------
     require("ibl").setup { indent = { 
         highlight = highlight,
         char = "│"
     } }
 
-    ----------------------------------
-    -- Treesitter/Syntax Highlighting
-    ----------------------------------
+    ------------------------------------
+    -- Treesitter/Syntax Highlighting --
+    ------------------------------------
     require('nvim-treesitter.install').compilers = { "clang", "gcc" }
     require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
@@ -268,25 +267,63 @@ lua <<EOF
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
 
-      highlight = {
-            -- `false` will disable the whole extension
-            enable = true,
-            -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-            -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-            -- Using this option may slow down your editor, and you may see some duplicate highlights.
-            -- Instead of true it can also be a list of languages
-            additional_vim_regex_highlighting = false,
+        highlight = {
+              -- `false` will disable the whole extension
+              enable = true,
+              -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+              -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+              -- Using this option may slow down your editor, and you may see some duplicate highlights.
+              -- Instead of true it can also be a list of languages
+              additional_vim_regex_highlighting = false,
         },
     }
     vim.keymap.set("n", "[c", function()
         require("treesitter-context").go_to_context()
     end, { silent = true })
+
+    ------------------
+    --Ex Command UI --
+    ------------------
+    vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', {noremap = true})
+    local fineline = require('fine-cmdline')
+    local fn = fineline.fn
+      
+    fineline.setup({
+        cmdline = {
+            -- Prompt can influence the completion engine.
+            -- Change it to something that works for you
+            prompt = ': ',
+            -- Let the user handle the keybindings
+            enable_keymaps = true,
+            smart_history = true,
+        },
+        popup = {
+            buf_options = {
+                -- Setup a special file type if you need to
+                filetype = 'FineCmdlinePrompt'
+            },
+            position = {
+                row = '10%',
+                col = '50%',
+            },
+            size = {
+                width = '60%',
+            },
+            border = {
+                style = 'rounded',
+            },
+            win_options = {
+                winhighlight = 'Normal:Normal,FloatBorder:FloatBorder',
+            },
+        },
+        -- Use the default keymaps provided by the plugin
+    })
 EOF
 
 " ----------------------------------------------------------------------
 " Terminal settings
 " ----------------------------------------------------------------------
-:tnoremap <C-/> <C-\><C-n>
+:tnoremap <A-w> <C-\><C-n>
 
 " ----------------------------------------------------------------------
 " Tagbar / Table of Contents
