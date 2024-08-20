@@ -31,12 +31,12 @@ function! s:init_fern() abort
     " Perform expand or collapse
     " ----------------------------------------------------------------
     nmap <buffer><expr>
-      \ <Plug>(fern-my-expand-or-collapse)
-      \ fern#smart#leaf(
-      \   "\<Plug>(fern-action-collapse)",
-      \   "\<Plug>(fern-action-expand)",
-      \   "\<Plug>(fern-action-collapse)",
-      \ )
+    \   <Plug>(fern-my-expand-or-collapse)
+    \   fern#smart#leaf(
+    \     "\<Plug>(fern-action-collapse)",
+    \     "\<Plug>(fern-action-expand)",
+    \     "\<Plug>(fern-action-collapse)",
+    \   )
     
     nmap <buffer><nowait> <enter> <Plug>(fern-my-expand-or-collapse)
     " ----------------------------------------------------------------
