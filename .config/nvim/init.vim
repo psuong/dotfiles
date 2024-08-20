@@ -63,6 +63,7 @@ Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }        " Doc generation
 "------------------------------------------------------------------------------------------------
 Plug 'Shougo/ddc-ui-native'
 Plug 'matsui54/denops-popup-preview.vim'
+Plug 'stevearc/dressing.nvim'
 
 "------------------------------------------------------------------------------------------------
 " Sources
@@ -89,7 +90,6 @@ Plug 'uga-rosa/ddc-source-vsnip'
 "------------------------------------------------------------------------------------------------
 " Rust Support
 "------------------------------------------------------------------------------------------------
-Plug 'Canop/nvim-bacon'                                         " Runs cargo check
 Plug 'rust-lang/rust.vim'                                       " Rust Utils
 Plug 'nvim-lua/plenary.nvim'                                    " async modules
 Plug 'saecki/crates.nvim', { 'tag': 'stable' }                  " Managing crates

@@ -4,16 +4,6 @@ lua <<EOF
     ---------------------
     require('crates').setup()
 
-    --------------------------------
-    -- Runs cargo check in the bg --
-    --------------------------------
-    require("bacon").setup({
-        quickfix  = {
-            enabled = true, -- true to populate the quickfix list with bacon errors and warnings
-            event_trigger = true, -- triggers the QuickFixCmdPost event after populating the quickfix list
-        }
-    })
-
     local capabilities = require("ddc_source_lsp").make_client_capabilities
     require("lspconfig").denols.setup({
         capabilities = capabilities,
@@ -32,23 +22,25 @@ lua <<EOF
         server = {
             on_attach = function(client, bufnr)
                 -- you can also put keymaps in here
-                local lsp_map = function(mode, keys, func, desc)
+                local local_map = function(mode, keys, func, desc)
                   vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
                 end
 
                 -- rust-lsp
-                lsp_map("n", "K", function() vim.cmd.RustLsp({ "hover", "actions" }) end, "Rust hover docs")
-                lsp_map("n", "J", function() vim.cmd.RustLsp("joinLines") end, "Rust join lines")
-                lsp_map("n", "<Leader>ca", function() vim.cmd.RustLsp("codeAction") end, "Rust Code action")
-                lsp_map("n", "<Leader>rue", function() vim.cmd.RustLsp("explainError") end, "Rust error explain")
-                lsp_map("n", "<Leader>rud", function() vim.cmd.RustLsp("openDocs") end, "Rust docs")
-                lsp_map("n", "<Leader>rum", function() vim.cmd.RustLsp("expandMacro") end, "Rust expand macro")
+                local_map("n", "K", function() vim.cmd.RustLsp({ "hover", "actions" }) end, "Rust hover docs")
+                local_map("n", "J", function() vim.cmd.RustLsp("joinLines") end, "Rust join lines")
+                local_map("n", "<Leader>ca", function() vim.cmd.RustLsp("codeAction") end, "Rust Code action")
+                local_map("n", "<Leader>rue", function() vim.cmd.RustLsp("explainError") end, "Rust error explain")
+                local_map("n", "<Leader>rud", function() vim.cmd.RustLsp("openDocs") end, "Rust docs")
+                local_map("n", "<Leader>rum", function() vim.cmd.RustLsp("expandMacro") end, "Rust expand macro")
 
                 -- copy from lsp_config
-                lsp_map("n", "gd", vim.lsp.buf.definition, "Goto definition")
-                lsp_map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
-                lsp_map("n", "gI", vim.lsp.buf.implementation, "Goto implementation")
-                lsp_map("n", "go", vim.lsp.buf.type_definition, "Goto type definition")
+                local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions")
+                local_map("n", "gd", vim.lsp.buf.definition, "Goto definition")
+                local_map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
+                local_map("n", "gI", vim.lsp.buf.implementation, "Goto implementation")
+                local_map("n", "go", vim.lsp.buf.type_definition, "Goto type definition")
+                local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol")
             end,
             default_settings = {
                 -- rust-analyzer language server configuration
@@ -57,3 +49,6 @@ lua <<EOF
         }
     }
 EOF
+
+" Map in plain old vim
+nmap <silent> <buffer> <Leader>cf :RustFmt<CR>
