@@ -36,6 +36,7 @@ Plug 'maximbaz/lightline-ale'                                   " ALE diagnostic
 " Search
 "------------------------------------------------------------------------------------------------
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }    " Default searcher
+Plug 'j-morano/buffer_manager.nvim'                             " Buffer list
 
 "------------------------------------------------------------------------------------------------
 " LSP Config
