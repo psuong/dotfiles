@@ -113,7 +113,7 @@ end
 -- Just the menu
 map({ 't', 'n' }, '<C-b>', bmui.toggle_quick_menu, opts)
 -- Open menu and search
-map({ 't', 'n' }, '<C-v>', function ()
+map({ 't', 'n' }, '<M-b>', function ()
     bmui.toggle_quick_menu()
     -- wait for the menu to open
     vim.defer_fn(function ()
