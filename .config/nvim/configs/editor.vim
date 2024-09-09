@@ -396,6 +396,21 @@ xmap        s   <Plug>(vsnip-select-text)
 nmap        S   <Plug>(vsnip-cut-text)
 xmap        S   <Plug>(vsnip-cut-text)
 
+lua <<EOF
+    ---------------------
+    -- Package Manager --
+    ---------------------
+    require('crates').setup()
+
+    ----------------
+    -- Lsp Config --
+    ----------------
+    local capabilities = require("ddc_source_lsp").make_client_capabilities()
+    require("lspconfig").denols.setup({
+        capabilities = capabilities,
+    })
+EOF
+
 call ddc#custom#patch_global({
     \ 'ui': 'native',
     \ 'sources': [ 'lsp', 'omnisharp-vim', 'ultisnips', 'vsnip' ],
