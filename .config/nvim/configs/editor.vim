@@ -405,10 +405,10 @@ lua <<EOF
     ----------------
     -- Lsp Config --
     ----------------
-    local capabilities = require("ddc_source_lsp").make_client_capabilities()
-    require("lspconfig").denols.setup({
-        capabilities = capabilities,
-    })
+    -- local capabilities = require("ddc_source_lsp").make_client_capabilities()
+    -- require("lspconfig").rust_analyzer.setup({
+    --     capabilities = capabilities,
+    -- })
 EOF
 
 call ddc#custom#patch_global({
