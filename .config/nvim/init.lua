@@ -23,12 +23,16 @@ Plug("preservim/tagbar");                                                   -- T
 ------------------------------------------------------------------------------------------------------------------
 Plug("karb94/neoscroll.nvim");                                              -- Smooth scrolling
 Plug("romgrk/barbar.nvim");                                                 -- Tab navigation
+
 ------------------------------------------------------------------------------------------------------------------
 -- Searchers
 ------------------------------------------------------------------------------------------------------------------
 Plug("liuchengxu/vim-clap", { ['do'] = vim.fn[":Clap install-binary"] })    -- Fuzzy finder
 Plug ("nvim-tree/nvim-web-devicons")
 Plug ("nvim-tree/nvim-tree.lua")
+
+-- LSP
+Plug("neovim/nvim-lspconfig");
 
 End();
 

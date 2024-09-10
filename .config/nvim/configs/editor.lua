@@ -1,18 +1,18 @@
 local cast = require("helpers.cast");
 
-vim.opt.autoread = true;                -- Automatically reload the buffer when changed outside of vim
-vim.opt.hidden = true;                  -- Allows you to switch the buffer without having to write/save it first
-vim.opt.swapfile = false;               -- Don't generate swap files
-vim.cmd("syntax manual");               -- Set the syntax manually for highlighting
+vim.opt.autoread = true;             -- Automatically reload the buffer when changed outside of vim
+vim.opt.hidden = true;               -- Allows you to switch the buffer without having to write/save it first
+vim.opt.swapfile = false;            -- Don't generate swap files
+vim.cmd("syntax manual");            -- Set the syntax manually for highlighting
 
-vim.cmd("filetype plugin indent on")    -- Detect the filetypes and allow indentation based on the file types
+vim.cmd("filetype plugin indent on") -- Detect the filetypes and allow indentation based on the file types
 -- Font Encoding
 vim.opt.encoding = "UTF-8";
 
 -- Visual Studio Like Settings
-vim.opt.expandtab = true;               -- Tabs are spaces
-vim.opt.tabstop = 4;                    -- # of spaces per tab
-vim.opt.shiftwidth = 4;                 -- Make it consistent with tab stop
+vim.opt.expandtab = true; -- Tabs are spaces
+vim.opt.tabstop = 4;      -- # of spaces per tab
+vim.opt.shiftwidth = 4;   -- Make it consistent with tab stop
 vim.opt.smartindent = true;
 vim.opt.signcolumn = "yes";
 vim.opt.title = true;
@@ -23,7 +23,7 @@ vim.opt.colorcolumn = "100";
 vim.opt.cursorline = true;
 vim.opt.showcmd = true;
 vim.opt.showmode = false;
-vim.opt.laststatus = 3;             -- Disable the status bar
+vim.opt.laststatus = 3; -- Disable the status bar
 
 vim.opt.termguicolors = cast.as_bool(vim.fn.has('termguicolors'));
 
@@ -199,8 +199,19 @@ vim.keymap.set("n", "k", "gk");
 vim.g.mapleader = ",";
 
 vim.keymap.set("n", "[c", function()
-    require("treesitter-context").go_to_context()
-end, { silent = true })
+    require("treesitter-context").go_to_context();
+end, { silent = true });
 
 -- Tagbar
-vim.api.nvim_set_keymap('n', '<S-o>', ':TagbarToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<S-o>', ':TagbarToggle<CR>', { noremap = true, silent = true });
+
+-- TODO: Move this to cs.lua instead
+-- TODO: Try to use vim-clap as the primary ui: https://github.com/goolord/nvim-clap-lsp
+-- TODO: Auto start when we we're in a cs file.
+local path_helper = require("helpers.path_helper");
+local omnisharp_bin = path_helper.expand_tilde("~/sources/omnisharp-win-x64/OmniSharp.exe");
+local pid = vim.fn.getpid();
+
+require('lspconfig').omnisharp.setup({
+    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
+})
