@@ -50,7 +50,11 @@ require("nvim-tree").setup({
 local function is_buffer(value)
     local buffer = vim.api.nvim_get_current_buf();
     local buffer_name = vim.api.nvim_buf_get_name(buffer);
-    return string.find(buffer_name, value);
+    if buffer_name ~= nil then
+        return string.find(buffer_name, value);
+    else
+        return false;
+    end
 end
 
 local function hide_cursor()
@@ -70,16 +74,16 @@ end
 vim.api.nvim_create_autocmd("BufEnter", {
     pattern = "NvimTree_*",
     callback = hide_cursor
-})
+});
 
 vim.api.nvim_create_autocmd("BufLeave", {
     pattern = "NvimTree_*",
     callback = restore_cursor
-})
+});
 
 vim.api.nvim_create_autocmd("CmdlineEnter", {
     callback = restore_cursor
-})
+});
 
 vim.api.nvim_create_autocmd("CmdlineLeave", {
     callback = function ()
@@ -89,12 +93,26 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
             restore_cursor();
         end
     end
-})
+});
 
 -----------------
 -- Keybindings --
 -----------------
-vim.api.nvim_set_keymap("n", "<C-p>", ":Clap files<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-g>", ":Clap grep<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-b>", ":Clap buffers<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+local noremap_silent = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<C-p>", ":Clap files<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<C-g>", ":Clap grep<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<C-b>", ":Clap buffers<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<CR>", noremap_silent);
+
+vim.api.nvim_set_keymap("n", "<A-.>", ":BufferNext<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-,>", ":BufferPrevious<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-1>", ":BufferGoto 1<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-2>", ":BufferGoto 2<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-3>", ":BufferGoto 3<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-4>", ":BufferGoto 4<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-5>", ":BufferGoto 5<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-6>", ":BufferGoto 6<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-7>", ":BufferGoto 7<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-8>", ":BufferGoto 8<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-9>", ":BufferGoto 9<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-0>", ":BufferLast<CR>", noremap_silent);

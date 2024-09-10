@@ -77,16 +77,6 @@ nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
 " Restore buffer
 nnoremap <silent>    <A-s-c> <Cmd>BufferRestore<CR>
 
-" Wipeout buffer
-"                          :BufferWipeout
-" Close commands
-"                          :BufferCloseAllButCurrent
-"                          :BufferCloseAllButVisible
-"                          :BufferCloseAllButPinned
-"                          :BufferCloseAllButCurrentOrPinned
-"                          :BufferCloseBuffersLeft
-"                          :BufferCloseBuffersRight
-
 " Magic buffer-picking mode
 nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
 nnoremap <silent> <C-p>    <Cmd>BufferPickDelete<CR>
