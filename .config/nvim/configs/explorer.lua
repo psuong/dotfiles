@@ -46,8 +46,39 @@ require("nvim-tree").setup({
     on_attach = my_on_attach
 })
 
-local buffer_nvim_tree = vim.api.nvim_create_augroup("NvimTree", { clear = true });
+-- Store the last buffer name
+_G.last_bufname = nil;
 
+local function hide_cursor()
+    vim.cmd("set guicursor+=a:Cursor/lCursor"); -- Hide the cursor
+    vim.cmd("hi Cursor blend=100");             -- Set the blend to 100, which is the bg
+end
+
+-- Create autocommands to manage cursor visibility in nvim-tree
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "NvimTree_*",
+    callback = hide_cursor
+})
+
+-- Function to restore the cursor
+local function restore_cursor()
+    -- Just picked Vim's default settings
+    vim.cmd('set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20');
+    vim.cmd('hi Cursor blend=0'); -- Set the blend to 0, which is the fg
+end
+
+vim.api.nvim_create_autocmd("BufLeave", {
+    pattern = "NvimTree_*",
+    callback = function ()
+        restore_cursor()
+    end
+})
+
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+    callback = function ()
+        restore_cursor()
+    end
+})
 
 -----------------
 -- Keybindings --
