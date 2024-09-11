@@ -2,7 +2,7 @@ local cast = require("helpers.cast");
 
 vim.opt.autoread = true;             -- Automatically reload the buffer when changed outside of vim
 vim.opt.hidden = true;               -- Allows you to switch the buffer without having to write/save it first
-vim.opt.swapfile = false;            -- Don't generate swap files
+vim.opt.swapfile = false;            -- Don"t generate swap files
 vim.cmd("syntax manual");            -- Set the syntax manually for highlighting
 
 vim.cmd("filetype plugin indent on") -- Detect the filetypes and allow indentation based on the file types
@@ -26,7 +26,7 @@ vim.opt.showmode = false;
 vim.opt.laststatus = 3; -- Disable the status bar
 vim.opt.completeopt = "menuone,noselect";
 
-vim.opt.termguicolors = cast.as_bool(vim.fn.has('termguicolors'));
+vim.opt.termguicolors = cast.as_bool(vim.fn.has("termguicolors"));
 
 vim.cmd("set guifont=UbuntuMono\\ Nerd\\ Font\\ Propo:h12")
 
@@ -39,18 +39,17 @@ vim.opt.backspace = { "indent", "eol", "start" }
 ----------------------
 -- Smooth scrolling --
 ----------------------
-require('neoscroll').setup()
+require("neoscroll").setup();
 
 ------------
 -- Glyphs --
 ------------
-require 'nvim-web-devicons'.get_icons()
+require("nvim-web-devicons").get_icons();
 
 -----------
 -- Theme --
 -----------
-vim.o.background = 'dark'
-vim.cmd([[colorscheme gruvbox]])
+vim.o.background = "dark";
 
 -- Default options:
 require("gruvbox").setup({
@@ -102,9 +101,9 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
     vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
 end)
 
--------------------
--- Indent guides --
--------------------
+-- -------------------
+-- -- Indent guides --
+-- -------------------
 require("ibl").setup { indent = {
     highlight = highlight,
     char = "│"
@@ -113,8 +112,8 @@ require("ibl").setup { indent = {
 ------------------------------------
 -- Treesitter/Syntax Highlighting --
 ------------------------------------
-require('nvim-treesitter.install').compilers = { "clang", "gcc" }
-require('nvim-treesitter.configs').setup {
+require("nvim-treesitter.install").compilers = { "clang", "gcc" }
+require("nvim-treesitter.configs").setup {
     -- A list of parser names, or "all"
     ensure_installed = {
         "c",
@@ -133,9 +132,9 @@ require('nvim-treesitter.configs').setup {
 
     highlight = {
         -- `false` will disable the whole extension
-        enable = false,
+        enable = true,
         -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+        -- Set this to `true` if you depend on "syntax" being enabled (like for indentation).
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
@@ -146,7 +145,7 @@ require('nvim-treesitter.configs').setup {
 -- Tagbar --
 ------------
 vim.g.tagbar_foldlevel = 3;
-vim.g.tagbar_iconchars = { '▸', '▾' };
+vim.g.tagbar_iconchars = { "▸", "▾" };
 vim.g.tagbar_show_tag_linenumbers = 1;
 vim.g.tagbar_scopestrs = {
     ["class"] = "\u{f0e8}",
@@ -171,7 +170,7 @@ vim.g.tagbar_scopestrs = {
 vim.g.tagbar_visbility_symbols = {
     public = "+",
     protected = "*",
-    private = '-'
+    private = "-"
 };
 
 -- Enable syntax for the tab bar buffer
@@ -179,16 +178,16 @@ local function enable_tagbar_syntax_coloring()
     -- Get the current buffer name
     local buffer_name = vim.api.nvim_buf_get_name(0);
 
-    if string.find(buffer_name, 'Tagbar') then
+    if string.find(buffer_name, "Tagbar") then
         vim.cmd("syntax enable");
     end
 end
 
-local buffer_enter_group = vim.api.nvim_create_augroup('BufferEnter', { clear = true });
+local buffer_enter_group = vim.api.nvim_create_augroup("BufferEnter", { clear = true });
 
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd("BufEnter", {
     group = buffer_enter_group,
-    pattern = '*',
+    pattern = "*",
     callback = enable_tagbar_syntax_coloring,
 });
 
@@ -204,9 +203,36 @@ vim.keymap.set("n", "[c", function()
 end, { silent = true });
 
 -- Tagbar
-vim.api.nvim_set_keymap('n', '<S-o>', ':TagbarToggle<CR>', { noremap = true, silent = true });
+vim.api.nvim_set_keymap("n", "<S-o>", ":TagbarToggle<CR>", { noremap = true, silent = true });
 
--- For vim doge I'm using default mappings, nothing special
+-- For vim doge I"m using default mappings, nothing special
+
+-- Consider this for code formatting, hopefully it respects
+-- https://github.com/lukas-reineke/lsp-format.nvim
+vim.cmd([[
+" NOTE: You can use other key to expand snippet.
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? "<Plug>(vsnip-expand)"         : "<C-j>"
+smap <expr> <C-j>   vsnip#expandable()  ? "<Plug>(vsnip-expand)"         : "<C-j>"
+
+" Expand or jump
+imap <expr> <C-k>   vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
+smap <expr> <C-k>   vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
+
+" Jump forward or backward
+imap <expr> <C-j>   vsnip#jumpable(1)   ? "<Plug>(vsnip-jump-next)"      : "<Tab>"
+smap <expr> <C-j>   vsnip#jumpable(1)   ? "<Plug>(vsnip-jump-next)"      : "<Tab>"
+imap <expr> <C-k> vsnip#jumpable(-1)  ? "<Plug>(vsnip-jump-prev)"      : "<S-Tab>"
+smap <expr> <C-k> vsnip#jumpable(-1)  ? "<Plug>(vsnip-jump-prev)"      : "<S-Tab>"
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+]]);
 
 local has_words_before = function()
     unpack = unpack or table.unpack
@@ -217,33 +243,6 @@ end
 local feedkey = function(key, mode)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
-
--- Consider this for code formatting, hopefully it respects
--- https://github.com/lukas-reineke/lsp-format.nvim
-vim.cmd([[
-" NOTE: You can use other key to expand snippet.
-
-" Expand
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
-" Expand or jump
-imap <expr> <C-k>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-k>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" Jump forward or backward
-imap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
-]]);
 
 local cmp = require("cmp");
 cmp.setup({
@@ -267,7 +266,7 @@ cmp.setup({
             elseif has_words_before() then
                 cmp.complete()
             else
-                fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+                fallback() -- The fallback function sends a already mapped key. In this case, it"s probably `<Tab>`.
             end
         end, { "i", "s" }),
 
@@ -278,27 +277,46 @@ cmp.setup({
                 feedkey("<Plug>(vsnip-jump-prev)", "")
             end
         end, { "i", "s" }),
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select,
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.abort(),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select,
     }),
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = 'nvim_lsp_signature_help' },
+        { name = "nvim_lsp_signature_help" },
         { name = "vsnip" }
     })
 });
 
 local path_helper = require("helpers.path_helper");
+local capabilities = require("cmp_nvim_lsp").default_capabilities();
+
+require("lspconfig").rust_analyzer.setup({
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+        -- you can also put keymaps in here
+        local local_map = function(mode, keys, func, desc)
+            vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
+        end
+
+        -- copy from lsp_config
+        local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
+        local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
+        local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
+        local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
+        local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
+        local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
+        local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
+        local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
+    end,
+})
 
 local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
 local pid = vim.fn.getpid();
 
--- Set up lspconfig.
-local capabilities = require("cmp_nvim_lsp").default_capabilities();
-require("lspconfig")["omnisharp"].setup({
+require("lspconfig").omnisharp.setup({
     capabilities = capabilities,
     cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
     on_attach = function(client, bufnr)
@@ -308,13 +326,13 @@ require("lspconfig")["omnisharp"].setup({
         end
 
         -- copy from lsp_config
-        local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions")
-        local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition")
-        local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration")
-        local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation")
-        local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition")
-        local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol")
-        local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic")
-        local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic")
+        local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
+        local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
+        local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
+        local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
+        local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
+        local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
+        local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
+        local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
     end,
 });

@@ -43,6 +43,9 @@ Plug("rafamadriz/friendly-snippets");
 Plug("hrsh7th/cmp-vsnip");
 Plug("hrsh7th/vim-vsnip");
 Plug("hrsh7th/cmp-nvim-lsp-signature-help");
+Plug("RishabhRD/popfix");
+Plug("RishabhRD/nvim-lsputils");
+-- Plug("goolord/nvim-clap-lsp");
 
 End();
 
