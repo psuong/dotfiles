@@ -219,7 +219,7 @@ local feedkey = function(key, mode)
 end
 
 -- Consider this for code formatting, hopefully it respects
--- https://github.com/lukas-reineke/lsp-format.nvim 
+-- https://github.com/lukas-reineke/lsp-format.nvim
 vim.cmd([[
 " NOTE: You can use other key to expand snippet.
 
@@ -256,7 +256,7 @@ cmp.setup({
 
     },
     completion = {
-        automcompletion = false,
+        autocompletion = false,
     },
     mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -282,7 +282,7 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select,
     }),
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
@@ -300,5 +300,21 @@ local pid = vim.fn.getpid();
 local capabilities = require("cmp_nvim_lsp").default_capabilities();
 require("lspconfig")["omnisharp"].setup({
     capabilities = capabilities,
-    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) }
+    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
+    on_attach = function(client, bufnr)
+        -- you can also put keymaps in here
+        local local_map = function(mode, keys, func, desc)
+            vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
+        end
+
+        -- copy from lsp_config
+        local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions")
+        local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition")
+        local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration")
+        local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation")
+        local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition")
+        local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol")
+        local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic")
+        local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic")
+    end,
 });
