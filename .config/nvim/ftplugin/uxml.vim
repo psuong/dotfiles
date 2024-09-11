@@ -1,1 +1,0 @@
-au! BufRead,BufNewFile *.uxml setfiletype xml
