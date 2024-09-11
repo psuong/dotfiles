@@ -6,6 +6,7 @@ vim.g.clap_plugin_experimental = true;
 vim.g.clap_layout = {
     relative = "editor"
 };
+vim.g.clap_theme = "gruvbox";
 
 -- Nvim Tree
 -- disable netrw at the very start of your init.lua
@@ -16,17 +17,18 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 local function my_on_attach(bufnr)
-    local api = require "nvim-tree.api"
+    local api = require("nvim-tree.api");
 
     local function opts(desc)
-        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true };
     end
 
     -- default mappings
-    api.config.mappings.default_on_attach(bufnr)
+    api.config.mappings.default_on_attach(bufnr);
 
     -- custom mappings
-    vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
+    vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'));
+    vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'));
 end
 
 require("nvim-tree").setup({
@@ -86,7 +88,7 @@ vim.api.nvim_create_autocmd("CmdlineEnter", {
 });
 
 vim.api.nvim_create_autocmd("CmdlineLeave", {
-    callback = function ()
+    callback = function()
         if is_buffer("NvimTree") then
             hide_cursor();
         else

@@ -27,13 +27,24 @@ Plug("romgrk/barbar.nvim");                                                 -- T
 ------------------------------------------------------------------------------------------------------------------
 -- Searchers
 ------------------------------------------------------------------------------------------------------------------
-Plug("liuchengxu/vim-clap", { ['do'] = vim.fn[":Clap install-binary"] })    -- Fuzzy finder
-Plug ("nvim-tree/nvim-web-devicons")
-Plug ("nvim-tree/nvim-tree.lua")
+Plug("liuchengxu/vim-clap", { ["do"] = vim.fn[":Clap install-binary"] })    -- Fuzzy finder
+Plug("goolord/vim-clap-gruvbox");
+Plug("nvim-tree/nvim-web-devicons");
+Plug("nvim-tree/nvim-tree.lua");
 
--- LSP
-Plug("neovim/nvim-lspconfig");
+------------------------------------------------------------------------------------------------------------------
+-- Autocomplete
+------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------
+-- UI
+------------------------------------------------------------------------------------------------------------------
+Plug("kkoomen/vim-doge", { ["do"] = vim.fn["doge#install"] });
+
+------------------------------------------------------------------------------------------------------------------
+-- Sources
+------------------------------------------------------------------------------------------------------------------
+ 
 End();
 
 -- Source configuration
@@ -41,4 +52,3 @@ local path_helper = require("helpers.path_helper");
 
 dofile(path_helper.expand_tilde("~/AppData/Local/nvim/configs/editor.lua"));
 dofile(path_helper.expand_tilde("~/AppData/Local/nvim/configs/explorer.lua"));
--- vim.cmd(string.format("source %s", path_helper.expand_tilde("~/AppData/Local/nvim/configs/tree.vim")));

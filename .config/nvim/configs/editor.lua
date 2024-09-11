@@ -132,7 +132,7 @@ require('nvim-treesitter.configs').setup {
 
     highlight = {
         -- `false` will disable the whole extension
-        enable = true,
+        enable = false,
         -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
         -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -205,13 +205,4 @@ end, { silent = true });
 -- Tagbar
 vim.api.nvim_set_keymap('n', '<S-o>', ':TagbarToggle<CR>', { noremap = true, silent = true });
 
--- TODO: Move this to cs.lua instead
--- TODO: Try to use vim-clap as the primary ui: https://github.com/goolord/nvim-clap-lsp
--- TODO: Auto start when we we're in a cs file.
-local path_helper = require("helpers.path_helper");
-local omnisharp_bin = path_helper.expand_tilde("~/sources/omnisharp-win-x64/OmniSharp.exe");
-local pid = vim.fn.getpid();
-
-require('lspconfig').omnisharp.setup({
-    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
-})
+-- For vim doge I'm using default mappings, nothing special
