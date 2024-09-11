@@ -39,6 +39,7 @@ Plug("neovim/nvim-lspconfig");
 Plug("hrsh7th/nvim-cmp");
 Plug("hrsh7th/cmp-nvim-lsp");
 Plug("kkoomen/vim-doge", { ["do"] = vim.fn["doge#install"] });
+Plug("rafamadriz/friendly-snippets");
 Plug("hrsh7th/cmp-vsnip");
 Plug("hrsh7th/vim-vsnip");
 Plug("hrsh7th/cmp-nvim-lsp-signature-help");
