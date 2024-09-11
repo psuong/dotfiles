@@ -24,6 +24,7 @@ vim.opt.cursorline = true;
 vim.opt.showcmd = true;
 vim.opt.showmode = false;
 vim.opt.laststatus = 3; -- Disable the status bar
+vim.opt.completeopt = "menuone,noselect";
 
 vim.opt.termguicolors = cast.as_bool(vim.fn.has('termguicolors'));
 
@@ -206,3 +207,73 @@ end, { silent = true });
 vim.api.nvim_set_keymap('n', '<S-o>', ':TagbarToggle<CR>', { noremap = true, silent = true });
 
 -- For vim doge I'm using default mappings, nothing special
+
+local has_words_before = function()
+    unpack = unpack or table.unpack
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local feedkey = function(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
+local cmp = require("cmp");
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body);
+        end,
+    },
+    window = {
+
+    },
+    completion = {
+        automcompletion = false,
+    },
+    mapping = cmp.mapping.preset.insert({
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif vim.fn["vsnip#available"](1) == 1 then
+                feedkey("<Plug>(vsnip-expand-or-jump)", "")
+            elseif has_words_before() then
+                cmp.complete()
+            else
+                fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+            end
+        end, { "i", "s" }),
+
+        ["<S-Tab>"] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+                feedkey("<Plug>(vsnip-jump-prev)", "")
+            end
+        end, { "i", "s" }),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select
+    }),
+    sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = 'nvim_lsp_signature_help' },
+        { name = "vsnip" }
+    })
+});
+
+local path_helper = require("helpers.path_helper");
+
+local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
+local pid = vim.fn.getpid();
+
+-- Set up lspconfig.
+local capabilities = require("cmp_nvim_lsp").default_capabilities();
+require("lspconfig")["omnisharp"].setup({
+    capabilities = capabilities,
+    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) }
+});
+
+print(vim.loop.cwd());
