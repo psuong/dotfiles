@@ -36,15 +36,22 @@ Plug("nvim-tree/nvim-tree.lua");
 -- Autocomplete
 ------------------------------------------------------------------------------------------------------------------
 Plug("neovim/nvim-lspconfig");
-Plug("hrsh7th/nvim-cmp");
-Plug("hrsh7th/cmp-nvim-lsp");
-Plug("kkoomen/vim-doge", { ["do"] = vim.fn["doge#install"] });
+Plug("vim-denops/denops.vim");
+Plug("Shougo/ddc.vim");
+Plug("Shougo/ddc-ui-native");
+Plug("Shougo/ddc-source-lsp");
+Plug("tani/ddc-fuzzy");
+-- Plug("hrsh7th/nvim-cmp");
+-- Plug("hrsh7th/cmp-nvim-lsp");
+-- Plug("kkoomen/vim-doge", { ["do"] = vim.fn["doge#install"] });
 Plug("rafamadriz/friendly-snippets");
-Plug("hrsh7th/cmp-vsnip");
 Plug("hrsh7th/vim-vsnip");
-Plug("hrsh7th/cmp-nvim-lsp-signature-help");
-Plug("RishabhRD/popfix");
-Plug("RishabhRD/nvim-lsputils");
+Plug("uga-rosa/ddc-source-vsnip");
+Plug("matsui54/denops-popup-preview.vim");
+-- Plug("hrsh7th/cmp-vsnip");
+-- Plug("hrsh7th/cmp-nvim-lsp-signature-help");
+-- Plug("RishabhRD/popfix");
+-- Plug("RishabhRD/nvim-lsputils");
 -- Plug("goolord/nvim-clap-lsp");
 
 End();

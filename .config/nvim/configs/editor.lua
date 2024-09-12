@@ -234,65 +234,110 @@ nmap        S   <Plug>(vsnip-cut-text)
 xmap        S   <Plug>(vsnip-cut-text)
 ]]);
 
-local has_words_before = function()
-    unpack = unpack or table.unpack
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
+-- local has_words_before = function()
+--     unpack = unpack or table.unpack
+--     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+--     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+-- end
 
-local feedkey = function(key, mode)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
+-- local feedkey = function(key, mode)
+--     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+-- end
 
-local cmp = require("cmp");
-cmp.setup({
-    snippet = {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body);
-        end,
-    },
-    window = {
+-- local cmp = require("cmp");
+-- cmp.setup({
+--     snippet = {
+--         expand = function(args)
+--             vim.fn["vsnip#anonymous"](args.body);
+--         end,
+--     },
+--     window = {
 
-    },
-    completion = {
-        autocompletion = false,
-    },
-    mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif vim.fn["vsnip#available"](1) == 1 then
-                feedkey("<Plug>(vsnip-expand-or-jump)", "")
-            elseif has_words_before() then
-                cmp.complete()
-            else
-                fallback() -- The fallback function sends a already mapped key. In this case, it"s probably `<Tab>`.
-            end
-        end, { "i", "s" }),
+--     },
+--     completion = {
+--         autocompletion = false,
+--     },
+--     mapping = cmp.mapping.preset.insert({
+--         ["<Tab>"] = cmp.mapping(function(fallback)
+--             if cmp.visible() then
+--                 cmp.select_next_item()
+--             elseif vim.fn["vsnip#available"](1) == 1 then
+--                 feedkey("<Plug>(vsnip-expand-or-jump)", "")
+--             elseif has_words_before() then
+--                 cmp.complete()
+--             else
+--                 fallback() -- The fallback function sends a already mapped key. In this case, it"s probably `<Tab>`.
+--             end
+--         end, { "i", "s" }),
 
-        ["<S-Tab>"] = cmp.mapping(function()
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-                feedkey("<Plug>(vsnip-jump-prev)", "")
-            end
-        end, { "i", "s" }),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select,
-    }),
-    sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "nvim_lsp_signature_help" },
-        { name = "vsnip" }
-    })
-});
+--         ["<S-Tab>"] = cmp.mapping(function()
+--             if cmp.visible() then
+--                 cmp.select_prev_item()
+--             elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+--                 feedkey("<Plug>(vsnip-jump-prev)", "")
+--             end
+--         end, { "i", "s" }),
+--         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+--         ["<C-f>"] = cmp.mapping.scroll_docs(4),
+--         ["<C-Space>"] = cmp.mapping.complete(),
+--         ["<C-e>"] = cmp.mapping.abort(),
+--         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select,
+--     }),
+--     sources = cmp.config.sources({
+--         { name = "nvim_lsp" },
+--         { name = "nvim_lsp_signature_help" },
+--         { name = "vsnip" }
+--     })
+-- });
 
-local path_helper = require("helpers.path_helper");
-local capabilities = require("cmp_nvim_lsp").default_capabilities();
+-- local path_helper = require("helpers.path_helper");
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities();
 
+-- require("lspconfig").rust_analyzer.setup({
+--     capabilities = capabilities,
+--     on_attach = function(client, bufnr)
+--         -- you can also put keymaps in here
+--         local local_map = function(mode, keys, func, desc)
+--             vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
+--         end
+
+--         -- copy from lsp_config
+--         local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
+--         local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
+--         local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
+--         local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
+--         local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
+--         local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
+--         local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
+--         local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
+--     end,
+-- })
+
+-- local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
+-- local pid = vim.fn.getpid();
+
+-- require("lspconfig").omnisharp.setup({
+--     capabilities = capabilities,
+--     cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
+--     on_attach = function(client, bufnr)
+--         -- you can also put keymaps in here
+--         local local_map = function(mode, keys, func, desc)
+--             vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
+--         end
+
+--         -- copy from lsp_config
+--         local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
+--         local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
+--         local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
+--         local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
+--         local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
+--         local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
+--         local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
+--         local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
+--     end,
+-- });
+
+local capabilities = require("ddc_source_lsp").make_client_capabilities();
 require("lspconfig").rust_analyzer.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
@@ -313,26 +358,56 @@ require("lspconfig").rust_analyzer.setup({
     end,
 })
 
-local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
-local pid = vim.fn.getpid();
+vim.cmd([[
+call ddc#custom#patch_global({
+    \ 'ui': 'native',
+    \ 'sources': [ 'lsp', 'vsnip' ],
+    \ 'sourceOptions': {
+    \   '_': {
+    \       'matchers': ['matcher_fuzzy'],
+    \       'sorters' : ['sorter_fuzzy'],
+    \       'converters' : ['converter_fuzzy'],
+    \   },
+    \   'lsp': {
+    \       'mark': 'LSP',
+    \       'minAutoCompleteLength': 1,
+    \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+    \   },
+    \   'buffer': {
+    \       'mark': 'BUFFER',
+    \       'maxItems': 3,
+    \   },
+	\   'vsnip': {
+	\       'mark': 'SNIP',
+    \       'maxItems': 5,
+	\   },
+    \ },
+    \ 'sourceParams': {
+    \   'lsp': {
+    \       'enableResolveItem': v:true,
+    \       'enableAdditionalTextEdit': v:true,
+    \       'snippetEngine': denops#callback#register({
+    \           body -> vsnip#anonymous(body)
+    \       }),
+    \   },
+    \   'enableResolveItem': v:true,
+    \   'enableAdditionalTextEdit': v:true,
+    \ }
+\ })
 
-require("lspconfig").omnisharp.setup({
-    capabilities = capabilities,
-    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
-    on_attach = function(client, bufnr)
-        -- you can also put keymaps in here
-        local local_map = function(mode, keys, func, desc)
-            vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
-        end
+inoremap <expr> <TAB>
+    \ pumvisible() ? '<C-n>' :
+    \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+    \ '<TAB>' : ddc#map#manual_complete()
 
-        -- copy from lsp_config
-        local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
-        local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
-        local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
-        local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
-        local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
-        local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
-        local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
-        local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
-    end,
-});
+" <S-TAB>: completion back.
+inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+
+" Press enter to confirm the selection
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+
+" Use ddc.
+call ddc#enable()
+" Enable pop up previews
+call popup_preview#enable()
+]])
