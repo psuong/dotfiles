@@ -234,127 +234,42 @@ nmap        S   <Plug>(vsnip-cut-text)
 xmap        S   <Plug>(vsnip-cut-text)
 ]]);
 
--- local has_words_before = function()
---     unpack = unpack or table.unpack
---     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
---     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
--- end
+-- local LspUI = require("LspUI");
+-- LspUI.setup();
 
--- local feedkey = function(key, mode)
---     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
--- end
+local function common_keybindings(client, bufnr)
+    local local_map = function(mode, keys, func, desc)
+        vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
+    end
 
--- local cmp = require("cmp");
--- cmp.setup({
---     snippet = {
---         expand = function(args)
---             vim.fn["vsnip#anonymous"](args.body);
---         end,
---     },
---     window = {
-
---     },
---     completion = {
---         autocompletion = false,
---     },
---     mapping = cmp.mapping.preset.insert({
---         ["<Tab>"] = cmp.mapping(function(fallback)
---             if cmp.visible() then
---                 cmp.select_next_item()
---             elseif vim.fn["vsnip#available"](1) == 1 then
---                 feedkey("<Plug>(vsnip-expand-or-jump)", "")
---             elseif has_words_before() then
---                 cmp.complete()
---             else
---                 fallback() -- The fallback function sends a already mapped key. In this case, it"s probably `<Tab>`.
---             end
---         end, { "i", "s" }),
-
---         ["<S-Tab>"] = cmp.mapping(function()
---             if cmp.visible() then
---                 cmp.select_prev_item()
---             elseif vim.fn["vsnip#jumpable"](-1) == 1 then
---                 feedkey("<Plug>(vsnip-jump-prev)", "")
---             end
---         end, { "i", "s" }),
---         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
---         ["<C-f>"] = cmp.mapping.scroll_docs(4),
---         ["<C-Space>"] = cmp.mapping.complete(),
---         ["<C-e>"] = cmp.mapping.abort(),
---         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select,
---     }),
---     sources = cmp.config.sources({
---         { name = "nvim_lsp" },
---         { name = "nvim_lsp_signature_help" },
---         { name = "vsnip" }
---     })
--- });
-
--- local path_helper = require("helpers.path_helper");
--- local capabilities = require("cmp_nvim_lsp").default_capabilities();
-
--- require("lspconfig").rust_analyzer.setup({
---     capabilities = capabilities,
---     on_attach = function(client, bufnr)
---         -- you can also put keymaps in here
---         local local_map = function(mode, keys, func, desc)
---             vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
---         end
-
---         -- copy from lsp_config
---         local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
---         local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
---         local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
---         local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
---         local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
---         local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
---         local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
---         local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
---     end,
--- })
-
--- local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
--- local pid = vim.fn.getpid();
-
--- require("lspconfig").omnisharp.setup({
---     capabilities = capabilities,
---     cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
---     on_attach = function(client, bufnr)
---         -- you can also put keymaps in here
---         local local_map = function(mode, keys, func, desc)
---             vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
---         end
-
---         -- copy from lsp_config
---         local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
---         local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
---         local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
---         local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
---         local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
---         local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
---         local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
---         local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
---     end,
--- });
+    local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
+    local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
+    local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
+    local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
+    local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
+    local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
+    local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
+    local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
+end
 
 local capabilities = require("ddc_source_lsp").make_client_capabilities();
+
+local path_helper = require("helpers.path_helper");
+local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
+local pid = vim.fn.getpid();
+
+require("lspconfig").omnisharp.setup({
+    capabilities = capabilities,
+    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
+    on_attach = function(client, bufnr)
+        common_keybindings(client, bufnr);
+    end,
+});
+
 require("lspconfig").rust_analyzer.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
-        -- you can also put keymaps in here
-        local local_map = function(mode, keys, func, desc)
-            vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
-        end
-
-        -- copy from lsp_config
-        local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
-        local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
-        local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
-        local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
-        local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
-        local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
-        local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
-        local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
+        common_keybindings(client, bufnr);
     end,
 })
 
@@ -410,4 +325,6 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 call ddc#enable()
 " Enable pop up previews
 call popup_preview#enable()
+" Enable signatures for overloads with denops
+call signature_help#enable()
 ]])
