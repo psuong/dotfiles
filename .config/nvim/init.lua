@@ -46,8 +46,7 @@ Plug("hrsh7th/vim-vsnip");
 Plug("uga-rosa/ddc-source-vsnip");
 Plug("matsui54/denops-popup-preview.vim");
 Plug("matsui54/denops-signature_help");
-
-Plug("jinzhongjia/LspUI.nvim");
+Plug("Hoffs/omnisharp-extended-lsp.nvim")
 
 End();
 

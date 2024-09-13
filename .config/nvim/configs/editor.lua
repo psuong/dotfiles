@@ -234,19 +234,18 @@ nmap        S   <Plug>(vsnip-cut-text)
 xmap        S   <Plug>(vsnip-cut-text)
 ]]);
 
--- local LspUI = require("LspUI");
--- LspUI.setup();
+local function toggle_inlay_hint()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled());
+end
+
+local local_map = function(mode, keys, func, desc)
+    vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
+end
 
 local function common_keybindings(client, bufnr)
-    local local_map = function(mode, keys, func, desc)
-        vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
-    end
-
+    local_map("n", "<Leader>ti", toggle_inlay_hint, "Toggle inlay hints");
     local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
-    local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
     local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
-    local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
-    local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
     local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
     local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
     local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
@@ -262,6 +261,10 @@ require("lspconfig").omnisharp.setup({
     capabilities = capabilities,
     cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
     on_attach = function(client, bufnr)
+        local nnoremap = { noremap = true, silent = true };
+        local omnisharp_extended = require("omnisharp_extended");
+        vim.api.nvim_set_keymap("n", "<Leader>gd", omnisharp_extended.lsp_definition, nnoremap);
+        vim.api.nvim_set_keymap("n", "<Leader>go", omnisharp_extended.lsp_type_definition, nnoremap);
         common_keybindings(client, bufnr);
     end,
 });
@@ -269,6 +272,10 @@ require("lspconfig").omnisharp.setup({
 require("lspconfig").rust_analyzer.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
+        local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");       -- nc
+        local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition"); -- nc
+        local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation"); -- nc
+        local_map("n", "<Leader>fu", vim.lsp.buf.references, "Find references");       -- nc
         common_keybindings(client, bufnr);
     end,
 })
@@ -287,10 +294,7 @@ call ddc#custom#patch_global({
     \       'mark': 'LSP',
     \       'minAutoCompleteLength': 1,
     \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-    \   },
-    \   'buffer': {
-    \       'mark': 'BUFFER',
-    \       'maxItems': 3,
+    \       'maxItems': 20,
     \   },
 	\   'vsnip': {
 	\       'mark': 'SNIP',
