@@ -14,11 +14,11 @@ Plug("nvim-tree/nvim-web-devicons");                                        -- W
 Plug("lukas-reineke/indent-blankline.nvim");                                -- Indent Guides
 Plug("romgrk/barbar.nvim");                                                 -- GUI tabs per buffer
 
-Plug("nvim-treesitter/nvim-treesitter", {["do"] = vim.fn["TSUpdate"]});     -- Treesitter parsing
+Plug("nvim-treesitter/nvim-treesitter", {["do"] = vim.fn[":TSUpdate"]});    -- Treesitter parsing
 Plug("nvim-treesitter/nvim-treesitter-context");                            -- Show the header based on the node
 Plug("preservim/tagbar");                                                   -- ToC for variable/functions                                                  
 
-------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
 -- Editor Behaviours
 ------------------------------------------------------------------------------------------------------------------
 Plug("karb94/neoscroll.nvim");                                              -- Smooth scrolling
@@ -27,7 +27,7 @@ Plug("romgrk/barbar.nvim");                                                 -- T
 ------------------------------------------------------------------------------------------------------------------
 -- Searchers
 ------------------------------------------------------------------------------------------------------------------
-Plug("liuchengxu/vim-clap", { ["do"] = vim.fn[":Clap install-binary"] })    -- Fuzzy finder
+Plug("liuchengxu/vim-clap", {["do"] = vim.fn[":Clap install-binary"]})      -- Fuzzy finder
 Plug("goolord/vim-clap-gruvbox");
 Plug("nvim-tree/nvim-web-devicons");
 Plug("nvim-tree/nvim-tree.lua");
@@ -47,6 +47,10 @@ Plug("uga-rosa/ddc-source-vsnip");
 Plug("matsui54/denops-popup-preview.vim");
 Plug("matsui54/denops-signature_help");
 Plug("Hoffs/omnisharp-extended-lsp.nvim")
+
+Plug("RishabhRD/popfix");
+Plug("RishabhRD/nvim-lsputils");
+Plug("goolord/nvim-clap-lsp");
 
 End();
 
