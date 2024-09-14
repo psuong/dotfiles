@@ -257,128 +257,6 @@ local path_helper = require("helpers.path_helper");
 local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
 local pid = vim.fn.getpid();
 
--- Move this to a module
--- the idea is to store on_choice from vim.select.ui and pipe it to clap provider
-local code_action_cache = {}
-local code_action_callback = nil;
-
-local function get_index(input)
-    return tonumber(string.match(input, "^(%d*)"))
-end
-
-local function code_action_sink(selected)
-    local idx = get_index(selected);
-    local code_action = code_action_cache[idx];
-    if code_action_callback ~= nil then
-        code_action_callback(code_action);
-    else
-        vim.print("No callback")
-    end
-end
-
-local function custom_select(items, opts, on_choice)
-    -- local formatted_items = {}
-    local clap_display_data = {};
-    for i, item in ipairs(items) do
-        -- table.insert(formatted_items, string.format("%d. %s", i, item.action.title))
-        clap_display_data[i] = string.format("%d: %s", i, item.action.title);
-    end
-
-    code_action_cache = items;
-    code_action_callback = on_choice;
-    local provider = {
-        source = clap_display_data,
-        sink = code_action_sink
-    }
-    vim.fn["clap#run"](provider);
-    vim.api.nvim_input("<ESC>");
-
-    -- local choice = vim.fn.inputlist(formatted_items)
-
-    -- if choice > 0 and choice <= #items then
-    --     on_choice(items[choice])
-    -- else
-    --     print("Invalid choice")
-    -- end
-end
-
--- Override vim.ui.select with your custom function
-vim.ui.select = custom_select
-
--- Define a function to get and apply code actions
-local function apply_code_action()
-    -- Get the current buffer's cursor position
-    local bufnr = vim.api.nvim_get_current_buf()
-    local position = vim.api.nvim_win_get_cursor(0)
-
-    -- Fetch code actions from the language server
-    local result = vim.lsp.buf_request_sync(bufnr, 'textDocument/codeAction', {
-        textDocument = { uri = vim.uri_from_bufnr(bufnr) },
-        range = {
-            start = { line = position[1] - 1, character = position[2] },
-            ["end"] = { line = position[1] - 1, character = position[2] }
-        }
-    })
-
-    -- Extract code actions from the result
-    local actions = {}
-    if result and result[1] and result[1].result then
-        for _, action in ipairs(result[1].result) do
-            table.insert(actions, action)
-        end
-    end
-
-    -- Present the code actions to the user
-    vim.ui.select(actions, {}, function(selected_action)
-        if selected_action then
-            -- Apply the selected action
-            vim.lsp.buf_execute_command(selected_action.command)
-        else
-            print("No action selected")
-        end
-    end)
-end
-
--- Map a keybinding to apply code actions
-vim.api.nvim_set_keymap('n', '<leader>a', '<cmd>lua apply_code_action()<CR>', { noremap = true, silent = true })
-
-
--- TODO: Figure this shit
-local function customSelectionHandler(selected_action)
-    vim.print("Action selected: ", selected_action)
-    vim.print("Edit: ", selected_action.edit)
-    vim.print("Command: ", selected_action.command)
-    vim.lsp.buf.execute_command(selected_action);
-    -- local buf = vim.api.nvim_get_current_buf();
-    -- vim.lsp.buf.buf_request(buf, "codeAction/resolve", selected_action, function (err, result, ctx)
-    --     vim.print(result);
-    -- end);
-end
-
-local function custom_code_action()
-    local buf = vim.api.nvim_get_current_buf();
-    local context = {};
-    context.diagnostics = vim.lsp.diagnostic.get_line_diagnostics();
-    local params = vim.lsp.util.make_range_params();
-    params.context = context;
-
-    -- vim.lsp.buf_request_all(0, "textDocument/codeAction", params, function(results)
-    --     vim.print(results);
-    -- end);
-    vim.lsp.buf_request(buf, "textDocument/codeAction", params, function(err, result, ctx)
-        if err then
-            print("Error fetching code actions:", err)
-            return
-        end
-
-        if not result or vim.tbl_isempty(result) then
-            print("No code actions available")
-            return
-        end
-        require("lsputil.codeAction").code_action_handler(nil, result, nil, nil, customSelectionHandler);
-    end);
-end
-
 require("lspconfig").omnisharp.setup({
     capabilities = capabilities,
     cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
@@ -390,7 +268,7 @@ require("lspconfig").omnisharp.setup({
         local_map("n", "<Leader>go", omnisharp_extended.lsp_type_definition);
         local_map("n", "<Leader>fu", omnisharp_extended.lsp_references);
         local_map("n", "<Leader>fi", omnisharp_extended.lsp_implementation);
-        local_map("n", "<Leader>rd", custom_code_action);
+        vim.ui.select = require("helpers.select").on_select;
     end,
 });
 
@@ -402,7 +280,6 @@ require("lspconfig").rust_analyzer.setup({
         local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
         local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
         local_map("n", "<Leader>fu", vim.lsp.buf.references, "Find references");
-        local_map("n", "<Leader>rd", custom_code_action);
     end,
 });
 
