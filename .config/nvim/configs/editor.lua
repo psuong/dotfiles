@@ -249,6 +249,7 @@ local function common_keybindings()
     local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
     local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
     local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
+    local_map("n", "<Leader>cf", vim.lsp.buf.format, "Run code formatting");
 end
 
 local capabilities = require("ddc_source_lsp").make_client_capabilities();

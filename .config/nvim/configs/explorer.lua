@@ -6,7 +6,7 @@ vim.g.clap_plugin_experimental = true;
 vim.g.clap_layout = {
     relative = "editor"
 };
-vim.g.clap_theme = "gruvbox";
+vim.g.clap_theme = "material_design_dark";
 
 -- Nvim Tree
 -- disable netrw at the very start of your init.lua
