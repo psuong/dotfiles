@@ -242,7 +242,7 @@ local local_map = function(mode, keys, func, desc)
     vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
 end
 
-local function common_keybindings(client, bufnr)
+local function common_keybindings()
     local_map("n", "<Leader>ti", toggle_inlay_hint, "Toggle inlay hints");
     local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
     local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
@@ -260,22 +260,22 @@ local pid = vim.fn.getpid();
 require("lspconfig").omnisharp.setup({
     capabilities = capabilities,
     cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
-    on_attach = function(client, bufnr)
-        common_keybindings(client, bufnr);
-        local omnisharp_extended = require('omnisharp_extended');
-        local_map("n", "<Leader>gd", omnisharp_extended.lsp_definition);
+    on_attach = function()
+        common_keybindings();
+        local omnisharp_extended = require("omnisharp_extended");
         local_map("n", "<Leader>gd", omnisharp_extended.lsp_definition);
         local_map("n", "<Leader>go", omnisharp_extended.lsp_type_definition);
-        local_map("n", "<Leader>fu", omnisharp_extended.lsp_references);
+        local_map("n", "<Leader>fu", omnisharp_extended.clap_lsp_references);
         local_map("n", "<Leader>fi", omnisharp_extended.lsp_implementation);
-        vim.ui.select = require("helpers.select").on_select;
+        local lsp_ui = require("helpers.lsp_ui");
+        vim.ui.select = lsp_ui.on_select;
     end,
 });
 
 require("lspconfig").rust_analyzer.setup({
     capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        common_keybindings(client, bufnr);
+    on_attach = function()
+        common_keybindings();
         local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
         local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
         local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");

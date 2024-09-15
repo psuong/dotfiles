@@ -1,7 +1,7 @@
-local mod = { }
+local mod = {}
 
 --- The choices from the selection menu from vim.ui.select
-local select_cache = { };
+local select_cache = {};
 --- The callback applied when a choice is chosen from the selection menu
 local select_callback = nil;
 
@@ -11,17 +11,22 @@ local function get_index(input)
     return tonumber(string.match(input, "^(%d*)"))
 end
 
+--- Launches the select_callback based on what was selected from vim-clap
+--- @param selected string
 local function code_action_sink(selected)
-    vim.print(type(selected));
     local idx = get_index(selected);
     local code_action = select_cache[idx];
     if select_callback ~= nil then
         select_callback(code_action);
     else
-        vim.print("No callback")
+        vim.print("No callback available")
     end
 end
 
+--- The main callback that overrides vim.ui.select's default behaviour.
+---@param items table
+---@param _ any
+---@param on_choice function(string)
 function mod.on_select(items, _, on_choice)
     local clap_display_data = {};
     for i, item in ipairs(items) do
