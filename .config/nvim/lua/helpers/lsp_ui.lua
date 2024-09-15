@@ -14,6 +14,7 @@ end
 --- Launches the select_callback based on what was selected from vim-clap
 --- @param selected string
 local function code_action_sink(selected)
+    vim.api.nvim_command("startinsert");
     local idx = get_index(selected);
     local code_action = select_cache[idx];
     if select_callback ~= nil then
@@ -36,11 +37,11 @@ function mod.on_select(items, _, on_choice)
     select_cache = items;
     select_callback = on_choice;
     local provider = {
+        id = "Select",
         source = clap_display_data,
         sink = code_action_sink
     }
     vim.fn["clap#run"](provider);
-    vim.api.nvim_input("<ESC>");
 end
 
 return mod;

@@ -28,7 +28,6 @@ Plug("romgrk/barbar.nvim");                                                 -- T
 -- Searchers
 ------------------------------------------------------------------------------------------------------------------
 Plug("liuchengxu/vim-clap", {["do"] = vim.fn[":Clap install-binary"]})      -- Fuzzy finder
--- Plug("goolord/vim-clap-gruvbox");
 Plug("nvim-tree/nvim-web-devicons");
 Plug("nvim-tree/nvim-tree.lua");
 
