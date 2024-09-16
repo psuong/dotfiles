@@ -5,6 +5,15 @@ local select_cache = {};
 --- The callback applied when a choice is chosen from the selection menu
 local select_callback = nil;
 
+--- The locations to cache whenever we open vim-clap references
+local reference_locations = nil;
+--- The current lsp client to cache
+local current_lsp_client = nil;
+
+-----------------------------------------------------------------------------------
+-- Local Functions
+-----------------------------------------------------------------------------------
+
 ---@param input string The string to parse and retrieve the number from
 ---@param pattern string The pattern to look for
 ---@return number n The associated number extracted via the pattern
@@ -18,6 +27,14 @@ local function default_get_index(input)
     return get_index_with_pattern(input, "%[(%d+)%]");
 end
 
+--- Replaces encoding of c%3a with C:
+--- @param path string The path to a file, typically the uri
+local function url_decode(path)
+    return (path:gsub("%%(%x%x)", function(hex)
+        return string.char(tonumber(hex, 16))
+    end))
+end
+
 --- Launches the select_callback based on what was selected from vim-clap
 --- @param selected string
 local function code_action_sink(selected)
@@ -26,32 +43,9 @@ local function code_action_sink(selected)
     if select_callback ~= nil then
         select_callback(code_action);
     else
-        vim.print("No callback available")
+        vim.notify("No callback available", vim.log.levels.WARN);
     end
 end
-
---- The main callback that overrides vim.ui.select's default behaviour.
----@param items table
----@param _ any
----@param on_choice function(string)
-function mod.on_select(items, _, on_choice)
-    local clap_display_data = {};
-    for i, item in ipairs(items) do
-        clap_display_data[i] = string.format("[%d]: %s", i, item.action.title);
-    end
-
-    select_cache = items;
-    select_callback = on_choice;
-    local provider = {
-        id = "Select",
-        source = clap_display_data,
-        sink = code_action_sink
-    }
-    vim.fn["clap#run"](provider);
-end
-
-local reference_locations = nil;
-local current_lsp_client = nil;
 
 --- Matches the prefix length of the uri from the lsp
 ---@param uri string The path to a file from an LSP
@@ -81,7 +75,7 @@ local function resolve_symlink(path)
     return vim.loop.fs_realpath(path) or path;
 end
 
---- Callback
+--- Callback for when we select an option in vim clap's menu navigation
 ---@param selected string The current line's display info
 local function reference_sink(selected)
     if selected == nil then
@@ -132,6 +126,30 @@ local function on_move()
     end
 end
 
+-----------------------------------------------------------------------------------
+-- Public Functions
+-----------------------------------------------------------------------------------
+
+--- The main callback that overrides vim.ui.select's default behaviour.
+---@param items table
+---@param _ any
+---@param on_choice function(string)
+function mod.on_select(items, _, on_choice)
+    local clap_display_data = {};
+    for i, item in ipairs(items) do
+        clap_display_data[i] = string.format("[%d]: %s", i, item.action.title);
+    end
+
+    select_cache = items;
+    select_callback = on_choice;
+    local provider = {
+        id = "Select",
+        source = clap_display_data,
+        sink = code_action_sink
+    }
+    vim.fn["clap#run"](provider);
+end
+
 function mod.clap_references_ui(err, result, ctx, _)
     if err then
         vim.notify("Errored out when gathering references", vim.log.levels.ERROR);
@@ -144,8 +162,9 @@ function mod.clap_references_ui(err, result, ctx, _)
     local clap_display_data = {};
     local cwd = resolve_symlink(vim.fn.getcwd());
     for i, item in ipairs(reference_locations) do
+        local uri = url_decode(item.uri);
         local adjusted_uri = string.gsub(
-            string.sub(item.uri, get_prefix_length(item.uri)),
+            string.sub(uri, get_prefix_length(uri)),
             cwd,
             get_directory_name(cwd));
 
