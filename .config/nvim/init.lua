@@ -49,6 +49,11 @@ Plug("psuong/omnisharp-extended-lsp.nvim")
 
 End();
 
+vim.cmd([[
+set rtp+=D:/porri/Documents/Projects/rustaceanvim
+runtime! after/plugin/*.lua
+]]);
+
 -- Source configuration
 local path_helper = require("helpers.path_helper");
 

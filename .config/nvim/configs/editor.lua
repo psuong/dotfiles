@@ -252,6 +252,13 @@ local function common_keybindings()
     local_map("n", "<Leader>cf", vim.lsp.buf.format, "Run code formatting");
 end
 
+local function configurable_functionality(defs_callback, type_defs_callback, refs_callback, impl_callback)
+    local_map("n", "<Leader>gd", defs_callback, "Go to definition");
+    local_map("n", "<Leader>go", type_defs_callback, "Go to type definition");
+    local_map("n", "<Leader>fu", refs_callback, "Find all references");
+    local_map("n", "<Leader>fi", impl_callback, "Find all implementations");
+end
+
 local capabilities = require("ddc_source_lsp").make_client_capabilities();
 
 local path_helper = require("helpers.path_helper");
@@ -264,26 +271,88 @@ require("lspconfig").omnisharp.setup({
     on_attach = function()
         common_keybindings();
         local omnisharp_extended = require("omnisharp_extended");
-        local_map("n", "<Leader>gd", omnisharp_extended.lsp_definition);
-        local_map("n", "<Leader>go", omnisharp_extended.lsp_type_definition);
-        local_map("n", "<Leader>fu", omnisharp_extended.clap_lsp_references);
-        local_map("n", "<Leader>fi", omnisharp_extended.lsp_implementation);
+        -- local_map("n", "<Leader>gd", omnisharp_extended.lsp_definition);
+        -- local_map("n", "<Leader>go", omnisharp_extended.lsp_type_definition);
+        -- local_map("n", "<Leader>fu", omnisharp_extended.clap_lsp_references);
+        -- local_map("n", "<Leader>fi", omnisharp_extended.lsp_implementation);
+
+        configurable_functionality(
+            omnisharp_extended.lsp_definition,
+            omnisharp_extended.lsp_type_definition,
+            omnisharp_extended.clap_lsp_references,
+            omnisharp_extended.lsp_implementation);
+
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;
         vim.lsp.inlay_hint.enable(true);
     end,
 });
 
-require("lspconfig").rust_analyzer.setup({
+require("lspconfig").lua_ls.setup {
     capabilities = capabilities,
+    on_init = function(client)
+        local path = client.workspace_folders[1].name
+        if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+            return
+        end
+
+        client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+                -- Tell the language server which version of Lua you're using
+                -- (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT'
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME
+                    -- Depending on the usage, you might want to add additional paths here.
+                    -- "${3rd}/luv/library"
+                    -- "${3rd}/busted/library",
+                }
+                -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                -- library = vim.api.nvim_get_runtime_file("", true)
+            }
+        })
+    end,
     on_attach = function()
         common_keybindings();
-        local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
-        local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
-        local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
-        local_map("n", "<Leader>fu", vim.lsp.buf.references, "Find references");
+        configurable_functionality(
+            vim.lsp.buf.definition,
+            vim.lsp.buf.type_definition,
+            vim.lsp.buf.references,
+            vim.lsp.buf.implementation);
     end,
-});
+    settings = {
+        Lua = {}
+    }
+}
+
+vim.g.rustaceanvim = {
+    server = {
+        on_attach = function()
+            common_keybindings();
+            configurable_functionality(
+                vim.lsp.buf.definition,
+                vim.lsp.buf.type_definition,
+                vim.lsp.buf.references,
+                vim.lsp.buf.implementation);
+
+            -- local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
+            -- local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
+            -- local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
+            -- local_map("n", "<Leader>fu", vim.lsp.buf.references, "Find references");
+            local lsp_ui = require("helpers.lsp_ui");
+            vim.ui.select = lsp_ui.on_select;
+            vim.lsp.inlay_hint.enable(true);
+            vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+        end,
+        default_settings = {
+            ['rust-analyzer'] = {},
+        },
+    }
+}
 
 vim.cmd([[
 call ddc#custom#patch_global({
