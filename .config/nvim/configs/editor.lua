@@ -10,9 +10,9 @@ vim.cmd("filetype plugin indent on") -- Detect the filetypes and allow indentati
 vim.opt.encoding = "UTF-8";
 
 -- Visual Studio Like Settings
-vim.opt.expandtab = true; -- Tabs are spaces
-vim.opt.tabstop = 4;      -- # of spaces per tab
-vim.opt.shiftwidth = 4;   -- Make it consistent with tab stop
+vim.opt.expandtab = true;            -- Tabs are spaces
+vim.opt.tabstop = 4;                 -- # of spaces per tab
+vim.opt.shiftwidth = 4;              -- Make it consistent with tab stop
 vim.opt.smartindent = true;
 vim.opt.signcolumn = "yes";
 vim.opt.title = true;
@@ -238,8 +238,18 @@ local function toggle_inlay_hint()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled());
 end
 
+local capabilities = require("ddc_source_lsp").make_client_capabilities();
+local path_helper = require("helpers.path_helper");
+
+--- Get the servers if they're not on the path
+local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
+local lua_ls_bin = path_helper.expand_tilde("~/sources/language-servers/lua-language-server/bin/lua-language-server.exe");
+
+--- The current buffer
+local current_buffer = nil;
+
 local local_map = function(mode, keys, func, desc)
-    vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
+    vim.keymap.set(mode, keys, func, { buffer = current_buffer, desc = desc })
 end
 
 local function common_keybindings()
@@ -250,6 +260,7 @@ local function common_keybindings()
     local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
     local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
     local_map("n", "<Leader>cf", vim.lsp.buf.format, "Run code formatting");
+    local_map("n", "<Leader>pd", vim.lsp.buf.hover, "Preview info above cursor");
 end
 
 local function configurable_functionality(defs_callback, type_defs_callback, refs_callback, impl_callback)
@@ -259,23 +270,13 @@ local function configurable_functionality(defs_callback, type_defs_callback, ref
     local_map("n", "<Leader>fi", impl_callback, "Find all implementations");
 end
 
-local capabilities = require("ddc_source_lsp").make_client_capabilities();
-
-local path_helper = require("helpers.path_helper");
-local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
-local pid = vim.fn.getpid();
-
 require("lspconfig").omnisharp.setup({
     capabilities = capabilities,
-    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
-    on_attach = function()
+    cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+    on_attach = function(_, bufnr)
+        current_buffer = bufnr;
         common_keybindings();
         local omnisharp_extended = require("omnisharp_extended");
-        -- local_map("n", "<Leader>gd", omnisharp_extended.lsp_definition);
-        -- local_map("n", "<Leader>go", omnisharp_extended.lsp_type_definition);
-        -- local_map("n", "<Leader>fu", omnisharp_extended.clap_lsp_references);
-        -- local_map("n", "<Leader>fi", omnisharp_extended.lsp_implementation);
-
         configurable_functionality(
             omnisharp_extended.lsp_definition,
             omnisharp_extended.lsp_type_definition,
@@ -288,8 +289,9 @@ require("lspconfig").omnisharp.setup({
     end,
 });
 
-require("lspconfig").lua_ls.setup {
+require("lspconfig").lua_ls.setup({
     capabilities = capabilities,
+    cmd = { lua_ls_bin },
     on_init = function(client)
         local path = client.workspace_folders[1].name
         if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
@@ -300,7 +302,7 @@ require("lspconfig").lua_ls.setup {
             runtime = {
                 -- Tell the language server which version of Lua you're using
                 -- (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT'
+                version = "LuaJIT"
             },
             -- Make the server aware of Neovim runtime files
             workspace = {
@@ -316,33 +318,35 @@ require("lspconfig").lua_ls.setup {
             }
         })
     end,
-    on_attach = function()
+    on_attach = function(_, bufnr)
+        current_buffer = bufnr;
         common_keybindings();
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
             vim.lsp.buf.references,
             vim.lsp.buf.implementation);
+
+        local lsp_ui = require("helpers.lsp_ui");
+        vim.ui.select = lsp_ui.on_select;
+        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
     end,
     settings = {
         Lua = {}
     }
-}
+});
 
+-- Rust Analyzer is installed using rustup
 vim.g.rustaceanvim = {
     server = {
-        on_attach = function()
+        on_attach = function(_, bufnr)
+            current_buffer = bufnr;
             common_keybindings();
             configurable_functionality(
                 vim.lsp.buf.definition,
                 vim.lsp.buf.type_definition,
                 vim.lsp.buf.references,
                 vim.lsp.buf.implementation);
-
-            -- local_map("n", "<Leader>gd", vim.lsp.buf.definition, "Goto definition");
-            -- local_map("n", "<Leader>go", vim.lsp.buf.type_definition, "Goto type definition");
-            -- local_map("n", "<Leader>gi", vim.lsp.buf.implementation, "Goto implementation");
-            -- local_map("n", "<Leader>fu", vim.lsp.buf.references, "Find references");
             local lsp_ui = require("helpers.lsp_ui");
             vim.ui.select = lsp_ui.on_select;
             vim.lsp.inlay_hint.enable(true);
@@ -352,7 +356,7 @@ vim.g.rustaceanvim = {
             ['rust-analyzer'] = {},
         },
     }
-}
+};
 
 vim.cmd([[
 call ddc#custom#patch_global({

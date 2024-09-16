@@ -45,14 +45,16 @@ Plug("hrsh7th/vim-vsnip");
 Plug("uga-rosa/ddc-source-vsnip");
 Plug("matsui54/denops-popup-preview.vim");
 Plug("matsui54/denops-signature_help");
-Plug("psuong/omnisharp-extended-lsp.nvim")
+Plug("psuong/omnisharp-extended-lsp.nvim");
+Plug("psuong/rustaceanvim");
 
 End();
 
-vim.cmd([[
-set rtp+=D:/porri/Documents/Projects/rustaceanvim
-runtime! after/plugin/*.lua
-]]);
+-- vim.cmd([[
+-- set rtp+=D:/porri/Documents/Projects/rustaceanvim
+-- set rtp+=C:/Users/porri/Documents/Projects/rustaceanvim
+-- runtime! after/plugin/*.lua
+-- ]]);
 
 -- Source configuration
 local path_helper = require("helpers.path_helper");
