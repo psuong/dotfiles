@@ -270,6 +270,7 @@ require("lspconfig").omnisharp.setup({
         local_map("n", "<Leader>fi", omnisharp_extended.lsp_implementation);
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;
+        vim.lsp.inlay_hint.enable(true);
     end,
 });
 
@@ -333,6 +334,10 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 call ddc#enable()
 " Enable pop up previews
 call popup_preview#enable()
-" Enable signatures for overloads with denops
-call signature_help#enable()
 ]])
+
+vim.g.signature_help_confg = {
+    contentsStyle = "full",
+    viewStyle = "floating"
+}
+vim.fn["signature_help#enable"]()

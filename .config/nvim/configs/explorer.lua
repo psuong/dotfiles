@@ -27,8 +27,8 @@ local function my_on_attach(bufnr)
     api.config.mappings.default_on_attach(bufnr);
 
     -- custom mappings
-    vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'));
-    vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'));
+    vim.keymap.set("n", "l", api.node.open.edit, opts("Open"));
+    vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"));
 end
 
 require("nvim-tree").setup({
@@ -65,11 +65,11 @@ local function hide_cursor()
 end
 
 local function restore_cursor()
-    -- Just picked Vim's default settings
-    vim.cmd('set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20');
+    -- Just picked Vim"s default settings
+    vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20");
 
     -- Set the blend to 0, which is the fg
-    vim.cmd('hi Cursor blend=0');
+    vim.cmd("hi Cursor blend=0");
 end
 
 -- Create autocommands to manage cursor visibility in nvim-tree
