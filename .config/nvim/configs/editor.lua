@@ -206,6 +206,17 @@ end, { silent = true });
 vim.api.nvim_set_keymap("n", "<S-o>", ":TagbarToggle<CR>", { noremap = true, silent = true });
 
 -- For vim doge I"m using default mappings, nothing special
+vim.g.doge_enable_mappings = 0;
+-- Generate comment for current line
+vim.keymap.set("n", "<Leader>d", "<Plug>(doge-generate)")
+
+-- Interactive mode comment todo-jumping
+vim.keymap.set("n", "<TAB>",    "<Plug>(doge-comment-jump-forward)");
+vim.keymap.set("n", "<S-TAB>",  "<Plug>(doge-comment-jump-backward)");
+vim.keymap.set("i", "<TAB>",    "<Plug>(doge-comment-jump-forward)");
+vim.keymap.set("i", "<S-TAB>",  "<Plug>(doge-comment-jump-backward)");
+vim.keymap.set("x", "<TAB>",    "<Plug>(doge-comment-jump-forward)");
+vim.keymap.set("x", "<S-TAB>",  "<Plug>(doge-comment-jump-backward)");
 
 -- Consider this for code formatting, hopefully it respects
 -- https://github.com/lukas-reineke/lsp-format.nvim
@@ -414,3 +425,10 @@ vim.g.signature_help_confg = {
     viewStyle = "floating"
 }
 vim.fn["signature_help#enable"]()
+
+----------------
+-- File types --
+----------------
+vim.cmd [[
+    autocmd BufNewFile,BufRead *.hlsl set filetype=hlsl
+]]

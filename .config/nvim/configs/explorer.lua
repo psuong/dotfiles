@@ -119,3 +119,4 @@ vim.api.nvim_set_keymap("n", "<A-7>", ":BufferGoto 7<CR>", noremap_silent);
 vim.api.nvim_set_keymap("n", "<A-8>", ":BufferGoto 8<CR>", noremap_silent);
 vim.api.nvim_set_keymap("n", "<A-9>", ":BufferGoto 9<CR>", noremap_silent);
 vim.api.nvim_set_keymap("n", "<A-0>", ":BufferLast<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<A-c>", ":BufferClose<CR>", noremap_silent);
