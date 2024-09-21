@@ -47,6 +47,7 @@ Plug("matsui54/denops-popup-preview.vim");
 Plug("matsui54/denops-signature_help");
 Plug("psuong/omnisharp-extended-lsp.nvim");
 Plug("psuong/rustaceanvim");
+Plug("kkoomen/vim-doge");
 
 End();
 
