@@ -49,6 +49,11 @@ Plug("psuong/omnisharp-extended-lsp.nvim");
 Plug("psuong/rustaceanvim");
 Plug("kkoomen/vim-doge", {["do"] = vim.fn["doge#install()"]});
 
+------------------------------------------------------------------------------------------------------------------
+-- Package managers
+------------------------------------------------------------------------------------------------------------------
+Plug("saecki/crates.nvim");
+
 End();
 
 -- vim.cmd([[

@@ -429,6 +429,8 @@ vim.fn["signature_help#enable"]()
 ----------------
 -- File types --
 ----------------
-vim.cmd [[
+vim.cmd([[
     autocmd BufNewFile,BufRead *.hlsl set filetype=hlsl
-]]
+]]);
+
+require("crates").setup();
