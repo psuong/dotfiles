@@ -300,6 +300,26 @@ require("lspconfig").omnisharp.setup({
     end,
 });
 
+require("powershell").setup({
+    capabilities = capabilities,
+    bundle_path = path_helper.expand_tilde("~/sources/language-servers/PowerShellEditorServices"),
+    server = {
+        on_attach = function(_, bufnr)
+            current_buffer = bufnr;
+            common_keybindings();
+            configurable_functionality(
+                vim.lsp.buf.definition,
+                vim.lsp.buf.type_definition,
+                vim.lsp.buf.references,
+                vim.lsp.buf.implementation);
+
+            local lsp_ui = require("helpers.lsp_ui");
+            vim.ui.select = lsp_ui.on_select;
+            vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+        end
+    }
+});
+
 require("lspconfig").lua_ls.setup({
     capabilities = capabilities,
     cmd = { lua_ls_bin },
