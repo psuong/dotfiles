@@ -46,6 +46,9 @@ require("nvim-tree").setup({
         dotfiles = false,
         custom = { ".git", ".meta" }
     },
+    git = {
+        enable = false
+    },
     on_attach = my_on_attach
 });
 
