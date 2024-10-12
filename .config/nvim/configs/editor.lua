@@ -10,9 +10,9 @@ vim.cmd("filetype plugin indent on") -- Detect the filetypes and allow indentati
 vim.opt.encoding = "UTF-8";
 
 -- Visual Studio Like Settings
-vim.opt.expandtab = true;            -- Tabs are spaces
-vim.opt.tabstop = 4;                 -- # of spaces per tab
-vim.opt.shiftwidth = 4;              -- Make it consistent with tab stop
+vim.opt.expandtab = true; -- Tabs are spaces
+vim.opt.tabstop = 4;      -- # of spaces per tab
+vim.opt.shiftwidth = 4;   -- Make it consistent with tab stop
 vim.opt.smartindent = true;
 vim.opt.signcolumn = "yes";
 vim.opt.title = true;
@@ -211,12 +211,12 @@ vim.g.doge_enable_mappings = 0;
 vim.keymap.set("n", "<Leader>d", "<Plug>(doge-generate)")
 
 -- Interactive mode comment todo-jumping
-vim.keymap.set("n", "<TAB>",    "<Plug>(doge-comment-jump-forward)");
-vim.keymap.set("n", "<S-TAB>",  "<Plug>(doge-comment-jump-backward)");
-vim.keymap.set("i", "<TAB>",    "<Plug>(doge-comment-jump-forward)");
-vim.keymap.set("i", "<S-TAB>",  "<Plug>(doge-comment-jump-backward)");
-vim.keymap.set("x", "<TAB>",    "<Plug>(doge-comment-jump-forward)");
-vim.keymap.set("x", "<S-TAB>",  "<Plug>(doge-comment-jump-backward)");
+vim.keymap.set("n", "<TAB>", "<Plug>(doge-comment-jump-forward)");
+vim.keymap.set("n", "<S-TAB>", "<Plug>(doge-comment-jump-backward)");
+vim.keymap.set("i", "<TAB>", "<Plug>(doge-comment-jump-forward)");
+vim.keymap.set("i", "<S-TAB>", "<Plug>(doge-comment-jump-backward)");
+vim.keymap.set("x", "<TAB>", "<Plug>(doge-comment-jump-forward)");
+vim.keymap.set("x", "<S-TAB>", "<Plug>(doge-comment-jump-backward)");
 
 -- Consider this for code formatting, hopefully it respects
 -- https://github.com/lukas-reineke/lsp-format.nvim
@@ -260,7 +260,7 @@ local lua_ls_bin = path_helper.expand_tilde("~/sources/language-servers/lua-lang
 local current_buffer = nil;
 
 local local_map = function(mode, keys, func, desc)
-    vim.keymap.set(mode, keys, func, { buffer = current_buffer, desc = desc })
+    vim.keymap.set(mode, keys, func, { buffer = current_buffer, desc = desc });
 end
 
 local function common_keybindings()
@@ -272,6 +272,9 @@ local function common_keybindings()
     local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
     local_map("n", "<Leader>cf", vim.lsp.buf.format, "Run code formatting");
     local_map("n", "<Leader>pd", vim.lsp.buf.hover, "Preview info above cursor");
+    local_map("n", "<Leader>e", function()
+        vim.diagnostic.open_float(nil, { focus = false })
+    end, 'Show diagnostics float')
 end
 
 local function configurable_functionality(defs_callback, type_defs_callback, refs_callback, impl_callback)
@@ -372,6 +375,8 @@ vim.g.rustaceanvim = {
     server = {
         on_attach = function(_, bufnr)
             current_buffer = bufnr;
+            vim.diagnostic.config({ virtual_text = false });
+
             common_keybindings();
             configurable_functionality(
                 vim.lsp.buf.definition,
@@ -383,17 +388,13 @@ vim.g.rustaceanvim = {
             vim.lsp.inlay_hint.enable(true);
             vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
 
-            vim.diagnostic.config({
-                virtual_text = false
-            });
-
-            vim.o.updatetime = 250
-            -- Show line diagnostics automatically in hover window
-            vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
-                callback = function()
-                    vim.diagnostic.open_float(nil, { focus = false })
-                end
-            })
+            -- vim.o.updatetime = 250
+            -- -- Show line diagnostics automatically in hover window
+            -- vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+            --     callback = function()
+            --         vim.diagnostic.open_float(nil, { focus = false })
+            --     end
+            -- })
         end,
         default_settings = {
             ['rust-analyzer'] = {},
@@ -487,3 +488,4 @@ vim.api.nvim_create_autocmd("TermOpen", {
 -- Rust crates.io Setup --
 --------------------------
 require("crates").setup();
+
