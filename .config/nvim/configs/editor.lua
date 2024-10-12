@@ -465,4 +465,25 @@ vim.cmd([[
     autocmd BufNewFile,BufRead *.hlsl set filetype=hlsl
 ]]);
 
+-------------------
+-- Terminal Cmds --
+-------------------
+vim.api.nvim_create_user_command("TermHSplit", function()
+    vim.cmd("belowright split | terminal pwsh");
+    vim.cmd("resize 25%");
+end, {});
+-- Map Shift + t to the TermHSplit command
+vim.api.nvim_set_keymap("n", "T", ":TermHSplit<CR>", { noremap = true, silent = true });
+
+vim.api.nvim_create_augroup("TerminalMappings", { clear = true })
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "*",
+    callback = function()
+        vim.cmd("tnoremap <buffer> <Esc> <C-\\><C-n>")
+    end,
+});
+
+--------------------------
+-- Rust crates.io Setup --
+--------------------------
 require("crates").setup();
