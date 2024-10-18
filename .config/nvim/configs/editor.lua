@@ -480,7 +480,7 @@ end
 
 local_map("n", "T", function()
     local current_buf = vim.api.nvim_get_current_buf();
-    local height = 25;
+    local height = 20;
 
     -- If it is a terminal, close it
     if vim.bo[current_buf].buftype == "terminal" then
@@ -531,4 +531,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
 -- Rust crates.io Setup --
 --------------------------
 require("crates").setup();
-
