@@ -268,10 +268,10 @@ local function common_keybindings()
     local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
     local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
     local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
-    local_map("n", "[[", vim.diagnostic.goto_prev, "Previous diagnostic");
-    local_map("n", "]]", vim.diagnostic.goto_next, "Previous diagnostic");
     local_map("n", "<Leader>cf", vim.lsp.buf.format, "Run code formatting");
     local_map("n", "<Leader>pd", vim.lsp.buf.hover, "Preview info above cursor");
+    vim.api.nvim_set_keymap("n", "[[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = true });
+    vim.api.nvim_set_keymap("n", "]]", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true });
     local_map("n", "<Leader>e", function()
         vim.diagnostic.open_float(nil, { focus = false })
     end, 'Show diagnostics float')
@@ -387,14 +387,6 @@ vim.g.rustaceanvim = {
             vim.ui.select = lsp_ui.on_select;
             vim.lsp.inlay_hint.enable(true);
             vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
-
-            -- vim.o.updatetime = 250
-            -- -- Show line diagnostics automatically in hover window
-            -- vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
-            --     callback = function()
-            --         vim.diagnostic.open_float(nil, { focus = false })
-            --     end
-            -- })
         end,
         default_settings = {
             ['rust-analyzer'] = {},
