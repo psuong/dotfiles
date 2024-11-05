@@ -1,4 +1,3 @@
-working_directory = 'C:\Users\porri'
 
 [colors.bright]
 black = "#928374"
@@ -31,8 +30,13 @@ size = 12.0
 family = "UbuntuMono Nerd Font"
 style = "Regular"
 
-[shell]
+[terminal.shell]
 program = "pwsh"
 
 [window]
 startup_mode = "Maximized"
+
+[general]
+working_directory = 'C:\Users\porri'
+
+[terminal]
