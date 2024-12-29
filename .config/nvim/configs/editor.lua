@@ -279,8 +279,8 @@ local function common_keybindings()
     local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
     local_map("n", "<Leader>cf", vim.lsp.buf.format, "Run code formatting");
     local_map("n", "<Leader>pd", vim.lsp.buf.hover, "Preview info above cursor");
-    local_map("n", "[[", vim.diagnostic.goto_prev, "Go to previous diagnostic")
-    local_map("n", "]]", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+    local_map("n", ",", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+    local_map("n", ".", vim.diagnostic.goto_next, "Go to previous diagnostic")
     -- vim.api.nvim_set_keymap("n", "[[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = true });
     -- vim.api.nvim_set_keymap("n", "]]", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true });
     local_map("n", "<Leader>e", function()
@@ -311,6 +311,7 @@ require("lspconfig").omnisharp.setup({
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;
         vim.lsp.inlay_hint.enable(true);
+        vim.diagnostic.config({ virtual_text = false });
     end,
 });
 
