@@ -417,7 +417,7 @@ call ddc#custom#patch_global({
     \   'lsp': {
     \       'mark': 'LSP',
     \       'minAutoCompleteLength': 1,
-    \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+    \       'forceCompletionPattern': '\.\w*|:\w*|->\w*|.*',
     \       'maxItems': 20,
     \   },
 	\   'vsnip': {
