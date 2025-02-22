@@ -529,7 +529,7 @@ colors:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: pwsh
+  program: C:\Users\porri\AppData\Local\Programs\nu\bin\nu.exe
   # args:
   #   - --login
 

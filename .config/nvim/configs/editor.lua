@@ -114,8 +114,8 @@ vim.cmd("highlight Todo cterm=bold gui=bold");
 
 -- Create an autocmd to highlight TODO comments
 vim.api.nvim_create_autocmd("Syntax", {
-  pattern = "*",
-  command = "match Todo /TODO/",
+    pattern = "*",
+    command = "match Todo /TODO/",
 });
 
 ------------------------------------
@@ -333,6 +333,23 @@ require("powershell").setup({
     }
 });
 
+require("lspconfig").slangd.setup({
+    capabilities = capabilities,
+    filetypes = { "slang", "shaderslang", "hlsl" },
+    settings = {
+        slang = {
+            predefinedMacros = { "MY_VALUE_MACRO=1" },
+            inlayHints = {
+                deducedTypes = true,
+                parameterNames = true,
+            },
+            format = {
+                clangFormatLocation = "clang-format"
+            }
+        }
+    }
+});
+
 require("lspconfig").lua_ls.setup({
     capabilities = capabilities,
     cmd = { lua_ls_bin },
@@ -417,7 +434,7 @@ call ddc#custom#patch_global({
     \   'lsp': {
     \       'mark': 'LSP',
     \       'minAutoCompleteLength': 1,
-    \       'forceCompletionPattern': '\.\w*|:\w*|->\w*|.*',
+    \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \       'maxItems': 20,
     \   },
 	\   'vsnip': {
@@ -464,9 +481,13 @@ vim.fn["signature_help#enable"]()
 ----------------
 -- File types --
 ----------------
-vim.cmd([[
-    autocmd BufNewFile,BufRead *.hlsl set filetype=hlsl
-]]);
+vim.filetype.add({
+    extension = {
+        slang = "slang",
+        shaderslang = "slang",
+        hlsl = "hlsl"
+    }
+});
 
 -------------------
 -- Terminal Cmds --
@@ -533,3 +554,18 @@ vim.api.nvim_create_autocmd("TermOpen", {
 -- Rust crates.io Setup --
 --------------------------
 require("crates").setup();
+
+-- Remove undercurl
+local function get_color(group, attr)
+    local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+    return hl and hl[attr] or "NONE"
+end
+
+local red = get_color("GruvboxRed", "fg")
+local yellow = get_color("GruvboxYellow", "fg")
+local gray = get_color("GruvboxGray", "fg")
+
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = false, underline = true, sp = red })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = false, underline = true, sp = yellow })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = false, underline = true, sp = gray })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = false, underline = true, sp = gray })
