@@ -1,2 +1,0 @@
--- TODO: Try to use vim-clap as the primary ui: https://github.com/goolord/nvim-clap-lsp
--- TODO: Auto start when we we're in a cs file.
