@@ -262,8 +262,8 @@ local capabilities = require("ddc_source_lsp").make_client_capabilities();
 local path_helper = require("helpers.path_helper");
 
 --- Get the servers if they're not on the path
-local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp-win-x64/OmniSharp.exe");
-local lua_ls_bin = path_helper.expand_tilde("~/sources/language-servers/lua-language-server/bin/lua-language-server.exe");
+local omnisharp_bin = path_helper.expand_tilde("~/sources/language-servers/omnisharp/OmniSharp.exe");
+local lua_ls_bin = path_helper.expand_tilde("~/sources/language-servers/lua/bin/lua-language-server.exe");
 
 --- The current buffer
 local current_buffer = nil;
@@ -433,7 +433,6 @@ call ddc#custom#patch_global({
     \   },
     \   'lsp': {
     \       'mark': 'LSP',
-    \       'minAutoCompleteLength': 1,
     \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
     \       'maxItems': 20,
     \   },
@@ -565,7 +564,7 @@ local red = get_color("GruvboxRed", "fg")
 local yellow = get_color("GruvboxYellow", "fg")
 local gray = get_color("GruvboxGray", "fg")
 
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = false, underline = true, sp = red })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = false, underline = true, sp = yellow })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = false, underline = true, sp = gray })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = false, underline = true, sp = gray })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = false, underline = true, sp = red });
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = false, underline = true, sp = yellow });
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = false, underline = true, sp = gray });
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = false, underline = true, sp = gray });
