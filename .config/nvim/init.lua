@@ -59,8 +59,10 @@ Plug("saecki/crates.nvim");
 Plug("dstein64/vim-startuptime");
 
 End();
--- Source configuration
-local path_helper = require("helpers.path_helper");
 
-dofile(path_helper.expand_tilde("~/AppData/Local/nvim/configs/editor.lua"));
-dofile(path_helper.expand_tilde("~/AppData/Local/nvim/configs/explorer.lua"));
+require("configs.theme");
+require("configs.base_keybinds");
+require("configs.syntax");
+require("configs.language_servers");
+require("configs.terminal");
+require("configs.explorer");

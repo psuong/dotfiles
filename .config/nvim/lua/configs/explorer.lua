@@ -1,4 +1,4 @@
-vim.opt.termguicolors = true; -- optionally enable 24-bit colour
+local explorer = {};
 
 --------------
 -- Vim Clap --
@@ -10,16 +10,17 @@ vim.g.clap_layout = {
 };
 vim.g.clap_theme = "material_design_dark";
 
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1;
-vim.g.loaded_netrwPlugin = 1;
-
--- optionally enable 24-bit colour
-vim.opt.termguicolors = true;
+local noremap_silent = { noremap = true, silent = true };
+vim.api.nvim_set_keymap("n", "<C-p>", ":Clap files<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<C-g>", ":Clap grep<CR>", noremap_silent);
+vim.api.nvim_set_keymap("n", "<C-b>", ":Clap buffers<CR>", noremap_silent);
 
 ----------
 -- Fern --
 ----------
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1;
+vim.g.loaded_netrwPlugin = 1;
 vim.api.nvim_set_keymap("n", "<C-n>", ":Fern . -drawer -toggle -width=35<CR>", { noremap = true, silent = true });
 vim.g["fern#disable_default_mappings"] = false;
 vim.g["fern#renderer"] = "nvim-web-devicons";
@@ -39,7 +40,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 });
 
-vim.api.nvim_create_augroup("FernPalette", { clear = true })
+vim.api.nvim_create_augroup("FernPalette", { clear = true });
 vim.api.nvim_create_autocmd("FileType", {
     group = "FernPalette",
     pattern = "fern",
@@ -48,10 +49,4 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 });
 
------------------
--- Keybindings --
------------------
-local noremap_silent = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<C-p>", ":Clap files<CR>", noremap_silent);
-vim.api.nvim_set_keymap("n", "<C-g>", ":Clap grep<CR>", noremap_silent);
-vim.api.nvim_set_keymap("n", "<C-b>", ":Clap buffers<CR>", noremap_silent);
+return explorer;
