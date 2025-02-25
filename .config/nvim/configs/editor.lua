@@ -126,6 +126,7 @@ require("nvim-treesitter.configs").setup {
     -- A list of parser names, or "all"
     ensure_installed = {
         "c",
+        "cpp",
         "c_sharp",
         "rust",
         "hlsl",
@@ -345,9 +346,22 @@ require("lspconfig").slangd.setup({
             },
             format = {
                 clangFormatLocation = "clang-format"
-            }
+            },
+            on_attach = function(_, bufnr)
+                current_buffer = bufnr;
+                common_keybindings();
+                configurable_functionality(
+                    vim.lsp.buf.definition,
+                    vim.lsp.buf.type_definition,
+                    vim.lsp.buf.references,
+                    vim.lsp.buf.implementation);
+
+                local lsp_ui = require("helpers.lsp_ui");
+                vim.ui.select = lsp_ui.on_select;
+                vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+            end
         }
-    }
+    },
 });
 
 require("lspconfig").lua_ls.setup({
@@ -395,6 +409,24 @@ require("lspconfig").lua_ls.setup({
     settings = {
         Lua = {}
     }
+});
+
+require("lspconfig").clangd.setup({
+    capabilities = capabilities,
+    cmd = { "clangd" },
+    on_attach = function(_, bufnr)
+        current_buffer = bufnr;
+        common_keybindings();
+        configurable_functionality(
+            vim.lsp.buf.definition,
+            vim.lsp.buf.type_definition,
+            vim.lsp.buf.references,
+            vim.lsp.buf.implementation);
+
+            local lsp_ui = require("helpers.lsp_ui");
+            vim.ui.select = lsp_ui.on_select;
+            vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+    end,
 });
 
 -- Rust Analyzer is installed using rustup
