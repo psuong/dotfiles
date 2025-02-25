@@ -82,6 +82,32 @@ vim.api.nvim_create_autocmd("Syntax", {
     pattern = "*",
     command = "match Todo /TODO/",
 });
+------------------
+-- Indent Lines --
+------------------
+local indentscope = require("mini.indentscope");
+indentscope.gen_animation.none();
+indentscope.setup({
+    draw = {
+        delay = 0,
+        animation = indentscope.gen_animation.none(),
+        predicate = function(scope) return true; end,
+        priority = 2,
+    },
+    symbol = "│",
+    -- Exclude netrw
+    filetypes = { "*" }, -- Applies to all filetypes
+    -- Ignore netrw buffers
+    hooks = {
+        pre = function(bufnr)
+            local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+            if filetype == 'netrw' then
+                -- Disable indentscope for netrw buffers
+                vim.b.indentscope_disable = true
+            end
+        end,
+    },
+});
 
 ------------------------------------
 -- Treesitter/Syntax Highlighting --
@@ -398,9 +424,9 @@ require("lspconfig").clangd.setup({
             vim.lsp.buf.references,
             vim.lsp.buf.implementation);
 
-            local lsp_ui = require("helpers.lsp_ui");
-            vim.ui.select = lsp_ui.on_select;
-            vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+        local lsp_ui = require("helpers.lsp_ui");
+        vim.ui.select = lsp_ui.on_select;
+        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
     end,
 });
 
@@ -559,7 +585,15 @@ vim.api.nvim_create_autocmd("TermOpen", {
 --------------------------
 -- Rust crates.io Setup --
 --------------------------
-require("crates").setup();
+local function lazy_load_crates()
+    vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+        pattern = "Cargo.toml",
+        callback = function()
+            require("crates").setup();
+        end
+    });
+end
+lazy_load_crates()
 
 -- Remove undercurl
 local function get_color(group, attr)

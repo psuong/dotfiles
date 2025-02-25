@@ -14,6 +14,7 @@ Plug("ellisonleao/gruvbox.nvim");                                           -- M
 Plug("nvim-treesitter/nvim-treesitter", {["do"] = vim.fn[":TSUpdate"]});    -- Treesitter parsing
 Plug("nvim-treesitter/nvim-treesitter-context");                            -- Show the header based on the node
 Plug("preservim/tagbar");                                                   -- ToC for variable/functions 
+Plug("echasnovski/mini.indentscope");
 
 -----------------------------------------------------------------------------------------------------------------
 -- Editor Behaviours
@@ -47,7 +48,8 @@ Plug("TheLeoP/powershell.nvim");
 ------------------------------------------------------------------------------------------------------------------
 -- Package managers
 ------------------------------------------------------------------------------------------------------------------
-Plug("saecki/crates.nvim", { ["for"] = "toml" });
+Plug("saecki/crates.nvim");
+Plug("dstein64/vim-startuptime");
 
 End();
 -- Source configuration
