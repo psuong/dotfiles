@@ -41,7 +41,6 @@ vim.opt.backspace = { "indent", "eol", "start" }
 ----------------------
 require("neoscroll").setup();
 
-
 -----------
 -- Theme --
 -----------
@@ -82,6 +81,7 @@ vim.api.nvim_create_autocmd("Syntax", {
     pattern = "*",
     command = "match Todo /TODO/",
 });
+
 ------------------
 -- Indent Lines --
 ------------------
@@ -91,17 +91,16 @@ indentscope.setup({
     draw = {
         delay = 0,
         animation = indentscope.gen_animation.none(),
-        predicate = function(scope) return true; end,
+        predicate = function() return true; end,
         priority = 2,
     },
     symbol = "│",
-    -- Exclude netrw
-    filetypes = { "*" }, -- Applies to all filetypes
+    filetypes = { "*" },
     -- Ignore netrw buffers
     hooks = {
         pre = function(bufnr)
             local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-            if filetype == 'netrw' then
+            if filetype == "netrw" then
                 -- Disable indentscope for netrw buffers
                 vim.b.indentscope_disable = true
             end
@@ -152,56 +151,6 @@ require("nvim-treesitter.configs").setup {
     },
 }
 
-------------
--- Tagbar --
-------------
-vim.g.tagbar_foldlevel = 3;
-vim.g.tagbar_iconchars = { "▸", "▾" };
-vim.g.tagbar_show_tag_linenumbers = 1;
-vim.g.tagbar_scopestrs = {
-    ["class"] = "\u{f0e8}",
-    ["const"] = "\u{f8ff}",
-    ["constant"] = "\u{f8ff}",
-    ["enum"] = "\u{f702}",
-    ["field"] = "\u{f30b}",
-    ["func"] = "\u{1d453}",
-    ["method"] = "\u{1d453}",
-    ["function"] = "\u{1d453}",
-    ["getter"] = "-->",
-    ["implementation"] = "\u{f776}",
-    ["interface"] = "\u{f7fe}",
-    ["map"] = "\u{fb44}",
-    ["member"] = "\u{f02b}",
-    ["setter"] = "<--",
-    ["variable"] = "\u{f71b}",
-    ["namespace"] = "\u{2026}",
-    ["struct"] = "\u{03C8}"
-};
-
-vim.g.tagbar_visbility_symbols = {
-    public = "+",
-    protected = "*",
-    private = "-"
-};
-
--- Enable syntax for the tab bar buffer
-local function enable_tagbar_syntax_coloring()
-    -- Get the current buffer name
-    local buffer_name = vim.api.nvim_buf_get_name(0);
-
-    if string.find(buffer_name, "Tagbar") then
-        vim.cmd("syntax enable");
-    end
-end
-
-local buffer_enter_group = vim.api.nvim_create_augroup("BufferEnter", { clear = true });
-
-vim.api.nvim_create_autocmd("BufEnter", {
-    group = buffer_enter_group,
-    pattern = "*",
-    callback = enable_tagbar_syntax_coloring,
-});
-
 -----------------
 -- Keybindings --
 -----------------
@@ -212,9 +161,6 @@ vim.g.mapleader = ",";
 vim.keymap.set("n", "[c", function()
     require("treesitter-context").go_to_context();
 end, { silent = true });
-
--- Tagbar
-vim.api.nvim_set_keymap("n", "<S-o>", ":TagbarToggle<CR>", { noremap = true, silent = true });
 
 -- For vim doge I"m using default mappings, nothing special
 vim.g.doge_enable_mappings = 0;
@@ -281,10 +227,10 @@ local function common_keybindings()
     local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
     local_map("n", "<Leader>cf", vim.lsp.buf.format, "Run code formatting");
     local_map("n", "<Leader>pd", vim.lsp.buf.hover, "Preview info above cursor");
-    vim.keymap.set("n", ".", vim.diagnostic.goto_next, { noremap = true, silent = true })
-    vim.keymap.set("n", ",", vim.diagnostic.goto_prev, { noremap = true, silent = true })
+    vim.keymap.set("n", ".", vim.diagnostic.goto_next, { noremap = true, silent = true });
+    vim.keymap.set("n", ",", vim.diagnostic.goto_prev, { noremap = true, silent = true });
     local_map("n", "<Leader>e", function()
-        vim.diagnostic.open_float(nil, { focus = false })
+        vim.diagnostic.open_float(nil, { focus = false });
     end, 'Show diagnostics float')
 end
 
@@ -454,55 +400,66 @@ vim.g.rustaceanvim = {
     }
 };
 
-vim.cmd([[
-call ddc#custom#patch_global({
-    \ 'ui': 'native',
-    \ 'sources': [ 'lsp', 'vsnip' ],
-    \ 'sourceOptions': {
-    \   '_': {
-    \       'matchers': ['matcher_fuzzy'],
-    \       'sorters' : ['sorter_fuzzy'],
-    \       'converters' : ['converter_fuzzy'],
-    \   },
-    \   'lsp': {
-    \       'mark': 'LSP',
-    \       'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-    \       'maxItems': 20,
-    \   },
-	\   'vsnip': {
-	\       'mark': 'SNIP',
-    \       'maxItems': 5,
-	\   },
-    \ },
-    \ 'sourceParams': {
-    \   'lsp': {
-    \       'enableResolveItem': v:true,
-    \       'enableAdditionalTextEdit': v:true,
-    \       'snippetEngine': denops#callback#register({
-    \           body -> vsnip#anonymous(body)
-    \       }),
-    \   },
-    \   'enableResolveItem': v:true,
-    \   'enableAdditionalTextEdit': v:true,
-    \ }
-\ })
+local patch_ddc = vim.fn["ddc#custom#patch_global"];
+patch_ddc({
+    ui = "native",
+    sources = { "lsp", "vsnip" },
+    sourceOptions = {
+        ["_"] = {
+            matchers = { "matcher_fuzzy" },
+            sorters = { "sorter_fuzzy" },
+            converters = { "converter_fuzzy" },
+        },
+        lsp = {
+            mark = "LSP",
+            forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
+            maxItems = 20,
+        },
+        vsnip = {
+            mark = "SNIP",
+            maxItems = 5,
+        },
+    },
+    sourceParams = {
+        lsp = {
+            enableResolveItem = true,
+            enableAdditionalTextEdit = true,
+            snippetEngine = vim.fn["denops#callback#register"](function(body)
+                return vim.fn["vsnip#anonymous"](body)
+            end),
+        },
+        enableResolveItem = true,
+        enableAdditionalTextEdit = true,
+    },
+});
 
-inoremap <expr> <TAB>
-    \ pumvisible() ? '<C-n>' :
-    \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-    \ '<TAB>' : ddc#map#manual_complete()
+-------------
+-- Keymaps --
+-------------
+-- Tab Support
+vim.keymap.set("i", "<Tab>", function()
+    if vim.fn.pumvisible() == 1 then
+        return "<C-n>";
+    elseif vim.fn.col(".") <= 1 or vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1):match("%s") then
+        return "<Tab>";
+    else
+        return vim.fn["ddc#map#manual_complete"]();
+    end
+end, { expr = true, noremap = true });
 
-" <S-TAB>: completion back.
-inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+-- Shift Tab Support to go backwards
+vim.keymap.set("i", "<S-Tab>", function()
+    return vim.fn.pumvisible() == 1 and "<C-p>" or "<C-h>"
+end, { expr = true, noremap = true });
 
-" Press enter to confirm the selection
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+-- Confirm selection with enter.
+vim.keymap.set("i", "<CR>", function()
+    return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+end, { expr = true, noremap = true });
 
-" Use ddc.
-call ddc#enable()
-" Enable pop up previews
-call popup_preview#enable()
-]])
+-- Enable ddc and the completion menu.
+vim.fn["ddc#enable"]();
+vim.fn["popup_preview#enable"]();
 
 vim.g.signature_help_confg = {
     contentsStyle = "full",
@@ -593,7 +550,7 @@ local function lazy_load_crates()
         end
     });
 end
-lazy_load_crates()
+lazy_load_crates();
 
 -- Remove undercurl
 local function get_color(group, attr)
@@ -601,11 +558,35 @@ local function get_color(group, attr)
     return hl and hl[attr] or "NONE"
 end
 
-local red = get_color("GruvboxRed", "fg")
-local yellow = get_color("GruvboxYellow", "fg")
-local gray = get_color("GruvboxGray", "fg")
+local red = get_color("GruvboxRed", "fg");
+local yellow = get_color("GruvboxYellow", "fg");
+local gray = get_color("GruvboxGray", "fg");
+local orange = get_color("GruvboxOrange", "fg");
 
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = false, underline = true, sp = red });
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = false, underline = true, sp = yellow });
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = false, underline = true, sp = gray });
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = false, underline = true, sp = orange });
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = false, underline = true, sp = gray });
+
+require("nvim-web-devicons").setup();
+require("aerial").setup({
+    -- Priority list of preferred backends for aerial.
+    -- This can be a filetype map (see :help aerial-filetype-map)
+    backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
+
+    layout = {
+        max_width = { 40, 0.2 },
+        width = nil,
+        min_width = 30,
+        -- Enum: prefer_right, prefer_left, right, left, float
+        default_direction = "prefer_right",
+
+        -- Determines where the aerial window will be opened
+        --   edge   - open aerial at the far right/left of the editor
+        --   window - open aerial to the right/left of the current window
+        placement = "window",
+        resize_to_content = true,
+        preserve_equality = false,
+    },
+});
+vim.keymap.set("n", "<S-i>", "<cmd>AerialToggle!<CR>");

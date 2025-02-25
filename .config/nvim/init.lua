@@ -6,30 +6,33 @@ vim.g.plug_url_format = "git@github.com:%s.git";
 
 Begin();
 
-------------------------------------------------------------------------------------------------------------------
--- Editor Styling
-------------------------------------------------------------------------------------------------------------------
-Plug("ellisonleao/gruvbox.nvim");                                           -- Main Theme
--- Plug("lukas-reineke/indent-blankline.nvim");                                -- Indent Guides
-Plug("nvim-treesitter/nvim-treesitter", {["do"] = vim.fn[":TSUpdate"]});    -- Treesitter parsing
-Plug("nvim-treesitter/nvim-treesitter-context");                            -- Show the header based on the node
-Plug("preservim/tagbar");                                                   -- ToC for variable/functions 
+--------------------
+-- Editor Styling --
+--------------------
+Plug("ellisonleao/gruvbox.nvim");
+Plug("nvim-treesitter/nvim-treesitter", {["do"] = vim.fn[":TSUpdate"]});
+Plug("nvim-treesitter/nvim-treesitter-context");
 Plug("echasnovski/mini.indentscope");
+Plug("nvim-tree/nvim-web-devicons");
+Plug("TheLeoP/fern-renderer-web-devicons.nvim");
 
------------------------------------------------------------------------------------------------------------------
--- Editor Behaviours
-------------------------------------------------------------------------------------------------------------------
-Plug("karb94/neoscroll.nvim");                                              -- Smooth scrolling
+-----------------------
+-- Editor Behaviours --
+-----------------------
+Plug("karb94/neoscroll.nvim");
 
-------------------------------------------------------------------------------------------------------------------
--- Searchers
-------------------------------------------------------------------------------------------------------------------
-Plug("liuchengxu/vim-clap", {["do"] = vim.fn[":Clap install-binary"]})      -- Fuzzy finder
+---------------
+-- Searchers --
+---------------
+Plug("liuchengxu/vim-clap", {["do"] = vim.fn[":Clap install-binary"]});
+Plug("lambdalisue/vim-fern");
+Plug("lambdalisue/vim-glyph-palette");
 
-------------------------------------------------------------------------------------------------------------------
--- Autocomplete
-------------------------------------------------------------------------------------------------------------------
+------------------
+-- Autocomplete --
+------------------
 Plug("neovim/nvim-lspconfig");
+Plug("stevearc/aerial.nvim");
 Plug("vim-denops/denops.vim");
 Plug("Shougo/ddc.vim");
 Plug("Shougo/ddc-ui-native");
@@ -42,13 +45,17 @@ Plug("matsui54/denops-popup-preview.vim");
 Plug("matsui54/denops-signature_help");
 Plug("psuong/omnisharp-extended-lsp.nvim");
 Plug("psuong/rustaceanvim");
-Plug("kkoomen/vim-doge", {["do"] = vim.fn["doge#install()"]});
+Plug("kkoomen/vim-doge", {["do"] = vim.fn["doge#install()"] });
 Plug("TheLeoP/powershell.nvim");
 
-------------------------------------------------------------------------------------------------------------------
--- Package managers
-------------------------------------------------------------------------------------------------------------------
+----------------------
+-- Package managers --
+----------------------
 Plug("saecki/crates.nvim");
+
+--------------
+-- Profiler --
+--------------
 Plug("dstein64/vim-startuptime");
 
 End();
