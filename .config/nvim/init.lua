@@ -10,26 +10,20 @@ Begin();
 -- Editor Styling
 ------------------------------------------------------------------------------------------------------------------
 Plug("ellisonleao/gruvbox.nvim");                                           -- Main Theme
-Plug("nvim-tree/nvim-web-devicons");                                        -- Web glyphs
-Plug("lukas-reineke/indent-blankline.nvim");                                -- Indent Guides
-Plug("romgrk/barbar.nvim");                                                 -- GUI tabs per buffer
-
+-- Plug("lukas-reineke/indent-blankline.nvim");                                -- Indent Guides
 Plug("nvim-treesitter/nvim-treesitter", {["do"] = vim.fn[":TSUpdate"]});    -- Treesitter parsing
 Plug("nvim-treesitter/nvim-treesitter-context");                            -- Show the header based on the node
-Plug("preservim/tagbar");                                                   -- ToC for variable/functions                                                  
+Plug("preservim/tagbar");                                                   -- ToC for variable/functions 
 
 -----------------------------------------------------------------------------------------------------------------
 -- Editor Behaviours
 ------------------------------------------------------------------------------------------------------------------
 Plug("karb94/neoscroll.nvim");                                              -- Smooth scrolling
-Plug("romgrk/barbar.nvim");                                                 -- Tab navigation
 
 ------------------------------------------------------------------------------------------------------------------
 -- Searchers
 ------------------------------------------------------------------------------------------------------------------
 Plug("liuchengxu/vim-clap", {["do"] = vim.fn[":Clap install-binary"]})      -- Fuzzy finder
-Plug("nvim-tree/nvim-web-devicons");
-Plug("nvim-tree/nvim-tree.lua");
 
 ------------------------------------------------------------------------------------------------------------------
 -- Autocomplete
@@ -53,16 +47,9 @@ Plug("TheLeoP/powershell.nvim");
 ------------------------------------------------------------------------------------------------------------------
 -- Package managers
 ------------------------------------------------------------------------------------------------------------------
-Plug("saecki/crates.nvim");
+Plug("saecki/crates.nvim", { ["for"] = "toml" });
 
 End();
-
--- vim.cmd([[
--- set rtp+=D:/porri/Documents/Projects/rustaceanvim
--- set rtp+=C:/Users/porri/Documents/Projects/rustaceanvim
--- runtime! after/plugin/*.lua
--- ]]);
-
 -- Source configuration
 local path_helper = require("helpers.path_helper");
 
