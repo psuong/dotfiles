@@ -3,3 +3,4 @@
 .config/vifm/vifm-help.txt
 .vim/autoload/
 PowerShell/Modules
+*.log
