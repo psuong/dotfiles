@@ -290,6 +290,16 @@ vim.g.rustaceanvim = {
 -- DDC --
 ---------
 local patch_ddc = vim.fn["ddc#custom#patch_global"];
+vim.cmd([[
+call ddc#custom#patch_global('filterParams', {
+  \   'matcher_fuzzy': {
+  \     'splitMode': 'word'
+  \   },
+  \   'converter_fuzzy': {
+  \     'hlGroup': 'SpellBad'
+  \   }
+  \ })
+]]);
 patch_ddc({
     ui = "native",
     sources = { "lsp", "vsnip" },
@@ -299,14 +309,14 @@ patch_ddc({
             sorters = { "sorter_fuzzy" },
             converters = { "converter_fuzzy" },
         },
+        vsnip = {
+            mark = "SNIP",
+            maxItems = 5,
+        },
         lsp = {
             mark = "LSP",
             forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
             maxItems = 20,
-        },
-        vsnip = {
-            mark = "SNIP",
-            maxItems = 5,
         },
     },
     sourceParams = {
