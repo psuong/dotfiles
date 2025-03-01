@@ -107,6 +107,7 @@ local local_map = function(mode, keys, func, desc)
 end
 
 local function common_keybindings()
+    vim.diagnostic.config({ virtual_text = false });
     local_map("n", "<Leader>ti", toggle_inlay_hint, "Toggle inlay hints");
     local_map("n", "<Leader>ra", vim.lsp.buf.code_action, "Run code actions");
     local_map("n", "<Leader>ga", vim.lsp.buf.declaration, "Goto declaration");
@@ -143,7 +144,6 @@ require("lspconfig").omnisharp.setup({
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;
         vim.lsp.inlay_hint.enable(true);
-        vim.diagnostic.config({ virtual_text = false });
     end,
 });
 
@@ -262,34 +262,55 @@ require("lspconfig").clangd.setup({
     end,
 });
 
-local cfg = require('rustaceanvim.config');
-
--- Rust Analyzer is installed using rustup
-vim.g.rustaceanvim = {
-    server = {
-        on_attach = function(_, bufnr)
-            current_buffer = bufnr;
-            vim.diagnostic.config({ virtual_text = false });
-
-            common_keybindings();
-            configurable_functionality(
-                vim.lsp.buf.definition,
-                vim.lsp.buf.type_definition,
-                vim.lsp.buf.references,
-                vim.lsp.buf.implementation);
-            local lsp_ui = require("helpers.lsp_ui");
-            vim.ui.select = lsp_ui.on_select;
-            vim.lsp.inlay_hint.enable(true);
-            vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
-        end,
-        default_settings = {
-            ['rust-analyzer'] = {},
-        },
-        dap = {
-            adapter = require("rustaceanvim.config").get_codelldb_adapter("codelldb.exe", "C:\\Users\\porri\\sources\\language-servers\\codelldb\\extension\\lldb\\bin\\lldb.dll")
+require("lspconfig").rust_analyzer.setup({
+    capabilities = capabilities,
+    cmd = { "rust-analyzer" },
+    on_attach = function (_, bufnr)
+        current_buffer = bufnr;
+        common_keybindings();
+        configurable_functionality(
+            vim.lsp.buf.definition,
+            vim.lsp.buf.type_definition,
+            vim.lsp.buf.references,
+            vim.lsp.buf.implementation);
+        local lsp_ui = require("helpers.lsp_ui");
+        vim.ui.select = lsp_ui.on_select;
+        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+        vim.lsp.inlay_hint.enable(true);
+    end,
+    settings = {
+        ["rust-analyzer"] = {
+            diagnostics = true
         }
     }
-};
+});
+
+-- Rust Analyzer is installed using rustup
+-- vim.g.rustaceanvim = {
+--     server = {
+--         on_attach = function(_, bufnr)
+--             current_buffer = bufnr;
+--             vim.diagnostic.config({ virtual_text = false });
+-- 
+--             common_keybindings();
+--             configurable_functionality(
+--                 vim.lsp.buf.definition,
+--                 vim.lsp.buf.type_definition,
+--                 vim.lsp.buf.references,
+--                 vim.lsp.buf.implementation);
+--             local lsp_ui = require("helpers.lsp_ui");
+--             vim.ui.select = lsp_ui.on_select;
+--             vim.lsp.inlay_hint.enable(true);
+--             vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+--         end,
+--         default_settings = {
+--             ['rust-analyzer'] = {},
+--         },
+--         dap = {
+--             adapter = require("rustaceanvim.config").get_codelldb_adapter("codelldb.exe", "C:\\Users\\porri\\sources\\language-servers\\codelldb\\extension\\lldb\\bin\\lldb.dll")
+--         }
+--     }
+-- };
 
 ---------
 -- DDC --

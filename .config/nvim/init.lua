@@ -19,7 +19,7 @@ Plug("TheLeoP/fern-renderer-web-devicons.nvim");
 -----------------------
 -- Editor Behaviours --
 -----------------------
-Plug("karb94/neoscroll.nvim");
+-- Plug("karb94/neoscroll.nvim");
 
 ---------------
 -- Searchers --
@@ -44,7 +44,7 @@ Plug("uga-rosa/ddc-source-vsnip");
 Plug("matsui54/denops-popup-preview.vim");
 Plug("matsui54/denops-signature_help");
 Plug("psuong/omnisharp-extended-lsp.nvim");
-Plug("psuong/rustaceanvim");
+-- Plug("psuong/rustaceanvim");
 Plug("kkoomen/vim-doge", {["do"] = vim.fn["doge#install()"] });
 Plug("TheLeoP/powershell.nvim");
 
@@ -52,6 +52,7 @@ Plug("TheLeoP/powershell.nvim");
 -- Debuggers --
 ---------------
 Plug("mfussenegger/nvim-dap");
+Plug("theHamsta/nvim-dap-virtual-text");
 
 ----------------------
 -- Package managers --

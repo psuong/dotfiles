@@ -94,7 +94,7 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = false, underline
 ----------------------
 -- Smooth scrolling --
 ----------------------
-require("neoscroll").setup();
+-- require("neoscroll").setup();
 
 ------------
 -- Glyphs --
