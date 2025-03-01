@@ -262,6 +262,8 @@ require("lspconfig").clangd.setup({
     end,
 });
 
+local cfg = require('rustaceanvim.config');
+
 -- Rust Analyzer is installed using rustup
 vim.g.rustaceanvim = {
     server = {
@@ -283,6 +285,9 @@ vim.g.rustaceanvim = {
         default_settings = {
             ['rust-analyzer'] = {},
         },
+        dap = {
+            adapter = require("rustaceanvim.config").get_codelldb_adapter("codelldb.exe", "C:\\Users\\porri\\sources\\language-servers\\codelldb\\extension\\lldb\\bin\\lldb.dll")
+        }
     }
 };
 

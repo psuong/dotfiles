@@ -22,7 +22,7 @@ local function get_index_with_pattern(input, pattern)
 end
 
 --- Matches for any integer in the string and casts it as an integer.
---- @param input string 
+--- @param input string
 local function default_get_index(input)
     return get_index_with_pattern(input, "%[(%d+)%]");
 end
@@ -129,25 +129,33 @@ end
 -----------------------------------------------------------------------------------
 -- Public Functions
 -----------------------------------------------------------------------------------
+local default_select = vim.ui.select;
 
 --- The main callback that overrides vim.ui.select's default behaviour.
 ---@param items table
----@param _ any
+---@param opts any
 ---@param on_choice function(string)
-function mod.on_select(items, _, on_choice)
-    local clap_display_data = {};
-    for i, item in ipairs(items) do
-        clap_display_data[i] = string.format("[%d]: %s", i, item.action.title);
-    end
+function mod.on_select(items, opts, on_choice)
+    vim.print(opts);
+    if opts.kind == "codeaction" then
+        local clap_display_data = {};
+        for i, item in ipairs(items) do
+            if item.action ~= nil then
+                clap_display_data[i] = string.format("[%d]: %s", i, item.action.title);
+            end
+        end
 
-    select_cache = items;
-    select_callback = on_choice;
-    local provider = {
-        id = "Select",
-        source = clap_display_data,
-        sink = code_action_sink
-    }
-    vim.fn["clap#run"](provider);
+        select_cache = items;
+        select_callback = on_choice;
+        local provider = {
+            id = "Select",
+            source = clap_display_data,
+            sink = code_action_sink
+        }
+        vim.fn["clap#run"](provider);
+    else
+        default_select(items, opts, on_choice);
+    end
 end
 
 function mod.clap_references_ui(err, result, ctx, _)

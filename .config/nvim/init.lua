@@ -11,7 +11,7 @@ Begin();
 --------------------
 Plug("ellisonleao/gruvbox.nvim");
 Plug("nvim-treesitter/nvim-treesitter", {["do"] = vim.fn[":TSUpdate"]});
-Plug("nvim-treesitter/nvim-treesitter-context");
+-- Plug("nvim-treesitter/nvim-treesitter-context");
 Plug("echasnovski/mini.indentscope");
 Plug("nvim-tree/nvim-web-devicons");
 Plug("TheLeoP/fern-renderer-web-devicons.nvim");
@@ -48,6 +48,11 @@ Plug("psuong/rustaceanvim");
 Plug("kkoomen/vim-doge", {["do"] = vim.fn["doge#install()"] });
 Plug("TheLeoP/powershell.nvim");
 
+---------------
+-- Debuggers --
+---------------
+Plug("mfussenegger/nvim-dap");
+
 ----------------------
 -- Package managers --
 ----------------------
@@ -64,5 +69,6 @@ require("configs.theme");
 require("configs.base_keybinds");
 require("configs.syntax");
 require("configs.language_servers");
+require("configs.debug");
 require("configs.terminal");
 require("configs.explorer");
