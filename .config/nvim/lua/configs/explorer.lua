@@ -9,6 +9,7 @@ vim.g.clap_layout = {
     relative = "editor"
 };
 vim.g.clap_theme = "material_design_dark";
+vim.g.clap_open_preview = "always";
 
 local noremap_silent = { noremap = true, silent = true };
 vim.api.nvim_set_keymap("n", "<C-p>", ":Clap files<CR>", noremap_silent);
@@ -18,7 +19,6 @@ vim.api.nvim_set_keymap("n", "<C-b>", ":Clap buffers<CR>", noremap_silent);
 ----------
 -- Fern --
 ----------
--- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1;
 vim.g.loaded_netrwPlugin = 1;
 vim.api.nvim_set_keymap("n", "<C-n>", ":Fern . -drawer -toggle -width=35<CR>", { noremap = true, silent = true });

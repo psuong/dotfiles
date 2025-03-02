@@ -56,6 +56,15 @@ end
 
 local clap_run = vim.fn["clap#run"];
 
+local function index_of(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return i;
+        end
+    end
+    return 0;
+end
+
 function mod.file_picker(filter, callback)
     local cwd = vim.fn.getcwd();
     local handle = io.popen(string.format("fd -e %s -I", filter));
@@ -65,9 +74,11 @@ function mod.file_picker(filter, callback)
         local result = handle:read("*a");
         handle:close();
         local clap_display_data = {};
+        local paths = {};
         local index = 1;
         for file in result:gmatch("[^\r\n]+") do
-            clap_display_data[index] = string.format("%s\\%s", cwd, file);
+            paths[index] = string.format("%s\\%s", cwd, file);
+            clap_display_data[index] = file;
             index = index + 1;
         end
 
@@ -76,8 +87,13 @@ function mod.file_picker(filter, callback)
             on_move = function()
             end,
             sink = function(selected)
-                vim.g[filter] = selected;
-                callback();
+                local idx = index_of(clap_display_data, selected);
+                if idx > 0 then
+                    vim.g[filter] = paths[idx];
+                    callback();
+                else
+                    vim.print("ERROR: Failed to pick a valid file.");
+                end
             end,
             id = filter
         };
@@ -87,4 +103,3 @@ function mod.file_picker(filter, callback)
 end
 
 return mod;
-
