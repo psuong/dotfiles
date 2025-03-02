@@ -60,14 +60,31 @@ dap.adapters.coreclr = {
 ----------------------
 -- Language Configs --
 ----------------------
---- Rust
+---@param callback function The delegate that passes a json object as an argument
+---@return string path The desired path to a filetype
+local function set_up(callback)
+    if not path_helper.file_exists(debug.json_path) then
+        vim.print("Error: Press <F1> to setup your debug configs.");
+        return "";
+    else
+        local data = path_helper.read_json_file(debug.json_path);
+        if data ~= nil then
+            return callback(data);
+        end
+        return "";
+    end
+end
+
+-- Rust
 dap.configurations.rust = {
     {
         type = "codelldb",
         name = "launch - codelldb",
         request = "launch",
         program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file");
+            return set_up(function(data)
+                return data.exe;
+            end);
         end,
         cwd = "${workspaceFolder}",
         stopOnEntry = false,
