@@ -5,40 +5,42 @@ local path_helper = require("helpers.path_helper");
 
 debug.json_path = string.format("%s\\.debug\\config.json", vim.fn.getcwd());
 
+local silent = { silent = true };
+
 ------------------------
 -- Common keybindings --
 ------------------------
-vim.keymap.set("n", "<S-TAB>", function() dap.set_breakpoint(); end);
-vim.keymap.set("n", "<TAB>l",
-    function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")); end);
-vim.keymap.set("n", "<Leader>dr", function() dap.repl.open(); end);
-vim.keymap.set("n", "<Leader>dl", function() dap.run_last(); end);
-vim.keymap.set({ "n", "v" }, "<Leader>dh", function() widgets.hover(); end);
-vim.keymap.set({ "n", "v" }, "<Leader>dp", function() widgets.preview(); end);
+-- vim.keymap.set("n", "<S-TAB>", function() dap.set_breakpoint(); end);
+-- vim.keymap.set("n", "<TAB>l",
+--     function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")); end);
+vim.keymap.set("n", "<Leader>dr", function() dap.repl.open(); end, silent);
+vim.keymap.set("n", "<Leader>dl", function() dap.run_last(); end, silent);
+vim.keymap.set({ "n", "v" }, "<Leader>dh", function() widgets.hover(); end, silent);
+vim.keymap.set({ "n", "v" }, "<Leader>dp", function() widgets.preview(); end, silent);
 vim.keymap.set("n", "<Leader>df",
     function()
         widgets.centered_float(widgets.frames);
-    end);
+    end, silent);
 vim.keymap.set("n", "<Leader>ds",
     function()
         widgets.centered_float(widgets.scopes);
-    end);
+    end, silent);
 
-vim.keymap.set("n", "<F4>", ":DapDisconnect<CR>");
-vim.keymap.set("n", "<S-F4>", ":DapTerminate<CR>");
-vim.keymap.set("n", "<F3>", ":DapNew<CR>");
-vim.keymap.set("n", "<F5>", function() dap.continue(); end);
+vim.keymap.set("n", "<F3>", ":DapNew<CR>", silent);
+vim.keymap.set("n", "<F4>", ":DapDisconnect<CR>", silent);
+vim.keymap.set("n", "<S-F4>", ":DapTerminate<CR>", silent);
+vim.keymap.set("n", "<F5>", function() dap.continue(); end, silent);
 
 -- Idk what eval does, from the docs:
 -- >vim
 -- au FileType dap-repl lua require('dap.ext.autocompl').attach()
-vim.keymap.set("n", "<F6>", ":DapEval<CR>");
-vim.keymap.set("n", "<F7>", ":DapToggleRepl<CR>");
-vim.keymap.set("n", "<C-0>", ":DapClearBreakpoints<CR>");
-vim.keymap.set("n", "<F10>", function() dap.step_over(); end);
-vim.keymap.set("n", "<F11>", function() dap.step_into(); end);
-vim.keymap.set("n", "<F12>", function() dap.step_out(); end);
-vim.keymap.set("n", "<TAB>", function() dap.toggle_breakpoint(); end);
+vim.keymap.set("n", "<F6>", ":DapEval<CR>", silent);
+vim.keymap.set("n", "<F7>", ":DapToggleRepl<CR>", silent);
+vim.keymap.set("n", "<F10>", function() dap.step_over(); end, silent);
+vim.keymap.set("n", "<F11>", function() dap.step_into(); end, silent);
+vim.keymap.set("n", "<F12>", function() dap.step_out(); end, silent);
+vim.keymap.set("n", "\\", function() dap.toggle_breakpoint(); end, silent);
+vim.keymap.set("n", "[\\", ":DapClearBreakpoints<CR>", silent);
 
 ----------------------------
 -- Adapter Configurations --
