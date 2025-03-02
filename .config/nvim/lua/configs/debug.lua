@@ -8,9 +8,6 @@ debug.json_path = string.format("%s\\.debug\\config.json", vim.fn.getcwd());
 ------------------------
 -- Common keybindings --
 ------------------------
-vim.keymap.set("n", "<S-TAB>", function() dap.set_breakpoint(); end);
-vim.keymap.set("n", "<TAB>l",
-    function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")); end);
 vim.keymap.set("n", "<Leader>dr", function() dap.repl.open(); end);
 vim.keymap.set("n", "<Leader>dl", function() dap.run_last(); end);
 vim.keymap.set({ "n", "v" }, "<Leader>dh", function() widgets.hover(); end);
@@ -28,17 +25,13 @@ vim.keymap.set("n", "<F4>", ":DapDisconnect<CR>");
 vim.keymap.set("n", "<S-F4>", ":DapTerminate<CR>");
 vim.keymap.set("n", "<F3>", ":DapNew<CR>");
 vim.keymap.set("n", "<F5>", function() dap.continue(); end);
-
--- Idk what eval does, from the docs:
--- >vim
--- au FileType dap-repl lua require('dap.ext.autocompl').attach()
-vim.keymap.set("n", "<F6>", ":DapEval<CR>");
-vim.keymap.set("n", "<F7>", ":DapToggleRepl<CR>");
-vim.keymap.set("n", "<C-0>", ":DapClearBreakpoints<CR>");
+vim.keymap.set("n", "<F5>", function() dap.continue(); end);
 vim.keymap.set("n", "<F10>", function() dap.step_over(); end);
 vim.keymap.set("n", "<F11>", function() dap.step_into(); end);
 vim.keymap.set("n", "<F12>", function() dap.step_out(); end);
+
 vim.keymap.set("n", "<TAB>", function() dap.toggle_breakpoint(); end);
+vim.keymap.set("n", "<S-TAB>", ":DapClearBreakpoints<CR>");
 
 ----------------------------
 -- Adapter Configurations --
@@ -58,14 +51,31 @@ dap.adapters.coreclr = {
 ----------------------
 -- Language Configs --
 ----------------------
---- Rust
+---@param callback function The delegate that passes a json object as an argument
+---@return string path The desired path to a filetype
+local function set_up(callback)
+    if not path_helper.file_exists(debug.json_path) then
+        vim.print("Error: Press <F1> to setup your debug configs.");
+        return "";
+    else
+        local data = path_helper.read_json_file(debug.json_path);
+        if data ~= nil then
+            return callback(data);
+        end
+        return "";
+    end
+end
+
+-- Rust
 dap.configurations.rust = {
     {
         type = "codelldb",
         name = "launch - codelldb",
         request = "launch",
         program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file");
+            return set_up(function(data)
+                return data.exe;
+            end);
         end,
         cwd = "${workspaceFolder}",
         stopOnEntry = false,

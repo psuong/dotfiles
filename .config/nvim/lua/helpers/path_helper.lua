@@ -58,7 +58,7 @@ local clap_run = vim.fn["clap#run"];
 
 function mod.file_picker(filter, callback)
     local cwd = vim.fn.getcwd();
-    local handle = io.popen(string.format("fd -e %s", filter));
+    local handle = io.popen(string.format("fd -e %s -I", filter));
     if not handle then
         vim.g[filter] = vim.fn.input("Path to file: ", cwd, "file");
     else
