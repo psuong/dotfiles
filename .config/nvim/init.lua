@@ -48,12 +48,6 @@ Plug("psuong/omnisharp-extended-lsp.nvim");
 Plug("kkoomen/vim-doge", {["do"] = vim.fn["doge#install()"] });
 Plug("TheLeoP/powershell.nvim");
 
----------------
--- Debuggers --
----------------
-Plug("mfussenegger/nvim-dap");
-Plug("theHamsta/nvim-dap-virtual-text");
-
 ----------------------
 -- Package managers --
 ----------------------
@@ -70,6 +64,5 @@ require("configs.theme");
 require("configs.base_keybinds");
 require("configs.syntax");
 require("configs.language_servers");
-require("configs.debug");
 require("configs.terminal");
 require("configs.explorer");

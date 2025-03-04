@@ -9,7 +9,7 @@ local function get_window_for_buffer(buf)
     return nil;
 end
 
-vim.keymap.set("n", "T", function()
+function terminal.toggle(is_horizontal_split)
     local current_buf = vim.api.nvim_get_current_buf();
     local height = 20;
 
@@ -39,7 +39,12 @@ vim.keymap.set("n", "T", function()
         end
     else
         -- If it isn't, create a new terminal
-        vim.cmd("belowright split | terminal pwsh");
+        if is_horizontal_split then
+            vim.cmd("belowright split | terminal pwsh");
+        else
+            vim.cmd("belowright vsplit | terminal pwsh");
+        end
+
         current_buf = vim.api.nvim_get_current_buf();
         if vim.bo[current_buf].buftype == "terminal" then
             local window = get_window_for_buffer(vim.api.nvim_get_current_buf());
@@ -48,7 +53,15 @@ vim.keymap.set("n", "T", function()
             end
         end
     end
+end
+
+vim.keymap.set("n", "T", function()
+    terminal.toggle(true);
 end, { desc = "Toggle terminal in a horizontal split" });
+
+vim.keymap.set("n", "t", function ()
+    terminal.toggle(false);
+end , { desc = "Toggle the terminal in a vertical split" });
 
 vim.api.nvim_create_augroup("TerminalMappings", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
