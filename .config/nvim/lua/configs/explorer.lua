@@ -10,6 +10,7 @@ vim.g.clap_layout = {
 };
 vim.g.clap_theme = "material_design_dark";
 vim.g.clap_open_preview = "always";
+vim.g.clap_on_move_delay = 0;
 
 local noremap_silent = { noremap = true, silent = true };
 vim.api.nvim_set_keymap("n", "<C-p>", ":Clap files<CR>", noremap_silent);
