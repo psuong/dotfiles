@@ -98,7 +98,12 @@ end
 
 local function find_compile_commands_json()
     local current_dir = vim.fn.getcwd();
+    local cmake_file = current_dir .. "/CMakeLists.txt";
     local compile_commands = current_dir .. "/build";
+
+    if vim.fn.filereadable(cmake_file) ~= 1 then
+        return compile_commands;
+    end
 
     while current_dir ~= "" do
         local build_dir = current_dir .. "/build"
@@ -113,9 +118,8 @@ local function find_compile_commands_json()
         current_dir = vim.fn.fnamemodify(current_dir, ":h");
     end
 
-    return compile_commands
+    return compile_commands;
 end
-
 
 local capabilities = require("ddc_source_lsp").make_client_capabilities();
 local path_helper = require("helpers.path_helper");
@@ -232,7 +236,6 @@ nvim_lsp.lua_ls.setup({
         if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
             return
         end
-
         client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
             runtime = {
                 -- Tell the language server which version of Lua you're using

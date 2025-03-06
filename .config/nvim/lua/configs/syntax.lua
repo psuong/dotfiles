@@ -38,7 +38,9 @@ require("nvim-treesitter.configs").setup({
         "vimdoc",
         "powershell",
         "yaml",
-        "toml"
+        "toml",
+        "json",
+        "cmake"
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
