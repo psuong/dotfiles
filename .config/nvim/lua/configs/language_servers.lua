@@ -96,6 +96,27 @@ local function toggle_inlay_hint()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled());
 end
 
+local function find_compile_commands_json()
+    local current_dir = vim.fn.getcwd();
+    local compile_commands = current_dir .. "/build";
+
+    while current_dir ~= "" do
+        local build_dir = current_dir .. "/build"
+        local potential_path = vim.fn.glob(build_dir .. "/**/compile_commands.json", false, true);
+
+        if #potential_path > 0 then
+            compile_commands = vim.fn.fnamemodify(potential_path[1], ":h");
+            break
+        end
+
+        -- Move to the parent directory
+        current_dir = vim.fn.fnamemodify(current_dir, ":h");
+    end
+
+    return compile_commands
+end
+
+
 local capabilities = require("ddc_source_lsp").make_client_capabilities();
 local path_helper = require("helpers.path_helper");
 
@@ -128,25 +149,7 @@ local function configurable_functionality(defs_callback, type_defs_callback, ref
     local_map("n", "<Leader>fi", impl_callback, "Find all implementations");
 end
 
-require("lspconfig").omnisharp.setup({
-    capabilities = capabilities,
-    cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-    on_attach = function(_, bufnr)
-        current_buffer = bufnr;
-        common_keybindings();
-        local omnisharp_extended = require("omnisharp_extended");
-        configurable_functionality(
-            omnisharp_extended.lsp_definition,
-            omnisharp_extended.lsp_type_definition,
-            omnisharp_extended.clap_lsp_references,
-            omnisharp_extended.lsp_implementation);
-
-        local lsp_ui = require("helpers.lsp_ui");
-        vim.ui.select = lsp_ui.on_select;
-        vim.lsp.inlay_hint.enable(true);
-    end,
-});
-
+-- PowerShell
 require("powershell").setup({
     capabilities = capabilities,
     bundle_path = path_helper.expand_tilde("~/sources/language-servers/PowerShellEditorServices"),
@@ -167,7 +170,30 @@ require("powershell").setup({
     }
 });
 
-require("lspconfig").slangd.setup({
+local nvim_lsp = require("lspconfig");
+
+-- C#
+nvim_lsp.omnisharp.setup({
+    capabilities = capabilities,
+    cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+    on_attach = function(_, bufnr)
+        current_buffer = bufnr;
+        common_keybindings();
+        local omnisharp_extended = require("omnisharp_extended");
+        configurable_functionality(
+            omnisharp_extended.lsp_definition,
+            omnisharp_extended.lsp_type_definition,
+            omnisharp_extended.clap_lsp_references,
+            omnisharp_extended.lsp_implementation);
+
+        local lsp_ui = require("helpers.lsp_ui");
+        vim.ui.select = lsp_ui.on_select;
+        vim.lsp.inlay_hint.enable(true);
+    end,
+});
+
+-- Shader Slang
+nvim_lsp.slangd.setup({
     capabilities = capabilities,
     filetypes = { "slang", "shaderslang", "hlsl" },
     settings = {
@@ -197,7 +223,8 @@ require("lspconfig").slangd.setup({
     },
 });
 
-require("lspconfig").lua_ls.setup({
+-- Lua
+nvim_lsp.lua_ls.setup({
     capabilities = capabilities,
     cmd = { "lua-language-server" },
     on_init = function(client)
@@ -244,9 +271,10 @@ require("lspconfig").lua_ls.setup({
     }
 });
 
-require("lspconfig").clangd.setup({
+-- Clangd
+nvim_lsp.clangd.setup({
     capabilities = capabilities,
-    cmd = { "clangd" },
+    cmd = { "clangd", "--compile-commands-dir=" .. find_compile_commands_json() },
     on_attach = function(_, bufnr)
         current_buffer = bufnr;
         common_keybindings();
@@ -262,10 +290,11 @@ require("lspconfig").clangd.setup({
     end,
 });
 
-require("lspconfig").rust_analyzer.setup({
+-- Rust Analyzer
+nvim_lsp.rust_analyzer.setup({
     capabilities = capabilities,
     cmd = { "rust-analyzer" },
-    on_attach = function (_, bufnr)
+    on_attach = function(_, bufnr)
         current_buffer = bufnr;
         common_keybindings();
         configurable_functionality(
@@ -285,32 +314,39 @@ require("lspconfig").rust_analyzer.setup({
     }
 });
 
--- Rust Analyzer is installed using rustup
--- vim.g.rustaceanvim = {
---     server = {
---         on_attach = function(_, bufnr)
---             current_buffer = bufnr;
---             vim.diagnostic.config({ virtual_text = false });
--- 
---             common_keybindings();
---             configurable_functionality(
---                 vim.lsp.buf.definition,
---                 vim.lsp.buf.type_definition,
---                 vim.lsp.buf.references,
---                 vim.lsp.buf.implementation);
---             local lsp_ui = require("helpers.lsp_ui");
---             vim.ui.select = lsp_ui.on_select;
---             vim.lsp.inlay_hint.enable(true);
---             vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
---         end,
---         default_settings = {
---             ['rust-analyzer'] = {},
---         },
---         dap = {
---             adapter = require("rustaceanvim.config").get_codelldb_adapter("codelldb.exe", "C:\\Users\\porri\\sources\\language-servers\\codelldb\\extension\\lldb\\bin\\lldb.dll")
---         }
---     }
--- };
+-- CMake
+local configs = require("lspconfig.configs");
+if not configs.neocmake then
+    configs.neocmake = {
+        default_config = {
+            cmd = vim.lsp.rpc.connect("127.0.0.1", "9257"),
+            filetypes = { "cmake" },
+            root_dir = function(fname)
+                return nvim_lsp.util.find_git_ancestor(fname)
+            end,
+            single_file_support = true,-- suggested
+            on_attach = function(_, bufnr)
+                current_buffer = bufnr;
+                common_keybindings();
+                configurable_functionality(
+                    vim.lsp.buf.definition,
+                    vim.lsp.buf.type_definition,
+                    vim.lsp.buf.references,
+                    vim.lsp.buf.implementation);
+                local lsp_ui = require("helpers.lsp_ui");
+                vim.ui.select = lsp_ui.on_select;
+                vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+                -- vim.lsp.inlay_hint.enable(true);
+            end,
+            init_options = {
+                format = {
+                    enable = true
+                }
+            }
+        }
+    }
+    nvim_lsp.neocmake.setup({});
+end
 
 ---------
 -- DDC --
@@ -318,13 +354,13 @@ require("lspconfig").rust_analyzer.setup({
 local patch_ddc = vim.fn["ddc#custom#patch_global"];
 vim.cmd([[
 call ddc#custom#patch_global('filterParams', {
-  \   'matcher_fuzzy': {
-  \     'splitMode': 'word'
-  \   },
-  \   'converter_fuzzy': {
-  \     'hlGroup': 'SpellBad'
-  \   }
-  \ })
+\   'matcher_fuzzy': {
+\     'splitMode': 'word'
+\   },
+\   'converter_fuzzy': {
+\     'hlGroup': 'SpellBad'
+\   }
+\ })
 ]]);
 patch_ddc({
     ui = "native",
