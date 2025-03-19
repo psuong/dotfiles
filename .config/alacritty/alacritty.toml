@@ -36,4 +36,29 @@ program = "pwsh"
 startup_mode = "Maximized"
 
 [general]
-working_directory = 'C:\Users\porri'
+working_directory = "C:\\Users\\porri"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Alt"
+action = "ToggleViMode"
+
+[[keyboard.bindings]]
+key = "j"
+mods = "Control"
+action = "ReceiveChar"
+
+[[keyboard.bindings]]
+key = "h"
+mods = "Control"
+action = "ReceiveChar"
+
+[[keyboard.bindings]]
+key = "k"
+mods = "Control"
+action = "ReceiveChar"
+
+[[keyboard.bindings]]
+key = "l"
+mods = "Control"
+action = "ReceiveChar"
