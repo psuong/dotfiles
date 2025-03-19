@@ -200,6 +200,19 @@ nvim_lsp.omnisharp.setup({
 nvim_lsp.slangd.setup({
     capabilities = capabilities,
     filetypes = { "slang", "shaderslang", "hlsl" },
+    on_attach = function(_, bufnr)
+        current_buffer = bufnr;
+        common_keybindings();
+        configurable_functionality(
+            vim.lsp.buf.definition,
+            vim.lsp.buf.type_definition,
+            vim.lsp.buf.references,
+            vim.lsp.buf.implementation);
+
+        local lsp_ui = require("helpers.lsp_ui");
+        vim.ui.select = lsp_ui.on_select;
+        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+    end,
     settings = {
         slang = {
             predefinedMacros = { "MY_VALUE_MACRO=1" },
@@ -209,20 +222,7 @@ nvim_lsp.slangd.setup({
             },
             format = {
                 clangFormatLocation = "clang-format"
-            },
-            on_attach = function(_, bufnr)
-                current_buffer = bufnr;
-                common_keybindings();
-                configurable_functionality(
-                    vim.lsp.buf.definition,
-                    vim.lsp.buf.type_definition,
-                    vim.lsp.buf.references,
-                    vim.lsp.buf.implementation);
-
-                local lsp_ui = require("helpers.lsp_ui");
-                vim.ui.select = lsp_ui.on_select;
-                vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
-            end
+            }
         }
     },
 });
@@ -327,7 +327,7 @@ if not configs.neocmake then
             root_dir = function(fname)
                 return nvim_lsp.util.find_git_ancestor(fname)
             end,
-            single_file_support = true,-- suggested
+            single_file_support = true, -- suggested
             on_attach = function(_, bufnr)
                 current_buffer = bufnr;
                 common_keybindings();
