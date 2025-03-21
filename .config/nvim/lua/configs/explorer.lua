@@ -53,7 +53,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function ()
         if vim.fn.argc() == 0 then
-            vim.cmd("sleep 20m");
             vim.cmd("Clap files");
         end
     end
