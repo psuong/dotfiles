@@ -322,7 +322,7 @@ local configs = require("lspconfig.configs");
 if not configs.neocmake then
     configs.neocmake = {
         default_config = {
-            cmd = vim.lsp.rpc.connect("127.0.0.1", "9257"),
+            cmd = vim.lsp.rpc.connect("127.0.0.1", 9257),
             filetypes = { "cmake" },
             root_dir = function(fname)
                 return nvim_lsp.util.find_git_ancestor(fname)

@@ -136,7 +136,6 @@ local default_select = vim.ui.select;
 ---@param opts any
 ---@param on_choice function(string)
 function mod.on_select(items, opts, on_choice)
-    vim.print(opts);
     if opts.kind == "codeaction" then
         local clap_display_data = {};
         for i, item in ipairs(items) do
