@@ -40,7 +40,6 @@ Plug("matsui54/denops-popup-preview.vim");
 Plug("matsui54/denops-signature_help");
 Plug("psuong/omnisharp-extended-lsp.nvim");
 Plug("kkoomen/vim-doge", {["do"] = vim.fn["doge#install()"] });
-Plug("TheLeoP/powershell.nvim");
 
 ----------------------
 -- Package managers --

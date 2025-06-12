@@ -165,27 +165,36 @@ local function configurable_functionality(defs_callback, type_defs_callback, ref
 end
 
 -- PowerShell
-require("powershell").setup({
-    capabilities = capabilities,
-    bundle_path = path_helper.expand_tilde("~/sources/language-servers/PowerShellEditorServices"),
-    server = {
-        on_attach = function(_, bufnr)
-            current_buffer = bufnr;
-            common_keybindings();
-            configurable_functionality(
-                vim.lsp.buf.definition,
-                vim.lsp.buf.type_definition,
-                vim.lsp.buf.references,
-                vim.lsp.buf.implementation);
+local on_attach = function(client, bufnr)
+	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-            local lsp_ui = require("helpers.lsp_ui");
-            vim.ui.select = lsp_ui.on_select;
-            vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
-        end
-    }
-});
+	local bufopts = { noremap = true, silent = true, buffer = bufnr }
+	vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+	vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
+	vim.keymap.set('n', '<Leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+	vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
+	vim.keymap.set('n', '<Leader>td', vim.lsp.buf.type_definition, bufopts)
+end
 
 local nvim_lsp = require("lspconfig");
+
+nvim_lsp.powershell_es.setup({
+	bundle_path = path_helper.expand_tilde("~/sources/language-servers/powershell"),
+	on_attach = function(client, bufnr)
+        current_buffer = bufnr;
+        common_keybindings();
+        configurable_functionality(
+            vim.lsp.buf.definition,
+            vim.lsp.buf.type_definition,
+            vim.lsp.buf.references,
+            vim.lsp.buf.implementation);
+    end
+});
 
 -- C#
 nvim_lsp.omnisharp.setup({
