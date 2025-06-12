@@ -366,16 +366,6 @@ end
 -- DDC --
 ---------
 local patch_ddc_global = vim.fn["ddc#custom#patch_global"];
--- vim.cmd([[
--- call ddc#custom#patch_global('filterParams', {
--- \   'matcher_fuzzy': {
--- \     'splitMode': 'word'
--- \   },
--- \   'converter_fuzzy': {
--- \     'hlGroup': 'SpellBad'
--- \   }
--- \ })
--- ]]);
 patch_ddc_global({
     ui = "native",
     sources = { "lsp", "vsnip" },
