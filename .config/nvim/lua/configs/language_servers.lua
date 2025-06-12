@@ -1,5 +1,8 @@
 local language_servers = {};
 
+-- Set up a shared server for denops
+vim.g.denops_server_addr = "127.0.0.1:32123";
+
 ----------------
 -- File types --
 ----------------
@@ -131,6 +134,14 @@ local local_map = function(mode, keys, func, desc)
     vim.keymap.set(mode, keys, func, { buffer = current_buffer, desc = desc });
 end
 
+local function go_to_next()
+    vim.diagnostic.jump({ count = 1, float = true });
+end
+
+local function go_to_prev()
+    vim.diagnostic.jump({ count = -1, float = true });
+end
+
 local function common_keybindings()
     vim.diagnostic.config({ virtual_text = false });
     local_map("n", "<Leader>ti", toggle_inlay_hint, "Toggle inlay hints");
@@ -139,8 +150,8 @@ local function common_keybindings()
     local_map("n", "<Leader>nm", vim.lsp.buf.rename, "Rename symbol");
     local_map("n", "<Leader>cf", vim.lsp.buf.format, "Run code formatting");
     local_map("n", "<Leader>pd", vim.lsp.buf.hover, "Preview info above cursor");
-    vim.keymap.set("n", ".", vim.diagnostic.goto_next, { noremap = true, silent = true });
-    vim.keymap.set("n", ",", vim.diagnostic.goto_prev, { noremap = true, silent = true });
+    vim.keymap.set("n", ".", go_to_next, { noremap = true, silent = true });
+    vim.keymap.set("n", ",", go_to_prev, { noremap = true, silent = true });
     local_map("n", "<Leader>e", function()
         vim.diagnostic.open_float(nil, { focus = false });
     end, 'Show diagnostics float')
@@ -354,20 +365,28 @@ end
 ---------
 -- DDC --
 ---------
-local patch_ddc = vim.fn["ddc#custom#patch_global"];
-vim.cmd([[
-call ddc#custom#patch_global('filterParams', {
-\   'matcher_fuzzy': {
-\     'splitMode': 'word'
-\   },
-\   'converter_fuzzy': {
-\     'hlGroup': 'SpellBad'
-\   }
-\ })
-]]);
-patch_ddc({
+local patch_ddc_global = vim.fn["ddc#custom#patch_global"];
+-- vim.cmd([[
+-- call ddc#custom#patch_global('filterParams', {
+-- \   'matcher_fuzzy': {
+-- \     'splitMode': 'word'
+-- \   },
+-- \   'converter_fuzzy': {
+-- \     'hlGroup': 'SpellBad'
+-- \   }
+-- \ })
+-- ]]);
+patch_ddc_global({
     ui = "native",
     sources = { "lsp", "vsnip" },
+    filterParams = {
+        matcher_fuzzy = {
+            splitWord = "word"
+        },
+        converter_fuzzy = {
+            hlGroup = "SpellBad"
+        }
+    },
     sourceOptions = {
         ["_"] = {
             matchers = { "matcher_fuzzy" },
@@ -386,16 +405,24 @@ patch_ddc({
     },
     sourceParams = {
         lsp = {
-            enableResolveItem = true,
+            enableResolveItem = false,
             enableAdditionalTextEdit = true,
             snippetEngine = vim.fn["denops#callback#register"](function(body)
                 return vim.fn["vsnip#anonymous"](body)
             end),
         },
-        enableResolveItem = true,
-        enableAdditionalTextEdit = true,
     },
 });
+
+local patch_ddc_filetype = vim.fn["ddc#custom#patch_filetype"];
+local filetype_clang_opts = {
+    sourceParams = {
+        lsp = {
+            enableResolveItem = false,
+        }
+    }
+};
+patch_ddc_filetype({ "cpp", "c", "h" }, filetype_clang_opts);
 
 -- Tab Support
 vim.keymap.set("i", "<Tab>", function()

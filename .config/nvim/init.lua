@@ -11,15 +11,9 @@ Begin();
 --------------------
 Plug("ellisonleao/gruvbox.nvim");
 Plug("nvim-treesitter/nvim-treesitter", {["do"] = vim.fn[":TSUpdate"]});
--- Plug("nvim-treesitter/nvim-treesitter-context");
 Plug("echasnovski/mini.indentscope");
 Plug("nvim-tree/nvim-web-devicons");
 Plug("TheLeoP/fern-renderer-web-devicons.nvim");
-
------------------------
--- Editor Behaviours --
------------------------
--- Plug("karb94/neoscroll.nvim");
 
 ---------------
 -- Searchers --
@@ -34,6 +28,7 @@ Plug("lambdalisue/vim-glyph-palette");
 Plug("neovim/nvim-lspconfig");
 Plug("stevearc/aerial.nvim");
 Plug("vim-denops/denops.vim");
+Plug("vim-denops/denops-shared-server.vim");
 Plug("Shougo/ddc.vim");
 Plug("Shougo/ddc-ui-native");
 Plug("Shougo/ddc-source-lsp");
@@ -44,7 +39,6 @@ Plug("uga-rosa/ddc-source-vsnip");
 Plug("matsui54/denops-popup-preview.vim");
 Plug("matsui54/denops-signature_help");
 Plug("psuong/omnisharp-extended-lsp.nvim");
--- Plug("psuong/rustaceanvim");
 Plug("kkoomen/vim-doge", {["do"] = vim.fn["doge#install()"] });
 Plug("TheLeoP/powershell.nvim");
 
