@@ -20,7 +20,7 @@ vim.opt.title = true;
 vim.opt.linespace = 1;
 
 vim.opt.number = true;
-vim.opt.colorcolumn = "100";
+vim.opt.colorcolumn = "120";
 vim.opt.cursorline = true;
 vim.opt.showcmd = true;
 vim.opt.showmode = false;
