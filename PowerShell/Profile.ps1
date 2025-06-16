@@ -9,7 +9,6 @@ foreach ($module in $modules) {
 }
 
 Set-PSReadLineOption -ShowToolTips:$true
-Set-PSReadLineOption -MenuCompleteStyle List
 
 Set-PSReadLineOption -PredictionViewStyle List
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
