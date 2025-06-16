@@ -59,3 +59,4 @@ require("configs.syntax");
 require("configs.language_servers");
 require("configs.terminal");
 require("configs.explorer");
+require("configs.neovide");
