@@ -164,28 +164,11 @@ local function configurable_functionality(defs_callback, type_defs_callback, ref
     local_map("n", "<Leader>fi", impl_callback, "Find all implementations");
 end
 
--- PowerShell
-local on_attach = function(client, bufnr)
-	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-	vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set('n', '<Leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-	vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
-	vim.keymap.set('n', '<Leader>td', vim.lsp.buf.type_definition, bufopts)
-end
-
 local nvim_lsp = require("lspconfig");
 
 nvim_lsp.powershell_es.setup({
-	bundle_path = path_helper.expand_tilde("~/sources/language-servers/powershell"),
-	on_attach = function(client, bufnr)
+    bundle_path = path_helper.expand_tilde("~/sources/language-servers/powershell"),
+    on_attach = function(_, bufnr)
         current_buffer = bufnr;
         common_keybindings();
         configurable_functionality(
@@ -297,7 +280,7 @@ nvim_lsp.lua_ls.setup({
 -- Clangd
 nvim_lsp.clangd.setup({
     capabilities = capabilities,
-    cmd = { "clangd", "--compile-commands-dir=" .. find_compile_commands_json() },
+    cmd = { "clangd", "--inlay-hints=true", "--compile-commands-dir=" .. find_compile_commands_json() },
     on_attach = function(_, bufnr)
         current_buffer = bufnr;
         common_keybindings();
@@ -310,6 +293,7 @@ nvim_lsp.clangd.setup({
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;
         vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+        vim.lsp.inlay_hint.enable(true);
     end,
 });
 
@@ -338,38 +322,39 @@ nvim_lsp.rust_analyzer.setup({
 });
 
 -- CMake
-local configs = require("lspconfig.configs");
-if not configs.neocmake then
-    configs.neocmake = {
-        default_config = {
-            cmd = vim.lsp.rpc.connect("127.0.0.1", 9257),
-            filetypes = { "cmake" },
-            root_dir = function(fname)
-                return nvim_lsp.util.find_git_ancestor(fname)
-            end,
-            single_file_support = true, -- suggested
-            on_attach = function(_, bufnr)
-                current_buffer = bufnr;
-                common_keybindings();
-                configurable_functionality(
-                    vim.lsp.buf.definition,
-                    vim.lsp.buf.type_definition,
-                    vim.lsp.buf.references,
-                    vim.lsp.buf.implementation);
-                local lsp_ui = require("helpers.lsp_ui");
-                vim.ui.select = lsp_ui.on_select;
-                vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
-                -- vim.lsp.inlay_hint.enable(true);
-            end,
-            init_options = {
-                format = {
-                    enable = true
-                }
-            }
+vim.lsp.config("neocmake", {
+    default_config = {
+        cmd = { "neocmakelsp", "--stdio" },
+        filetypes = { "cmake" },
+        root_dir = function(fname)
+            return nvim_lsp.util.find_git_ancestor(fname)
+        end,
+        single_file_support = true,
+        on_attach = function(_, bufnr)
+            current_buffer = bufnr;
+            common_keybindings();
+            configurable_functionality(
+                vim.lsp.buf.definition,
+                vim.lsp.buf.type_definition,
+                vim.lsp.buf.references,
+                vim.lsp.buf.implementation);
+            local lsp_ui = require("helpers.lsp_ui");
+            vim.ui.select = lsp_ui.on_select;
+            vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+            vim.lsp.inlay_hint.enable(true);
+        end,
+        init_options = {
+            format = {
+                enable = true
+            },
+            lint = {
+                enable = true
+            },
+            scan_cmake_in_package = true
         }
     }
-    nvim_lsp.neocmake.setup({});
-end
+});
+vim.lsp.enable("neocmake");
 
 ---------
 -- DDC --
