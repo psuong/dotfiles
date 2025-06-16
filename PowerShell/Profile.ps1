@@ -8,8 +8,13 @@ foreach ($module in $modules) {
     }
 }
 
-Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineOption -ShowToolTips:$true
+Set-PSReadLineOption -MenuCompleteStyle List
+
 Set-PSReadLineOption -PredictionViewStyle List
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineKeyHandler -Key 'Alt+J' -Function NextSuggestion
+Set-PSReadLineKeyHandler -Key 'Alt+K' -Function PreviousSuggestion
 
 function Invoke-Tere {
     $result = & (Get-Command -CommandType Application tere) $args
