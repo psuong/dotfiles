@@ -298,13 +298,6 @@ vim.lsp.config("clangd", {
         vim.lsp.inlay_hint.enable(true);
     end,
 });
-
-vim.fn["ddc#custom#patch_global"]("sourceParams", {
-    clangd = {
-        enableResolveItem = false,
-    },
-})
-
 vim.lsp.enable("clangd");
 
 -- Rust Analyzer
@@ -401,7 +394,6 @@ patch_ddc_global({
     sourceParams = {
         lsp = {
             enableResolveItem = false,
-            enableResolve = false,
             isVolatile = true,
             enableAdditionalTextEdit = true,
             snippetEngine = vim.fn["denops#callback#register"](function(body)
@@ -409,20 +401,6 @@ patch_ddc_global({
             end),
         },
     },
-});
-
-vim.api.nvim_create_autocmd("User", {
-    pattern = "DenopsPluginPost:ddc",
-    callback = function()
-        vim.fn["denops#request"]("ddc", "patchGlobal", { {
-            sourceParams = {
-                lsp = {
-                    enableResolve = false,
-                    handleResolveError = function(_) end, -- ignore resolve failures
-                },
-            },
-        } })
-    end,
 });
 
 -- Tab Support
@@ -455,26 +433,5 @@ vim.g.signature_help_confg = {
     viewStyle = "floating"
 }
 vim.fn["signature_help#enable"]();
-
-vim.api.nvim_create_autocmd("User", {
-    pattern = "DenopsPluginPost:denops",
-    callback = function()
-        -- Run a tiny delay to ensure Denops worker is alive
-        vim.defer_fn(function()
-            pcall(function()
-                vim.fn["denops#request_async"]("denops", "eval", {
-                    [[
-            globalThis.addEventListener('unhandledrejection', (event) => {
-              const msg = String(event.reason || '');
-              if (msg.includes('completionItem/resolve')) {
-                event.preventDefault();
-              }
-            });
-          ]]
-                }, function(_) end)
-            end)
-        end, 200)
-    end,
-});
 
 return language_servers;
