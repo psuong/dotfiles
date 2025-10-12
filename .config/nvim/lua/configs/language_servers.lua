@@ -164,9 +164,7 @@ local function configurable_functionality(defs_callback, type_defs_callback, ref
     local_map("n", "<Leader>fi", impl_callback, "Find all implementations");
 end
 
-local nvim_lsp = require("lspconfig");
-
-nvim_lsp.powershell_es.setup({
+vim.lsp.config("powershell_es", {
     bundle_path = path_helper.expand_tilde("~/sources/language-servers/powershell"),
     on_attach = function(_, bufnr)
         current_buffer = bufnr;
@@ -180,7 +178,7 @@ nvim_lsp.powershell_es.setup({
 });
 
 -- C#
-nvim_lsp.omnisharp.setup({
+vim.lsp.config("omnisharp", {
     capabilities = capabilities,
     cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
     on_attach = function(_, bufnr)
@@ -200,7 +198,7 @@ nvim_lsp.omnisharp.setup({
 });
 
 -- Shader Slang
-nvim_lsp.slangd.setup({
+vim.lsp.config("slangd", {
     capabilities = capabilities,
     filetypes = { "slang", "shaderslang", "hlsl" },
     on_attach = function(_, bufnr)
@@ -231,7 +229,7 @@ nvim_lsp.slangd.setup({
 });
 
 -- Lua
-nvim_lsp.lua_ls.setup({
+vim.lsp.config("lua_ls", {
     capabilities = capabilities,
     cmd = { "lua-language-server" },
     on_init = function(client)
@@ -278,7 +276,7 @@ nvim_lsp.lua_ls.setup({
 });
 
 -- Clangd
-nvim_lsp.clangd.setup({
+vim.lsp.config("clangd", {
     capabilities = capabilities,
     cmd = { "clangd", "--inlay-hints=true", "--compile-commands-dir=" .. find_compile_commands_json() },
     on_attach = function(_, bufnr)
@@ -298,7 +296,7 @@ nvim_lsp.clangd.setup({
 });
 
 -- Rust Analyzer
-nvim_lsp.rust_analyzer.setup({
+vim.lsp.config("rust_analyzer", {
     capabilities = capabilities,
     cmd = { "rust-analyzer" },
     on_attach = function(_, bufnr)
@@ -354,7 +352,6 @@ vim.lsp.config("neocmake", {
         }
     }
 });
-vim.lsp.enable("neocmake");
 
 ---------
 -- DDC --
