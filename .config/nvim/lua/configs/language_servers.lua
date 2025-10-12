@@ -389,8 +389,9 @@ patch_ddc_global({
     },
     sourceParams = {
         lsp = {
-            enableResolveItem = false,
+            isVolatile = true,
             enableAdditionalTextEdit = true,
+            enableResolveItem = false,
             snippetEngine = vim.fn["denops#callback#register"](function(body)
                 return vim.fn["vsnip#anonymous"](body)
             end),
@@ -406,7 +407,7 @@ local filetype_clang_opts = {
         }
     }
 };
-patch_ddc_filetype({ "cpp", "c", "h" }, filetype_clang_opts);
+patch_ddc_filetype({ "cpp", "c", "h", "hpp" }, filetype_clang_opts);
 
 -- Tab Support
 vim.keymap.set("i", "<Tab>", function()
