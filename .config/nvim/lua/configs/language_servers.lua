@@ -176,6 +176,7 @@ vim.lsp.config("powershell_es", {
             vim.lsp.buf.implementation);
     end
 });
+vim.lsp.enable("powershell_es");
 
 -- C#
 vim.lsp.config("omnisharp", {
@@ -196,6 +197,7 @@ vim.lsp.config("omnisharp", {
         vim.lsp.inlay_hint.enable(true);
     end,
 });
+vim.lsp.enable("omnisharp");
 
 -- Shader Slang
 vim.lsp.config("slangd", {
@@ -227,6 +229,7 @@ vim.lsp.config("slangd", {
         }
     },
 });
+vim.lsp.enable("slangd");
 
 -- Lua
 vim.lsp.config("lua_ls", {
@@ -274,6 +277,7 @@ vim.lsp.config("lua_ls", {
         Lua = {}
     }
 });
+vim.lsp.enable("lua_ls");
 
 -- Clangd
 vim.lsp.config("clangd", {
@@ -294,6 +298,14 @@ vim.lsp.config("clangd", {
         vim.lsp.inlay_hint.enable(true);
     end,
 });
+
+vim.fn["ddc#custom#patch_global"]("sourceParams", {
+    clangd = {
+        enableResolveItem = false,
+    },
+})
+
+vim.lsp.enable("clangd");
 
 -- Rust Analyzer
 vim.lsp.config("rust_analyzer", {
@@ -318,6 +330,7 @@ vim.lsp.config("rust_analyzer", {
         }
     }
 });
+vim.lsp.enable("rust_analyzer");
 
 -- CMake
 vim.lsp.config("neocmake", {
@@ -352,6 +365,7 @@ vim.lsp.config("neocmake", {
         }
     }
 });
+vim.lsp.enable("neocmake");
 
 ---------
 -- DDC --
@@ -386,9 +400,10 @@ patch_ddc_global({
     },
     sourceParams = {
         lsp = {
+            enableResolveItem = false,
+            enableResolve = false,
             isVolatile = true,
             enableAdditionalTextEdit = true,
-            enableResolveItem = false,
             snippetEngine = vim.fn["denops#callback#register"](function(body)
                 return vim.fn["vsnip#anonymous"](body)
             end),
@@ -396,15 +411,19 @@ patch_ddc_global({
     },
 });
 
-local patch_ddc_filetype = vim.fn["ddc#custom#patch_filetype"];
-local filetype_clang_opts = {
-    sourceParams = {
-        lsp = {
-            enableResolveItem = false,
-        }
-    }
-};
-patch_ddc_filetype({ "cpp", "c", "h", "hpp" }, filetype_clang_opts);
+vim.api.nvim_create_autocmd("User", {
+    pattern = "DenopsPluginPost:ddc",
+    callback = function()
+        vim.fn["denops#request"]("ddc", "patchGlobal", { {
+            sourceParams = {
+                lsp = {
+                    enableResolve = false,
+                    handleResolveError = function(_) end, -- ignore resolve failures
+                },
+            },
+        } })
+    end,
+});
 
 -- Tab Support
 vim.keymap.set("i", "<Tab>", function()
@@ -436,5 +455,26 @@ vim.g.signature_help_confg = {
     viewStyle = "floating"
 }
 vim.fn["signature_help#enable"]();
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "DenopsPluginPost:denops",
+    callback = function()
+        -- Run a tiny delay to ensure Denops worker is alive
+        vim.defer_fn(function()
+            pcall(function()
+                vim.fn["denops#request_async"]("denops", "eval", {
+                    [[
+            globalThis.addEventListener('unhandledrejection', (event) => {
+              const msg = String(event.reason || '');
+              if (msg.includes('completionItem/resolve')) {
+                event.preventDefault();
+              }
+            });
+          ]]
+                }, function(_) end)
+            end)
+        end, 200)
+    end,
+});
 
 return language_servers;
