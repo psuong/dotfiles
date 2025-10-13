@@ -49,16 +49,16 @@ vim.cmd([[
 " NOTE: You can use other key to expand snippet.
 
 " Expand
-imap <expr> <C-j>   vsnip#expandable()  ? "<Plug>(vsnip-expand)"         : "<C-j>"
-smap <expr> <C-j>   vsnip#expandable()  ? "<Plug>(vsnip-expand)"         : "<C-j>"
+imap <expr> <C-j> vsnip#expandable()  ? "<Plug>(vsnip-expand)"         : "<C-j>"
+smap <expr> <C-j> vsnip#expandable()  ? "<Plug>(vsnip-expand)"         : "<C-j>"
 
 " Expand or jump
-imap <expr> <C-k>   vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
-smap <expr> <C-k>   vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
+imap <expr> <C-k> vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
+smap <expr> <C-k> vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
 
 " Jump forward or backward
-imap <expr> <C-j>   vsnip#jumpable(1)   ? "<Plug>(vsnip-jump-next)"      : "<Tab>"
-smap <expr> <C-j>   vsnip#jumpable(1)   ? "<Plug>(vsnip-jump-next)"      : "<Tab>"
+imap <expr> <C-j> vsnip#jumpable(1)   ? "<Plug>(vsnip-jump-next)"      : "<Tab>"
+smap <expr> <C-j> vsnip#jumpable(1)   ? "<Plug>(vsnip-jump-next)"      : "<Tab>"
 imap <expr> <C-k> vsnip#jumpable(-1)  ? "<Plug>(vsnip-jump-prev)"      : "<S-Tab>"
 smap <expr> <C-k> vsnip#jumpable(-1)  ? "<Plug>(vsnip-jump-prev)"      : "<S-Tab>"
 
@@ -125,6 +125,7 @@ local function find_compile_commands_json()
 end
 
 local capabilities = require("ddc_source_lsp").make_client_capabilities();
+capabilities.textDocument.completion.completionItem.snippetSupport = true;
 local path_helper = require("helpers.path_helper");
 
 --- The current buffer
@@ -236,27 +237,45 @@ vim.lsp.config("lua_ls", {
     capabilities = capabilities,
     cmd = { "lua-language-server" },
     on_init = function(client)
-        local path = client.workspace_folders[1].name
-        if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-            return
+        if client.workspace_folders then
+            local path = client.workspace_folders[1].name
+            if
+                path ~= vim.fn.stdpath('config')
+                and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+            then
+                return
+            end
         end
+
         client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
             runtime = {
-                -- Tell the language server which version of Lua you're using
-                -- (most likely LuaJIT in the case of Neovim)
-                version = "LuaJIT"
+                -- Tell the language server which version of Lua you're using (most
+                -- likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Tell the language server how to find Lua modules same way as Neovim
+                -- (see `:h lua-module-load`)
+                path = {
+                    'lua/?.lua',
+                    'lua/?/init.lua',
+                },
             },
             -- Make the server aware of Neovim runtime files
             workspace = {
                 checkThirdParty = false,
                 library = {
                     vim.env.VIMRUNTIME
-                    -- Depending on the usage, you might want to add additional paths here.
-                    -- "${3rd}/luv/library"
-                    -- "${3rd}/busted/library",
+                    -- Depending on the usage, you might want to add additional paths
+                    -- here.
+                    -- '${3rd}/luv/library'
+                    -- '${3rd}/busted/library'
                 }
-                -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                -- library = vim.api.nvim_get_runtime_file("", true)
+                -- Or pull in all of 'runtimepath'.
+                -- NOTE: this is a lot slower and will cause issues when working on
+                -- your own configuration.
+                -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+                -- library = {
+                --   vim.api.nvim_get_runtime_file('', true),
+                -- }
             }
         })
     end,
@@ -325,38 +344,22 @@ vim.lsp.config("rust_analyzer", {
 });
 vim.lsp.enable("rust_analyzer");
 
--- CMake
+-- Neocmake
 vim.lsp.config("neocmake", {
-    default_config = {
-        cmd = { "neocmakelsp", "--stdio" },
-        filetypes = { "cmake" },
-        root_dir = function(fname)
-            return nvim_lsp.util.find_git_ancestor(fname)
-        end,
-        single_file_support = true,
-        on_attach = function(_, bufnr)
-            current_buffer = bufnr;
-            common_keybindings();
-            configurable_functionality(
-                vim.lsp.buf.definition,
-                vim.lsp.buf.type_definition,
-                vim.lsp.buf.references,
-                vim.lsp.buf.implementation);
-            local lsp_ui = require("helpers.lsp_ui");
-            vim.ui.select = lsp_ui.on_select;
-            vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
-            vim.lsp.inlay_hint.enable(true);
-        end,
-        init_options = {
-            format = {
-                enable = true
-            },
-            lint = {
-                enable = true
-            },
-            scan_cmake_in_package = true
-        }
-    }
+    capabilities = capabilities,
+    on_attach = function(_, bufnr)
+        current_buffer = bufnr;
+        common_keybindings();
+        configurable_functionality(
+            vim.lsp.buf.definition,
+            vim.lsp.buf.type_definition,
+            vim.lsp.buf.references,
+            vim.lsp.buf.implementation);
+        local lsp_ui = require("helpers.lsp_ui");
+        vim.ui.select = lsp_ui.on_select;
+        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+        vim.lsp.inlay_hint.enable(true);
+    end,
 });
 vim.lsp.enable("neocmake");
 
