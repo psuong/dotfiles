@@ -143,6 +143,37 @@ local function go_to_prev()
     vim.diagnostic.jump({ count = -1, float = true });
 end
 
+local function make_reference_params(bufnr)
+    bufnr = bufnr or 0;
+    local client = vim.lsp.get_active_clients({bufnr = bufnr})[1];
+    if not client then
+        vim.notify("No LSP client attached to buffer", vim.log.levels.ERROR);
+        return;
+    end
+
+    local params = vim.lsp.util.make_position_params(bufnr, nil, client.offset_encoding);
+    params.context = { includeDeclaration = true };
+    return params;
+end
+
+local function clap_refs()
+    local params = make_reference_params(0);
+    if not params then
+        return;
+    end
+    vim.lsp.buf_request(0, "textDocument/references", params, function(err, result, ctx, config)
+        if err then
+            vim.notify("References error: " .. vim.inspect(err), vim.log.levels.ERROR);
+            return
+        end
+        if not result or vim.tbl_isempty(result) then
+            vim.notify("No references found", vim.log.levels.INFO);
+            return
+        end
+        require("helpers.lsp_ui").clap_references_ui(err, result, ctx, config);
+    end)
+end
+
 local function common_keybindings()
     vim.diagnostic.config({ virtual_text = false });
     local_map("n", "<Leader>ti", toggle_inlay_hint, "Toggle inlay hints");
@@ -173,7 +204,7 @@ vim.lsp.config("powershell_es", {
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
-            vim.lsp.buf.references,
+            clap_refs,
             vim.lsp.buf.implementation);
     end
 });
@@ -212,7 +243,7 @@ vim.lsp.config("slangd", {
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
-            vim.lsp.buf.references,
+            clap_refs,
             vim.lsp.buf.implementation);
 
         local lsp_ui = require("helpers.lsp_ui");
@@ -287,7 +318,7 @@ vim.lsp.config("lua_ls", {
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
-            vim.lsp.buf.references,
+            clap_refs,
             vim.lsp.buf.implementation);
 
         local lsp_ui = require("helpers.lsp_ui");
@@ -310,7 +341,7 @@ vim.lsp.config("clangd", {
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
-            vim.lsp.buf.references,
+            clap_refs,
             vim.lsp.buf.implementation);
 
         local lsp_ui = require("helpers.lsp_ui");
@@ -331,11 +362,20 @@ vim.lsp.config("rust_analyzer", {
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
-            vim.lsp.buf.references,
+            clap_refs,
             vim.lsp.buf.implementation);
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;
         vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "", {
+            noremap = true,
+            callback = function()
+                local params = vim.lsp.util.make_position_params();
+                vim.lsp.buf_request(0, "textDocument/references", params, lsp_ui.clap_references_ui);
+            end,
+        });
+
         vim.lsp.inlay_hint.enable(true);
     end,
     settings = {
@@ -355,7 +395,7 @@ vim.lsp.config("neocmake", {
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
-            vim.lsp.buf.references,
+            clap_refs,
             vim.lsp.buf.implementation);
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;

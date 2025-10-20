@@ -126,6 +126,17 @@ local function on_move()
     end
 end
 
+local function uri_to_relative_path(uri)
+    local path = uri:gsub("^file:///", "");
+    path = path:gsub("\\", "/");
+    local cwd = vim.fn.getcwd():gsub("\\", "/");
+    if path:lower():sub(1, #cwd) == cwd:lower() then
+        return path:sub(#cwd + 2);
+    else
+        return path;
+    end
+end
+
 -----------------------------------------------------------------------------------
 -- Public Functions
 -----------------------------------------------------------------------------------
@@ -157,7 +168,7 @@ function mod.on_select(items, opts, on_choice)
     end
 end
 
-function mod.clap_references_ui(err, result, ctx, _)
+function mod.clap_references_ui(err, result, ctx, config)
     if err then
         vim.notify("Errored out when gathering references", vim.log.levels.ERROR);
         return;
@@ -167,14 +178,8 @@ function mod.clap_references_ui(err, result, ctx, _)
     current_lsp_client = vim.lsp.get_client_by_id(ctx.client_id);
 
     local clap_display_data = {};
-    local cwd = resolve_symlink(vim.fn.getcwd());
     for i, item in ipairs(reference_locations) do
-        local uri = url_decode(item.uri);
-        local adjusted_uri = string.gsub(
-            string.sub(uri, get_prefix_length(uri)),
-            cwd,
-            get_directory_name(cwd));
-
+        local adjusted_uri = url_decode(uri_to_relative_path(item.uri));
         clap_display_data[i] = string.format("[%d]: %s:%d", i, adjusted_uri, item.range.start.line);
     end
     local provider = {
