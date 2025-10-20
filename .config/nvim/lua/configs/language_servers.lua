@@ -183,6 +183,8 @@ vim.lsp.enable("powershell_es");
 vim.lsp.config("omnisharp", {
     capabilities = capabilities,
     cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+    cmd_cwd = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
+    root_dir = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
     on_attach = function(_, bufnr)
         current_buffer = bufnr;
         common_keybindings();
