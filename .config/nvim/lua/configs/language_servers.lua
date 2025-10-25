@@ -331,10 +331,27 @@ vim.lsp.config("lua_ls", {
 });
 vim.lsp.enable("lua_ls");
 
+local function find_compile_commands_json()
+    local cwd = vim.loop.cwd();
+    local path = cwd .. "/compile_commands.json";
+    local stat = vim.loop.fs_stat(path);
+    if stat and stat.type == "file" then
+        return cwd;
+    end
+    return nil;
+end
+
 -- Clangd
 vim.lsp.config("clangd", {
     capabilities = capabilities,
-    cmd = { "clangd", "--inlay-hints=true", "--compile-commands-dir=" .. find_compile_commands_json() },
+    cmd = (function()
+        local cmd = { "clangd", "--inlay-hints=true", "--background-index=0" };
+        local compile_dir = find_compile_commands_json();
+        if compile_dir then
+            table.insert(cmd, "--compile-commands-dir=" .. compile_dir);
+        end
+        return cmd;
+    end)(),
     on_attach = function(_, bufnr)
         current_buffer = bufnr;
         common_keybindings();
