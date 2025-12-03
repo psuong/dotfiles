@@ -62,3 +62,9 @@ action = "ReceiveChar"
 key = "l"
 mods = "Control"
 action = "ReceiveChar"
+
+[[keyboard.bindings]]
+# Disable fullscreen toggle but still forward the key to Broot
+key = "Enter" 
+mods = "Alt"
+action = "ReceiveChar"
