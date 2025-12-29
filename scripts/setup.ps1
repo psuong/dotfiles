@@ -1,4 +1,4 @@
-New-Item -ItemType SymbolicLink -Target "$HOME\\sources\\dotfiles\\PowerShell" -Path "C:\\Users\\porri\\Documents\\PowerShell"
+New-Item -ItemType SymbolicLink -Target "$HOME\\sources\\dotfiles\\PowerShell" -Path "$HOME\\Documents\\PowerShell"
 
 winget install JanDeDobbeleer.OhMyPosh -s winget
 PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
