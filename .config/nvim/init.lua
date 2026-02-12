@@ -11,7 +11,9 @@ if not vim.g.vscode then
     -- Editor Styling --
     --------------------
     Plug("ellisonleao/gruvbox.nvim");
-    Plug("nvim-treesitter/nvim-treesitter", { ["do"] = vim.fn[":TSUpdate"], ["branch"] = "master" });
+    Plug("folke/tokyonight.nvim");
+    Plug("nvim-treesitter/nvim-treesitter", { ["do"] = vim.fn[":TSUpdate"] });
+    Plug("nvim-treesitter/nvim-treesitter-textobjects");
     Plug("echasnovski/mini.indentscope");
     Plug("nvim-tree/nvim-web-devicons");
     Plug("TheLeoP/fern-renderer-web-devicons.nvim");

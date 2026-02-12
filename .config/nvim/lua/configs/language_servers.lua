@@ -14,6 +14,12 @@ vim.filetype.add({
     }
 });
 
+vim.filetype.add({
+    extension = {
+        h = "c"
+    }
+});
+
 --------------
 -- Vim Doge --
 --------------
