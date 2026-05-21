@@ -43,3 +43,7 @@ Function br {
         Write-Error "broot.exe exited with error code $($process.ExitCode)"
     }
 }
+
+if ($IsLinux) {
+
+}
