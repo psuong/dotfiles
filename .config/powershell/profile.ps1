@@ -1,5 +1,13 @@
 # Theme
-oh-my-posh.exe init pwsh --config "$env:POSH_THEMES_PATH\negligible.omp.json" | Invoke-Expression
+if ($IsWindows) {
+    oh-my-posh.exe init pwsh --config "$env:POSH_THEMES_PATH\negligible.omp.json" | Invoke-Expression
+}
+
+
+if ($IsLinux) {
+    . "$HOME/.cargo/env.ps1"
+    oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/negligible.omp.json" | Invoke-Expression
+}
 
 $modules = @('Posh-Git', 'PSReadLine')
 foreach ($module in $modules) {
@@ -42,8 +50,4 @@ Function br {
         Write-Host "`n" # Newline to tidy up broot unexpected termination
         Write-Error "broot.exe exited with error code $($process.ExitCode)"
     }
-}
-
-if ($IsLinux) {
-
 }
