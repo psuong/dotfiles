@@ -3,10 +3,16 @@ if ($IsWindows) {
     oh-my-posh.exe init pwsh --config "$env:POSH_THEMES_PATH\negligible.omp.json" | Invoke-Expression
 }
 
-
 if ($IsLinux) {
+    # Add cargo to the env
     . "$HOME/.cargo/env.ps1"
+
+    # Add some programs to my $PATH 
+    $env:PATH += ":/home/blank/sources/bin/binget:/home/blank/sources/bin/omnisharp"
+
+    # Use the negligible theme
     oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/negligible.omp.json" | Invoke-Expression
+
 }
 
 $modules = @('Posh-Git', 'PSReadLine')
@@ -17,7 +23,6 @@ foreach ($module in $modules) {
 }
 
 Set-PSReadLineOption -ShowToolTips:$true
-
 Set-PSReadLineOption -PredictionViewStyle List
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 Set-PSReadLineKeyHandler -Key 'Alt+J' -Function NextSuggestion
@@ -30,24 +35,3 @@ function Invoke-Tere {
     }
 }
 Set-Alias tere Invoke-Tere
-
-Function br {
-    $args = $args -join ' '
-    $cmd_file = New-TemporaryFile
-
-    $process = Start-Process -FilePath 'broot.exe' `
-        -ArgumentList "--outcmd $($cmd_file.FullName) $args" `
-        -NoNewWindow -PassThru -WorkingDirectory $PWD
-
-    Wait-Process -InputObject $process #Faster than Start-Process -Wait
-    If ($process.ExitCode -eq 0) {
-        $cmd = Get-Content $cmd_file
-        Remove-Item $cmd_file
-        If ($null -ne $cmd) { Invoke-Expression -Command $cmd }
-    }
-    Else {
-        Remove-Item $cmd_file
-        Write-Host "`n" # Newline to tidy up broot unexpected termination
-        Write-Error "broot.exe exited with error code $($process.ExitCode)"
-    }
-}
