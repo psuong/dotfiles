@@ -66,10 +66,10 @@ require("gruvbox").setup({
 });
 vim.cmd("colorscheme gruvbox");
 
-require("tokyonight").setup({
-	style = "night",
-	transparent = true,
-})
+-- require("tokyonight").setup({
+-- 	style = "night",
+-- 	transparent = true,
+-- })
 -- vim.cmd("colorscheme tokyonight");
 
 -- Define a highlight group for TODO comments
