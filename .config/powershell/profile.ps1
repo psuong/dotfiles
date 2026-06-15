@@ -8,14 +8,14 @@ if ($IsLinux) {
     . "$HOME/.cargo/env.ps1"
 
     # Add some programs to my $PATH 
-    $env:PATH += ":/home/blank/sources/bin/binget:/home/blank/sources/bin/omnisharp"
+    $env:PATH += ":/home/blank/sources/bin/binget:/home/blank/sources/bin/omnisharp:/home/blank/.spicetify"
 
     # Use the negligible theme
     oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/negligible.omp.json" | Invoke-Expression
 
 }
 
-$modules = @('Posh-Git', 'PSReadLine')
+$modules = @('posh-git', 'PSReadLine')
 foreach ($module in $modules) {
     if (-not (Get-Module -Name $module -ListAvailable)) {
         Import-Module $module
