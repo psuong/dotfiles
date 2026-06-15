@@ -12,7 +12,6 @@ if ($IsLinux) {
 
     # Use the negligible theme
     oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/negligible.omp.json" | Invoke-Expression
-
 }
 
 $modules = @('posh-git', 'PSReadLine')
