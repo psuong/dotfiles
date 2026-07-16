@@ -1,57 +1,88 @@
 if not vim.g.vscode then
-    local Begin = vim.fn["plug#begin"];
-    local Plug = vim.fn["plug#"];
-    local End = vim.fn["plug#end"];
+    local Plug = function(repo)
+        return "git@github.com:" .. repo .. ".git"
+    end
 
-    vim.g.plug_url_format = "git@github.com:%s.git";
+    vim.pack.add({
+        --------------------
+        -- Editor Styling --
+        --------------------
+        Plug("ellisonleao/gruvbox.nvim"),
+        Plug("echasnovski/mini.indentscope"),
+        Plug("nvim-tree/nvim-web-devicons"),
+        Plug("TheLeoP/fern-renderer-web-devicons.nvim"),
 
-    Begin();
+        ---------------
+        -- Searchers --
+        ---------------
+        Plug("liuchengxu/vim-clap"),
+        Plug("lambdalisue/vim-fern"),
+        Plug("lambdalisue/vim-glyph-palette"),
 
-    --------------------
-    -- Editor Styling --
-    --------------------
-    Plug("ellisonleao/gruvbox.nvim");
-    Plug("echasnovski/mini.indentscope");
-    Plug("nvim-tree/nvim-web-devicons");
-    Plug("TheLeoP/fern-renderer-web-devicons.nvim");
+        ------------------
+        -- Autocomplete --
+        ------------------
+        Plug("neovim/nvim-lspconfig"),
+        Plug("stevearc/aerial.nvim"),
+        Plug("vim-denops/denops.vim"),
+        Plug("vim-denops/denops-shared-server.vim"),
+        Plug("Shougo/ddc.vim"),
+        Plug("Shougo/ddc-ui-native"),
+        Plug("Shougo/ddc-source-lsp"),
+        Plug("tani/ddc-fuzzy"),
+        Plug("rafamadriz/friendly-snippets"),
+        Plug("hrsh7th/vim-vsnip"),
+        Plug("uga-rosa/ddc-source-vsnip"),
+        Plug("matsui54/denops-popup-preview.vim"),
+        Plug("matsui54/denops-signature_help"),
+        Plug("psuong/omnisharp-extended-lsp.nvim"),
+        Plug("kkoomen/vim-doge"),
 
-    ---------------
-    -- Searchers --
-    ---------------
-    Plug("liuchengxu/vim-clap", { ["do"] = vim.fn[":Clap install-binary"] });
-    Plug("lambdalisue/vim-fern");
-    Plug("lambdalisue/vim-glyph-palette");
+        ----------------------
+        -- Package managers --
+        ----------------------
+        Plug("saecki/crates.nvim"),
 
-    ------------------
-    -- Autocomplete --
-    ------------------
-    Plug("neovim/nvim-lspconfig");
-    Plug("stevearc/aerial.nvim");
-    Plug("vim-denops/denops.vim");
-    Plug("vim-denops/denops-shared-server.vim");
-    Plug("Shougo/ddc.vim");
-    Plug("Shougo/ddc-ui-native");
-    Plug("Shougo/ddc-source-lsp");
-    Plug("tani/ddc-fuzzy");
-    Plug("rafamadriz/friendly-snippets");
-    Plug("hrsh7th/vim-vsnip");
-    Plug("uga-rosa/ddc-source-vsnip");
-    Plug("matsui54/denops-popup-preview.vim");
-    Plug("matsui54/denops-signature_help");
-    Plug("psuong/omnisharp-extended-lsp.nvim");
-    Plug("kkoomen/vim-doge", { ["do"] = vim.fn["doge#install()"] });
+        --------------
+        -- Profiler --
+        --------------
+        Plug("dstein64/vim-startuptime"),
+    });
 
-    ----------------------
-    -- Package managers --
-    ----------------------
-    Plug("saecki/crates.nvim");
+    local function run_post_hooks()
+        local hooks = {
+            ["vim-clap"] = function()
+                vim.cmd("Clap install-binary");
+            end,
+            ["vim-doge"] = function()
+                vim.fn["doge#install"]();
+            end,
+            ["denops-shared-server"] = function()
+                vim.cmd("call denops_shared_server#install()");
+            end
+        };
 
-    --------------
-    -- Profiler --
-    --------------
-    Plug("dstein64/vim-startuptime");
+        for name, hook in pairs(hooks) do
+            local ok, err = pcall(hook);
+            if not ok then
+                vim.notify(
+                    ("Post hook for %s failed:\n%s"):format(name, err),
+                    vim.log.levels.ERROR
+                );
+            end
+        end
+    end
 
-    End();
+    vim.api.nvim_create_user_command("PackPostInstall", function()
+        run_post_hooks();
+    end, {});
+
+    vim.api.nvim_create_user_command("PackUpdate", function(opts)
+        vim.pack.update(opts.fargs, { force = opts.bang })
+    end, {
+        nargs = "*",
+        bang = true,
+    });
 
     require("configs.theme");
     require("configs.base_keybinds");
