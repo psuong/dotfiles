@@ -20,7 +20,8 @@ indent_scope.setup({
 ------------------------------------
 vim.wo.foldmethod = "expr";
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()";
-vim.o.foldlevelstart = 50;
+vim.opt.foldlevelstart = 99;
+vim.opt.foldlevel = 99;
 
 -- Fold the function or block under the cursor
 vim.api.nvim_set_keymap("n", "zz", "za", { noremap = true, silent = true });
