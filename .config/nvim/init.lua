@@ -11,6 +11,7 @@ if not vim.g.vscode then
         Plug("echasnovski/mini.indentscope"),
         Plug("nvim-tree/nvim-web-devicons"),
         Plug("TheLeoP/fern-renderer-web-devicons.nvim"),
+        Plug("nvim-treesitter/nvim-treesitter"),
 
         ---------------
         -- Searchers --
@@ -44,6 +45,11 @@ if not vim.g.vscode then
         Plug("saecki/crates.nvim"),
 
         --------------
+        -- Previews --
+        --------------
+        Plug("iamcco/markdown-preview.nvim"),
+
+        --------------
         -- Profiler --
         --------------
         Plug("dstein64/vim-startuptime"),
@@ -59,6 +65,12 @@ if not vim.g.vscode then
             end,
             ["denops-shared-server"] = function()
                 vim.cmd("call denops_shared_server#install()");
+            end,
+            ["nvim-treesitter"] = function ()
+                vim.cmd("TSUpdate");
+            end,
+            ["markdown-preview"] = function ()
+                vim.cmd("call mkdp#util#install()");
             end
         };
 
@@ -76,6 +88,14 @@ if not vim.g.vscode then
     vim.api.nvim_create_user_command("PackPostInstall", function()
         run_post_hooks();
     end, {});
+
+    vim.api.nvim_create_user_command("PackCheck", function(opts)
+        vim.pack.update(opts.fargs, {
+            preview = true,
+        })
+    end, {
+        nargs = "*",
+    });
 
     vim.api.nvim_create_user_command("PackUpdate", function(opts)
         vim.pack.update(opts.fargs, { force = opts.bang })

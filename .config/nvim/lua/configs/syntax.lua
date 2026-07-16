@@ -41,6 +41,10 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 });
 
+local treesitter = require("nvim-treesitter");
+treesitter.setup({});
+treesitter.install({ "rust", "c_sharp", "toml", "yaml", "powershell", "hlsl", "glsl", "slang", "markdown" });
+
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()";
 vim.bo.indentexpr = "v:lua.vim.treesitter.indentexpr()";
 
