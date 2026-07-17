@@ -14,19 +14,6 @@ if ($IsLinux) {
     oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/negligible.omp.json" | Invoke-Expression
 }
 
-$modules = @('posh-git', 'PSReadLine')
-foreach ($module in $modules) {
-    if (-not (Get-Module -Name $module -ListAvailable)) {
-        Import-Module $module
-    }
-}
-
-Set-PSReadLineOption -ShowToolTips:$true
-Set-PSReadLineOption -PredictionViewStyle List
-Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
-Set-PSReadLineKeyHandler -Key 'Alt+J' -Function NextSuggestion
-Set-PSReadLineKeyHandler -Key 'Alt+K' -Function PreviousSuggestion
-
 function Invoke-Tere {
     $result = & (Get-Command -CommandType Application tere) $args
     if ($result) {
@@ -34,3 +21,8 @@ function Invoke-Tere {
     }
 }
 Set-Alias tere Invoke-Tere
+
+Get-InstalledModule | ForEach-Object {
+    Import-Module $_.Name
+}
+Invoke-Expression "psc update --all"
