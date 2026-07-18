@@ -105,31 +105,6 @@ local function toggle_inlay_hint()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled());
 end
 
-local function find_compile_commands_json()
-    local current_dir = vim.fn.getcwd();
-    local cmake_file = current_dir .. "/CMakeLists.txt";
-    local compile_commands = current_dir .. "/build";
-
-    if vim.fn.filereadable(cmake_file) ~= 1 then
-        return compile_commands;
-    end
-
-    while current_dir ~= "" do
-        local build_dir = current_dir .. "/build"
-        local potential_path = vim.fn.glob(build_dir .. "/**/compile_commands.json", false, true);
-
-        if #potential_path > 0 then
-            compile_commands = vim.fn.fnamemodify(potential_path[1], ":h");
-            break
-        end
-
-        -- Move to the parent directory
-        current_dir = vim.fn.fnamemodify(current_dir, ":h");
-    end
-
-    return compile_commands;
-end
-
 local capabilities = require("ddc_source_lsp").make_client_capabilities();
 capabilities.textDocument.completion.completionItem.snippetSupport = true;
 local path_helper = require("helpers.path_helper");
