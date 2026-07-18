@@ -126,15 +126,13 @@ end
 
 local function make_reference_params(bufnr)
     bufnr = bufnr or 0;
-    local client = vim.lsp.get_active_clients({bufnr = bufnr})[1];
+    local client = vim.lsp.get_clients({ bufnr = bufnr })[1];
     if not client then
         vim.notify("No LSP client attached to buffer", vim.log.levels.ERROR);
         return;
     end
 
-    local params = vim.lsp.util.make_position_params(bufnr, nil, client.offset_encoding);
-    params.context = { includeDeclaration = true };
-    return params;
+    return vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), client.offset_encoding);
 end
 
 local function clap_refs()
@@ -369,7 +367,12 @@ vim.lsp.config("rust_analyzer", {
         vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "", {
             noremap = true,
             callback = function()
-                local params = vim.lsp.util.make_position_params();
+                local client = vim.lsp.get_clients({ bufnr = bufnr })[1];
+                if not client then
+                    vim.notify("No LSP client attached to buffer", vim.log.levels.ERROR);
+                    return;
+                end
+                local params = vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), client.offset_encoding);
                 vim.lsp.buf_request(0, "textDocument/references", params, lsp_ui.clap_references_ui);
             end,
         });
