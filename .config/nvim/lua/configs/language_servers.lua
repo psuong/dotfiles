@@ -1,5 +1,8 @@
 local language_servers = {};
 
+------------
+-- Denops --
+------------
 -- Set up a shared server for denops
 vim.g.denops_server_addr = "127.0.0.1:32123";
 
@@ -98,6 +101,31 @@ require("aerial").setup({
 });
 vim.keymap.set("n", "<S-i>", "<cmd>AerialToggle!<CR>");
 
+local buf_request_fn = vim.lsp.buf_request;
+vim.lsp.buf_request = function(bufnr, method, params, handler)
+    if method == "completionItem/resolve" then
+        local supported = false;
+
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+            local cp = client.server_capabilities.completionProvider;
+            if cp and cp.resolveProvider then
+                supported = true;
+                break;
+            end
+        end
+
+        if not supported then
+            if handler then
+                local client = vim.lsp.get_clients({ bufnr = bufnr })[1];
+                handler(nil, params, { client_id = client and client.id, method = method });
+            end
+            return true;
+        end
+    end
+
+    return buf_request_fn(bufnr, method, params, handler);
+end
+
 ---------
 -- LSP --
 ---------
@@ -110,10 +138,9 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true;
 local path_helper = require("helpers.path_helper");
 
 --- The current buffer
-local current_buffer = nil;
-
 local local_map = function(mode, keys, func, desc)
-    vim.keymap.set(mode, keys, func, { buffer = current_buffer, desc = desc });
+    local bufnr = vim.api.nvim_get_current_buf();
+    vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc });
 end
 
 local function go_to_next()
@@ -177,8 +204,7 @@ end
 
 vim.lsp.config("powershell_es", {
     bundle_path = path_helper.expand_tilde("~/sources/language-servers/powershell"),
-    on_attach = function(_, bufnr)
-        current_buffer = bufnr;
+    on_attach = function(_, _)
         common_keybindings();
         configurable_functionality(
             vim.lsp.buf.definition,
@@ -195,8 +221,7 @@ vim.lsp.config("omnisharp", {
     cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
     cmd_cwd = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
     root_dir = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
-    on_attach = function(_, bufnr)
-        current_buffer = bufnr;
+    on_attach = function(_, _)
         common_keybindings();
         local omnisharp_extended = require("omnisharp_extended");
         configurable_functionality(
@@ -216,8 +241,7 @@ vim.lsp.enable("omnisharp");
 vim.lsp.config("slangd", {
     capabilities = capabilities,
     filetypes = { "slang", "shaderslang", "hlsl" },
-    on_attach = function(_, bufnr)
-        current_buffer = bufnr;
+    on_attach = function(_, _)
         common_keybindings();
         configurable_functionality(
             vim.lsp.buf.definition,
@@ -276,23 +300,11 @@ vim.lsp.config("lua_ls", {
                 checkThirdParty = false,
                 library = {
                     vim.env.VIMRUNTIME
-                    -- Depending on the usage, you might want to add additional paths
-                    -- here.
-                    -- '${3rd}/luv/library'
-                    -- '${3rd}/busted/library'
                 }
-                -- Or pull in all of 'runtimepath'.
-                -- NOTE: this is a lot slower and will cause issues when working on
-                -- your own configuration.
-                -- See https://github.com/neovim/nvim-lspconfig/issues/3189
-                -- library = {
-                --   vim.api.nvim_get_runtime_file('', true),
-                -- }
             }
         })
     end,
-    on_attach = function(_, bufnr)
-        current_buffer = bufnr;
+    on_attach = function(_, _)
         common_keybindings();
         configurable_functionality(
             vim.lsp.buf.definition,
@@ -331,8 +343,8 @@ vim.lsp.config("clangd", {
         end
         return cmd;
     end)(),
-    on_attach = function(_, bufnr)
-        current_buffer = bufnr;
+    on_attach = function(client, bufnr)
+        vim.lsp.completion.enable(true, client.id, bufnr);
         common_keybindings();
         configurable_functionality(
             vim.lsp.buf.definition,
@@ -353,7 +365,6 @@ vim.lsp.config("rust_analyzer", {
     capabilities = capabilities,
     cmd = { "rust-analyzer" },
     on_attach = function(_, bufnr)
-        current_buffer = bufnr;
         common_keybindings();
         configurable_functionality(
             vim.lsp.buf.definition,
@@ -390,8 +401,7 @@ vim.lsp.enable("rust_analyzer");
 -- Neocmake
 vim.lsp.config("neocmake", {
     capabilities = capabilities,
-    on_attach = function(_, bufnr)
-        current_buffer = bufnr;
+    on_attach = function(_, _)
         common_keybindings();
         configurable_functionality(
             vim.lsp.buf.definition,
@@ -440,8 +450,8 @@ patch_ddc_global({
     sourceParams = {
         lsp = {
             enableResolveItem = false,
-            isVolatile = true,
             enableAdditionalTextEdit = true,
+            isVolatile = true,
             snippetEngine = vim.fn["denops#callback#register"](function(body)
                 return vim.fn["vsnip#anonymous"](body)
             end),
@@ -449,7 +459,9 @@ patch_ddc_global({
     },
 });
 
--- Tab Support
+-----------------
+-- Tab Support --
+-----------------
 vim.keymap.set("i", "<Tab>", function()
     if vim.fn.pumvisible() == 1 then
         return "<C-n>";
