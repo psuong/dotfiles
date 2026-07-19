@@ -45,7 +45,7 @@ local function lazy_load_crates()
     vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         pattern = "Cargo.toml",
         callback = function()
-            require("crates").setup();
+            require("crates").setup({});
         end
     });
 end
@@ -54,30 +54,41 @@ lazy_load_crates();
 --------------
 -- Snippets --
 --------------
-vim.cmd([[
-" NOTE: You can use other key to expand snippet.
+-- Expand
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
+    if vim.fn["vsnip#expandable"]() == 1 then
+        return "<Plug>(vsnip-expand)"
+    end
+    return "<C-j>"
+end, { expr = true });
 
-" Expand
-imap <expr> <C-j> vsnip#expandable()  ? "<Plug>(vsnip-expand)"         : "<C-j>"
-smap <expr> <C-j> vsnip#expandable()  ? "<Plug>(vsnip-expand)"         : "<C-j>"
+-- Expand or jump
+vim.keymap.set({ "i", "s" }, "<C-k>", function()
+    if vim.fn["vsnip#available"](1) == 1 then
+        return "<Plug>(vsnip-expand-or-jump)"
+    end
+    return "<C-l>"
+end, { expr = true });
 
-" Expand or jump
-imap <expr> <C-k> vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
-smap <expr> <C-k> vsnip#available(1)  ? "<Plug>(vsnip-expand-or-jump)" : "<C-l>"
+-- Jump forward
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
+    if vim.fn["vsnip#jumpable"](1) == 1 then
+        return "<Plug>(vsnip-jump-next)"
+    end
+    return "<Tab>"
+end, { expr = true });
 
-" Jump forward or backward
-imap <expr> <C-j> vsnip#jumpable(1)   ? "<Plug>(vsnip-jump-next)"      : "<Tab>"
-smap <expr> <C-j> vsnip#jumpable(1)   ? "<Plug>(vsnip-jump-next)"      : "<Tab>"
-imap <expr> <C-k> vsnip#jumpable(-1)  ? "<Plug>(vsnip-jump-prev)"      : "<S-Tab>"
-smap <expr> <C-k> vsnip#jumpable(-1)  ? "<Plug>(vsnip-jump-prev)"      : "<S-Tab>"
+-- Jump backward
+vim.keymap.set({ "i", "s" }, "<C-k>", function()
+    if vim.fn["vsnip#jumpable"](-1) == 1 then
+        return "<Plug>(vsnip-jump-prev)"
+    end
+    return "<S-Tab>"
+end, { expr = true });
 
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
-]]);
+-- Select/cut text for $TM_SELECTED_TEXT
+vim.keymap.set({ "n", "x" }, "s", "<Plug>(vsnip-select-text)")
+vim.keymap.set({ "n", "x" }, "S", "<Plug>(vsnip-cut-text)")
 
 require("aerial").setup({
     -- Priority list of preferred backends for aerial.
@@ -275,8 +286,7 @@ vim.lsp.config("lua_ls", {
 
     on_init = function(client)
         if client.workspace_folders then
-            local path = client.workspace_folders[1].name
-
+            local path = client.workspace_folders[1].name;
             if path ~= vim.fn.stdpath("config")
                 and (
                     vim.uv.fs_stat(path .. "/.luarc.json")
@@ -287,22 +297,18 @@ vim.lsp.config("lua_ls", {
             end
         end
     end,
-
     on_attach = function(_, _)
-        common_keybindings()
-
+        common_keybindings();
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
             clap_refs,
             vim.lsp.buf.implementation
-        )
-
-        local lsp_ui = require("helpers.lsp_ui")
-        vim.ui.select = lsp_ui.on_select
-        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui
+        );
+        local lsp_ui = require("helpers.lsp_ui");
+        vim.ui.select = lsp_ui.on_select;
+        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
     end,
-
     settings = {
         Lua = {
             runtime = {
@@ -312,11 +318,9 @@ vim.lsp.config("lua_ls", {
                     "lua/?/init.lua",
                 },
             },
-
             diagnostics = {
                 globals = { "vim" },
             },
-
             workspace = {
                 checkThirdParty = false,
                 library = vim.api.nvim_get_runtime_file("", true),
@@ -324,8 +328,7 @@ vim.lsp.config("lua_ls", {
         },
     },
 })
-
-vim.lsp.enable("lua_ls")
+vim.lsp.enable("lua_ls");
 
 local function find_compile_commands_json()
     local cwd = vim.loop.cwd();
