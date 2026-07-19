@@ -272,55 +272,60 @@ vim.lsp.enable("slangd");
 vim.lsp.config("lua_ls", {
     capabilities = capabilities,
     cmd = { "lua-language-server" },
+
     on_init = function(client)
         if client.workspace_folders then
             local path = client.workspace_folders[1].name
-            if
-                path ~= vim.fn.stdpath('config')
-                and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+
+            if path ~= vim.fn.stdpath("config")
+                and (
+                    vim.uv.fs_stat(path .. "/.luarc.json")
+                    or vim.uv.fs_stat(path .. "/.luarc.jsonc")
+                )
             then
                 return
             end
         end
-
-        client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most
-                -- likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-                -- Tell the language server how to find Lua modules same way as Neovim
-                -- (see `:h lua-module-load`)
-                path = {
-                    'lua/?.lua',
-                    'lua/?/init.lua',
-                },
-            },
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-                checkThirdParty = false,
-                library = {
-                    vim.env.VIMRUNTIME
-                }
-            }
-        })
     end,
+
     on_attach = function(_, _)
-        common_keybindings();
+        common_keybindings()
+
         configurable_functionality(
             vim.lsp.buf.definition,
             vim.lsp.buf.type_definition,
             clap_refs,
-            vim.lsp.buf.implementation);
+            vim.lsp.buf.implementation
+        )
 
-        local lsp_ui = require("helpers.lsp_ui");
-        vim.ui.select = lsp_ui.on_select;
-        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui;
+        local lsp_ui = require("helpers.lsp_ui")
+        vim.ui.select = lsp_ui.on_select
+        vim.lsp.handlers["textDocument/references"] = lsp_ui.clap_references_ui
     end,
+
     settings = {
-        Lua = {}
-    }
-});
-vim.lsp.enable("lua_ls");
+        Lua = {
+            runtime = {
+                version = "LuaJIT",
+                path = {
+                    "lua/?.lua",
+                    "lua/?/init.lua",
+                },
+            },
+
+            diagnostics = {
+                globals = { "vim" },
+            },
+
+            workspace = {
+                checkThirdParty = false,
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+        },
+    },
+})
+
+vim.lsp.enable("lua_ls")
 
 local function find_compile_commands_json()
     local cwd = vim.loop.cwd();
