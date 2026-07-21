@@ -29,15 +29,7 @@ vim.api.nvim_set_keymap("n", "zz", "za", { noremap = true, silent = true });
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "*" },
     callback = function()
-        local filetype = vim.bo.filetype
-        if filetype and filetype ~= "" then
-            local success = pcall(function()
-                vim.treesitter.start()
-            end)
-            if not success then
-                return
-            end
-        end
+        pcall(vim.treesitter.start);
     end,
 });
 
@@ -45,6 +37,7 @@ local treesitter = require("nvim-treesitter");
 treesitter.setup({});
 treesitter.install({ "rust", "c_sharp", "toml", "yaml", "powershell", "hlsl", "glsl", "slang", "markdown" });
 
+vim.wo.foldmethod = "expr";
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()";
 vim.bo.indentexpr = "v:lua.vim.treesitter.indentexpr()";
 

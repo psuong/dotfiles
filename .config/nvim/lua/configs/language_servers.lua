@@ -155,11 +155,25 @@ local local_map = function(mode, keys, func, desc)
 end
 
 local function go_to_next()
-    vim.diagnostic.jump({ count = 1, float = true });
+    vim.diagnostic.jump({ 
+        count = 1, 
+        on_jump = function()
+            vim.schedule(function() 
+                vim.diagnostic.open_float();
+            end);
+        end,
+    });
 end
 
 local function go_to_prev()
-    vim.diagnostic.jump({ count = -1, float = true });
+    vim.diagnostic.jump({ 
+        count = -1, 
+        on_jump = function()
+            vim.schedule(function() 
+                vim.diagnostic.open_float();
+            end);
+        end,
+    });
 end
 
 local function make_reference_params(bufnr)
