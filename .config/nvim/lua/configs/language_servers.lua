@@ -155,10 +155,10 @@ local local_map = function(mode, keys, func, desc)
 end
 
 local function go_to_next()
-    vim.diagnostic.jump({ 
-        count = 1, 
+    vim.diagnostic.jump({
+        count = 1,
         on_jump = function()
-            vim.schedule(function() 
+            vim.schedule(function()
                 vim.diagnostic.open_float();
             end);
         end,
@@ -166,10 +166,10 @@ local function go_to_next()
 end
 
 local function go_to_prev()
-    vim.diagnostic.jump({ 
-        count = -1, 
+    vim.diagnostic.jump({
+        count = -1,
         on_jump = function()
-            vim.schedule(function() 
+            vim.schedule(function()
                 vim.diagnostic.open_float();
             end);
         end,
@@ -228,7 +228,7 @@ local function configurable_functionality(defs_callback, type_defs_callback, ref
 end
 
 vim.lsp.config("powershell_es", {
-    bundle_path = path_helper.expand_tilde("~/sources/language-servers/powershell"),
+    bundle_path = path_helper.join("~", "sources", "tools", "powershell-lsp"),
     on_attach = function(_, _)
         common_keybindings();
         configurable_functionality(

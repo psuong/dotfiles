@@ -1,5 +1,19 @@
 local mod = {};
 
+mod.sep = package.config:sub(1, 1);
+
+function mod.join(...)
+    local parts = { ... };
+
+    local filtered = {};
+    for _, part in ipairs(parts) do
+        if part ~= nil and part ~= "" then
+            table.insert(filtered, tostring(part));
+        end
+    end
+    return vim.fn.expand(table.concat(filtered, mod.sep));
+end
+
 function mod.expand_tilde(path)
     if path:sub(1, 1) == "~" then
         local home = os.getenv("HOME") or os.getenv("USERPROFILE")
@@ -25,33 +39,6 @@ function mod.ensure_directory_exists(file_path)
     if vim.fn.isdirectory(dir) == 0 then
         vim.fn.mkdir(dir, "p");
     end
-end
-
-function mod.read_json_file(file_path)
-    local file = io.open(file_path, "r");
-    if not file then
-        print("Error: Could not open file!");
-        return nil;
-    end
-
-    local content = file:read("*a")
-    file:close();
-
-    local data = vim.fn.json_decode(content);
-    return data;
-end
-
-function mod.write_json_to_file(file_path, data)
-    mod.ensure_directory_exists(file_path);
-    local json_data = vim.fn.json_encode(data);
-    local file = io.open(file_path, "w");
-    if not file then
-        vim.print(string.format("Failed to write file: %s", file_path));
-        return;
-    end
-
-    file:write(json_data);
-    file:close();
 end
 
 local clap_run = vim.fn["clap#run"];
