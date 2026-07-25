@@ -1,6 +1,6 @@
 if (Get-Command "nvy.exe" -ErrorAction SilentlyContinue) {
-    Invoke-Expression "nvy.exe --maximize --disable-fullscreen"
+    Invoke-Expression "Nvy.exe --maximize --disable-fullscreen"
 }
 else {
-    Write-Error "nvy.exe not found in PATH" -ForegroundColor Red
+    Write-Error "Nvy.exe not found in PATH" -ForegroundColor Red
 }
