@@ -33,21 +33,25 @@ if ($IsWindows) {
     $documentsPath = [System.Environment]::GetFolderPath("MyDocuments");
     $target = Join-Path $documentsPath "PowerShell";
     if (-not (Test-Path $target)) {
-        New-Item -ItemType SymbolicLink -Target "$HOME\\sources\\dotfiles\\.config\\PowerShell" -Path $target 
+        New-Item -ItemType SymbolicLink -Target "$HOME\sources\dotfiles\.config\PowerShell" -Path $target 
     }
 
     Write-Host "Installing OhMyPosh"
     winget install JanDeDobbeleer.OhMyPosh -s winget
     
-    if (-not (Test-Path "$HOME\\sources\\dotfiles\\.config\\nvim")) {
-        New-Item -ItemType SymbolicLink -Path "$HOME\\AppData\\Local\\nvim" -Target "$HOME\\sources\\dotfiles\\.config\\nvim"
+    if (-not (Test-Path "$HOME\sources\dotfiles\.config\nvim")) {
+        New-Item -ItemType SymbolicLink -Path "$HOME\AppData\Local\nvim" -Target "$HOME\sources\dotfiles\.config\nvim"
     }
-    if (-not (Test-Path "$HOME\\sources\\dotfiles\\.config\\alacritty")) {
-        New-Item -ItemType SymbolicLink -Path "$HOME\\AppData\\Roaming\\alacritty" -Target "$HOME\\sources\\dotfiles\\.config\\alacritty"
+    if (-not (Test-Path "$HOME\sources\dotfiles\.config\alacritty")) {
+        New-Item -ItemType SymbolicLink -Path "$HOME\AppData\Roaming\alacritty" -Target "$HOME\sources\dotfiles\.config\alacritty"
     }
 
-    if (-not (Test-Path "$HOME\\sources\\dotfiles\\.config\\vim-clap\\config.toml")) {
+    if (-not (Test-Path "$HOME\sources\dotfiles\.config\vim-clap\config.toml")) {
         New-Item -ItemType HardLink -Path "$HOME\AppData\Roaming\Vim\Vim Clap\config\config.toml" -Target "$HOME\sources\dotfiles\.config\vim-clap\config.toml"
+    }
+
+    if (-not (Test-Path "$HOME\.psmux.conf")) {
+        New-Item -ItemType SymbolicLink -Path "$HOME\.psmux.conf" -Target "$HOME\sources\dotfiles\.config\.psmux.conf"
     }
 }
 
