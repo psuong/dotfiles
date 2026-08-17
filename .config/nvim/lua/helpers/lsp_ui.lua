@@ -92,7 +92,13 @@ local function reference_sink(selected)
     local location = reference_locations[idx];
 
     if current_lsp_client ~= nil then
-        vim.lsp.util.jump_to_location(location, "utf-8", true);
+        vim.lsp.util.show_document(
+            location,
+            current_lsp_client.offset_encoding,
+            {
+                focus = true,
+            }
+        );
     else
         -- TODO: Jump to the location by calling vim's raw apis
     end

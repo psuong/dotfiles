@@ -27,6 +27,6 @@ Get-InstalledModule | ForEach-Object {
 }
 Invoke-Expression "psc update --all"
 
-Set-PSReadLineKeyHandler -Key Ctrl+l -ScriptBlock {
+Set-PSReadLineKeyHandler -Key Ctrl+n -ScriptBlock {
     [Microsoft.PowerShell.PSConsoleReadLine]::AcceptSuggestion()
 }
