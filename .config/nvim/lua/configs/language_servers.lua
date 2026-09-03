@@ -438,6 +438,9 @@ vim.lsp.config("neocmake", {
 });
 vim.lsp.enable("neocmake");
 
+-- Markdown stuff
+vim.lsp.enable("marksman");
+
 ---------
 -- DDC --
 ---------
