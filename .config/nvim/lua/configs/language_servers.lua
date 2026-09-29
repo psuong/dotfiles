@@ -241,26 +241,54 @@ vim.lsp.config("powershell_es", {
 vim.lsp.enable("powershell_es");
 
 -- C#
-vim.lsp.config("omnisharp", {
-    capabilities = capabilities,
-    cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-    cmd_cwd = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
-    root_dir = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
-    on_attach = function(_, _)
+-- vim.lsp.config("omnisharp", {
+--     capabilities = capabilities,
+--     cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+--     cmd_cwd = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
+--     root_dir = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
+--     on_attach = function(_, _)
+--         common_keybindings();
+--         local omnisharp_extended = require("omnisharp_extended");
+--         configurable_functionality(
+--             omnisharp_extended.lsp_definition,
+--             omnisharp_extended.lsp_type_definition,
+--             omnisharp_extended.clap_lsp_references,
+--             omnisharp_extended.lsp_implementation);
+--
+--         local lsp_ui = require("helpers.lsp_ui");
+--         vim.ui.select = lsp_ui.on_select;
+--         vim.lsp.inlay_hint.enable(true);
+--     end,
+-- });
+-- vim.lsp.enable("omnisharp");
+vim.lsp.config("roslyn", {
+    on_attach = function()
         common_keybindings();
-        local omnisharp_extended = require("omnisharp_extended");
-        configurable_functionality(
-            omnisharp_extended.lsp_definition,
-            omnisharp_extended.lsp_type_definition,
-            omnisharp_extended.clap_lsp_references,
-            omnisharp_extended.lsp_implementation);
-
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;
         vim.lsp.inlay_hint.enable(true);
     end,
+    settings = {
+        ["csharp|inlay_hints"] = {
+            csharp_enable_inlay_hints_for_implicit_object_creation = true,
+            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+            csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+            csharp_enable_inlay_hints_for_types = true,
+            dotnet_enable_inlay_hints_for_indexer_parameters = true,
+            dotnet_enable_inlay_hints_for_literal_parameters = true,
+            dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+            dotnet_enable_inlay_hints_for_other_parameters = true,
+            dotnet_enable_inlay_hints_for_parameters = true,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = false,
+            dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = false
+        },
+        ["csharp|code_lens"] = {
+            dotnet_enable_references_code_lens = true,
+        },
+    },
 });
-vim.lsp.enable("omnisharp");
+vim.lsp.enable("roslyn");
 
 -- Shader Slang
 vim.lsp.config("slangd", {
