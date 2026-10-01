@@ -264,6 +264,13 @@ vim.lsp.enable("powershell_es");
 vim.lsp.config("roslyn", {
     on_attach = function()
         common_keybindings();
+        configurable_functionality(
+            vim.lsp.buf.definition,
+            vim.lsp.buf.type_definition,
+            vim.lsp.buf.references,
+            -- clap_refs, -- TODO: Fix how vim clap gets the references
+            vim.lsp.buf.implementation
+        );
         local lsp_ui = require("helpers.lsp_ui");
         vim.ui.select = lsp_ui.on_select;
         vim.lsp.inlay_hint.enable(true);
