@@ -1,5 +1,8 @@
 if not vim.g.vscode then
+    local wanted = {};
     local Plug = function(repo)
+        local name = repo:match("/([^/]+)$")
+        wanted[name] = true
         return "git@github.com:" .. repo .. ".git"
     end
 
@@ -36,7 +39,8 @@ if not vim.g.vscode then
         Plug("uga-rosa/ddc-source-vsnip"),
         Plug("matsui54/denops-popup-preview.vim"),
         Plug("matsui54/denops-signature_help"),
-        Plug("psuong/omnisharp-extended-lsp.nvim"),
+        Plug("seblyng/roslyn.nvim"),
+        -- Plug("psuong/omnisharp-extended-lsp.nvim"),
         Plug("kkoomen/vim-doge"),
 
         ----------------------
@@ -66,10 +70,10 @@ if not vim.g.vscode then
             ["denops-shared-server"] = function()
                 vim.cmd("call denops_shared_server#install()");
             end,
-            ["nvim-treesitter"] = function ()
+            ["nvim-treesitter"] = function()
                 vim.cmd("TSUpdate");
             end,
-            ["markdown-preview"] = function ()
+            ["markdown-preview"] = function()
                 vim.cmd("call mkdp#util#install()");
             end
         };
@@ -90,19 +94,41 @@ if not vim.g.vscode then
     end, {});
 
     vim.api.nvim_create_user_command("PackCheck", function(opts)
-        vim.pack.update(opts.fargs, {
-            preview = true,
-        })
-    end, {
-        nargs = "*",
-    });
+        vim.pack.update(opts.fargs, { preview = true, });
+    end, { nargs = "*", });
 
     vim.api.nvim_create_user_command("PackUpdate", function(opts)
-        vim.pack.update(opts.fargs, { force = opts.bang })
+        vim.pack.update(opts.fargs, { force = opts.bang });
+    end, { nargs = "*", bang = true, });
+
+    vim.api.nvim_create_user_command("PackClean", function(opts)
+        local unused = {};
+        for _, plugin in ipairs(vim.pack.get()) do
+            if not wanted[plugin.spec.name] then
+                table.insert(unused, plugin.spec.name);
+            end
+        end
+        if #unused == 0 then
+            vim.notify("No unused packages", vim.log.levels.INFO);
+            return
+        end
+        if not opts.bang then
+            vim.notify(
+                "Unused packages:\n  " .. table.concat(unused, "\n  ")
+                .. "\n\nRun :PackClean! to remove them.",
+                vim.log.levels.WARN
+            );
+            return
+        end
+        vim.pack.del(unused);
+        vim.notify(
+            "Removed " .. #unused .. " package(s):\n  "
+            .. table.concat(unused, "\n  "),
+            vim.log.levels.INFO
+        );
     end, {
-        nargs = "*",
         bang = true,
-    });
+    })
 
     require("configs.theme");
     require("configs.base_keybinds");
