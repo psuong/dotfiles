@@ -9,6 +9,7 @@ if ($IsLinux) {
 
     # Add some programs to my $PATH 
     $env:PATH += ":/home/blank/sources/bin:/home/blank/sources/bin/omnisharp:/home/blank/.spicetify:/home/blank/.local/share/powershell/Modules"
+    $env:PATH += ":/home/blank/.dotnet/tools/"
 
     $env:VULKAN_SDK = "$HOME/vulkan/1.4.363.0/x86_64"
     $env:PATH = "$env:VULKAN_SDK/bin;$env:PATH"
