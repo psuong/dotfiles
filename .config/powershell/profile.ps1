@@ -35,7 +35,6 @@ Set-Alias tere Invoke-Tere
 Get-InstalledModule | ForEach-Object {
     Import-Module $_.Name
 }
-Invoke-Expression "psc update --all"
 
 Set-PSReadLineKeyHandler -Key Ctrl+n -ScriptBlock {
     [Microsoft.PowerShell.PSConsoleReadLine]::AcceptSuggestion()
