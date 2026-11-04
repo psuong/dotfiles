@@ -15,7 +15,7 @@ log-target = ""
 ## Winbar configuration.
 [winbar]
 # Whether to enable the winbar.
-enable = false
+enable = true
 # Specify the display style for the file path in winbar.
 file-path-style = "one-segment-per-component"
 
@@ -45,7 +45,7 @@ ignore-files = "*.toml,*.json,*.yml,*.log,tmp"
 # # You can extend this list to define more keywords and their corresponding highlight group.
 # keyword-highlight = [ ["TODO", "Todo"], ["FIXME", "Error"] ]
 # ```
-keyword-highlight = [["TODO", "Todo"]]
+keyword-highlight = [["TODO", "Todo","NOTE","Note","FIXME","Fixme"]]
 # This flag controls whether to only highlight the keywords in the comment line.
 #
 # This flag is set as `true` by default.

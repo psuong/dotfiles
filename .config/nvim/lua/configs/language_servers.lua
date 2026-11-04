@@ -241,26 +241,6 @@ vim.lsp.config("powershell_es", {
 vim.lsp.enable("powershell_es");
 
 -- C#
--- vim.lsp.config("omnisharp", {
---     capabilities = capabilities,
---     cmd = { "OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
---     cmd_cwd = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
---     root_dir = vim.fs.dirname(vim.fs.find({ "*.sln", "*.csproj" }, { upward = true })[1]),
---     on_attach = function(_, _)
---         common_keybindings();
---         local omnisharp_extended = require("omnisharp_extended");
---         configurable_functionality(
---             omnisharp_extended.lsp_definition,
---             omnisharp_extended.lsp_type_definition,
---             omnisharp_extended.clap_lsp_references,
---             omnisharp_extended.lsp_implementation);
---
---         local lsp_ui = require("helpers.lsp_ui");
---         vim.ui.select = lsp_ui.on_select;
---         vim.lsp.inlay_hint.enable(true);
---     end,
--- });
--- vim.lsp.enable("omnisharp");
 vim.lsp.config("roslyn", {
     on_attach = function()
         common_keybindings();
@@ -473,8 +453,11 @@ vim.lsp.config("neocmake", {
 });
 vim.lsp.enable("neocmake");
 
--- Markdown stuff
+-- Markdown
 vim.lsp.enable("marksman");
+
+-- Toml
+vim.lsp.enable("tombi");
 
 ---------
 -- DDC --

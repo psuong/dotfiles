@@ -40,18 +40,12 @@ if not vim.g.vscode then
         Plug("matsui54/denops-popup-preview.vim"),
         Plug("matsui54/denops-signature_help"),
         Plug("seblyng/roslyn.nvim"),
-        -- Plug("psuong/omnisharp-extended-lsp.nvim"),
         Plug("kkoomen/vim-doge"),
 
         ----------------------
         -- Package managers --
         ----------------------
         Plug("saecki/crates.nvim"),
-
-        --------------
-        -- Previews --
-        --------------
-        Plug("iamcco/markdown-preview.nvim"),
 
         --------------
         -- Profiler --
