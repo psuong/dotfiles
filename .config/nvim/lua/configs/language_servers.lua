@@ -5,15 +5,8 @@ local language_servers = {};
 ----------------
 vim.filetype.add({
     extension = {
-        slang = "slang",
-        shaderslang = "slang",
-        hlsl = "hlsl"
-    }
-});
-
-vim.filetype.add({
-    extension = {
-        h = "c"
+        h = "c",
+        ["scriban-cs"] = "cs",
     }
 });
 
@@ -44,45 +37,6 @@ local function lazy_load_crates()
     });
 end
 lazy_load_crates();
-
---------------
--- Snippets --
---------------
--- Expand
-vim.keymap.set({ "i", "s" }, "<C-j>", function()
-    if vim.fn["vsnip#expandable"]() == 1 then
-        return "<Plug>(vsnip-expand)"
-    end
-    return "<C-j>"
-end, { expr = true });
-
--- Expand or jump
-vim.keymap.set({ "i", "s" }, "<C-k>", function()
-    if vim.fn["vsnip#available"](1) == 1 then
-        return "<Plug>(vsnip-expand-or-jump)"
-    end
-    return "<C-l>"
-end, { expr = true });
-
--- Jump forward
-vim.keymap.set({ "i", "s" }, "<C-j>", function()
-    if vim.fn["vsnip#jumpable"](1) == 1 then
-        return "<Plug>(vsnip-jump-next)"
-    end
-    return "<Tab>"
-end, { expr = true });
-
--- Jump backward
-vim.keymap.set({ "i", "s" }, "<C-k>", function()
-    if vim.fn["vsnip#jumpable"](-1) == 1 then
-        return "<Plug>(vsnip-jump-prev)"
-    end
-    return "<S-Tab>"
-end, { expr = true });
-
--- Select/cut text for $TM_SELECTED_TEXT
-vim.keymap.set({ "n", "x" }, "s", "<Plug>(vsnip-select-text)")
-vim.keymap.set({ "n", "x" }, "S", "<Plug>(vsnip-cut-text)")
 
 require("aerial").setup({
     -- Priority list of preferred backends for aerial.
@@ -134,9 +88,83 @@ end
 -----------
 -- Blink --
 -----------
+local function is_blink_enabled()
+    return vim.bo.filetype ~= "clap_input";
+end
 local cmp = require("blink.cmp");
 cmp.build():pwait();
-cmp.setup();
+cmp.setup({
+    enabled = is_blink_enabled,
+    sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+    },
+    snippets = { preset = "vsnip" },
+    signature = {
+        enabled = true,
+        trigger = {
+            enabled = true,
+            show_on_trigger_character = false
+        },
+        window = {
+            show_documentation = true,
+            max_height = 10
+        },
+    },
+    keymap = {
+        preset = "none",
+        ["<Tab>"] = {
+            function(blink)
+                -- Navigate forward in vsnip
+                if vim.fn["vsnip#jumpable"](1) == 1 then
+                    return "<Plug>(vsnip-jump-next)";
+                end
+                -- Navigate completion menu
+                if blink.is_visible() then
+                    return blink.select_next();
+                end
+                -- Show completion menu
+                local col = vim.fn.col(".") - 1;
+                if col > 0 then
+                    local line = vim.fn.getline(".")
+                    if line:sub(col, col):match("%s") then
+                        return false;
+                    end
+                    return blink.show();
+                end
+                return false;
+            end,
+            "fallback",
+        },
+        ["<S-Tab>"] = {
+            function(blink)
+                -- Navigate backward in vsnip
+                if vim.fn["vsnip#jumpable"](-1) == 1 then
+                    return "<Plug>(vsnip-jump-prev)";
+                end
+                -- Navigate completion menu
+                if blink.is_visible() then
+                    return blink.select_prev();
+                end
+                return false;
+            end,
+            "fallback",
+        },
+        ["<CR>"] = {
+            "accept",
+            "fallback",
+        },
+        ["<C-j>"] = {  "scroll_signature_up" },
+        ["<C-k>"] = { "scroll_signature_down" },
+        -- toggle the documentation in the signature help window
+        ["<C-h>"] = { "show_signature_documentation", "hide_signature_documentation" },
+        -- default in all keymap presets
+        ["<C-l>"] = { "show_signature", "hide_signature" },
+    }
+});
+
+-- local capabilities = require("ddc_source_lsp").make_client_capabilities();
+local capabilities = cmp.get_lsp_capabilities();
+capabilities.textDocument.completion.completionItem.snippetSupport = true;
 
 ---------
 -- LSP --
@@ -144,10 +172,6 @@ cmp.setup();
 local function toggle_inlay_hint()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled());
 end
-
--- local capabilities = require("ddc_source_lsp").make_client_capabilities();
--- capabilities.textDocument.completion.completionItem.snippetSupport = true;
-local capabilities = nil;
 local path_helper = require("helpers.path_helper");
 
 --- The current buffer
@@ -219,7 +243,7 @@ local function common_keybindings()
     vim.keymap.set("n", ",", go_to_prev, { noremap = true, silent = true });
     local_map("n", "<Leader>e", function()
         vim.diagnostic.open_float(nil, { focus = false });
-    end, 'Show diagnostics float')
+    end, "Show diagnostics float")
 end
 
 local function configurable_functionality(defs_callback, type_defs_callback, refs_callback, impl_callback)

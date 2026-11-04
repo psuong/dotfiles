@@ -67,14 +67,12 @@ if not vim.g.vscode then
             ["vim-doge"] = function()
                 vim.fn["doge#install"]();
             end,
-            ["denops-shared-server"] = function()
-                vim.cmd("call denops_shared_server#install()");
-            end,
             ["nvim-treesitter"] = function()
                 vim.cmd("TSUpdate");
             end,
-            ["markdown-preview"] = function()
-                vim.cmd("call mkdp#util#install()");
+            ["blink.cmp"] = function ()
+                local cmp = require("blink.cmp");
+                cmp.build():pwait();
             end
         };
 
