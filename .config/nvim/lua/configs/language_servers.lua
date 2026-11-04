@@ -1,11 +1,5 @@
 local language_servers = {};
 
-------------
--- Denops --
-------------
--- Set up a shared server for denops
-vim.g.denops_server_addr = "127.0.0.1:32123";
-
 ----------------
 -- File types --
 ----------------
@@ -137,6 +131,13 @@ vim.lsp.buf_request = function(bufnr, method, params, handler)
     return buf_request_fn(bufnr, method, params, handler);
 end
 
+-----------
+-- Blink --
+-----------
+local cmp = require("blink.cmp");
+cmp.build():pwait();
+cmp.setup();
+
 ---------
 -- LSP --
 ---------
@@ -144,8 +145,9 @@ local function toggle_inlay_hint()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled());
 end
 
-local capabilities = require("ddc_source_lsp").make_client_capabilities();
-capabilities.textDocument.completion.completionItem.snippetSupport = true;
+-- local capabilities = require("ddc_source_lsp").make_client_capabilities();
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true;
+local capabilities = nil;
 local path_helper = require("helpers.path_helper");
 
 --- The current buffer
@@ -458,81 +460,5 @@ vim.lsp.enable("marksman");
 
 -- Toml
 vim.lsp.enable("tombi");
-
----------
--- DDC --
----------
-local patch_ddc_global = vim.fn["ddc#custom#patch_global"];
-patch_ddc_global({
-    ui = "native",
-    sources = { "lsp", "vsnip" },
-    filterParams = {
-        matcher_fuzzy = {
-            splitWord = "word"
-        },
-        converter_fuzzy = {
-            hlGroup = "SpellBad"
-        }
-    },
-    sourceOptions = {
-        ["_"] = {
-            matchers = { "matcher_fuzzy" },
-            sorters = { "sorter_fuzzy" },
-            converters = { "converter_fuzzy" },
-        },
-        vsnip = {
-            mark = "SNIP",
-            maxItems = 5,
-        },
-        lsp = {
-            mark = "LSP",
-            forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
-            maxItems = 20,
-        },
-    },
-    sourceParams = {
-        lsp = {
-            enableResolveItem = false,
-            enableAdditionalTextEdit = true,
-            isVolatile = true,
-            snippetEngine = vim.fn["denops#callback#register"](function(body)
-                return vim.fn["vsnip#anonymous"](body)
-            end),
-        },
-    },
-});
-
------------------
--- Tab Support --
------------------
-vim.keymap.set("i", "<Tab>", function()
-    if vim.fn.pumvisible() == 1 then
-        return "<C-n>";
-    elseif vim.fn.col(".") <= 1 or vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1):match("%s") then
-        return "<Tab>";
-    else
-        return vim.fn["ddc#map#manual_complete"]();
-    end
-end, { expr = true, noremap = true });
-
--- Shift Tab Support to go backwards
-vim.keymap.set("i", "<S-Tab>", function()
-    return vim.fn.pumvisible() == 1 and "<C-p>" or "<C-h>"
-end, { expr = true, noremap = true });
-
--- Confirm selection with enter.
-vim.keymap.set("i", "<CR>", function()
-    return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
-end, { expr = true, noremap = true });
-
--- Enable ddc and the completion menu.
-vim.fn["ddc#enable"]();
-vim.fn["popup_preview#enable"]();
-
-vim.g.signature_help_confg = {
-    contentsStyle = "full",
-    viewStyle = "floating"
-}
-vim.fn["signature_help#enable"]();
 
 return language_servers;

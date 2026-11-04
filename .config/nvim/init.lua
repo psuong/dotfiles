@@ -1,9 +1,18 @@
 if not vim.g.vscode then
     local wanted = {};
-    local Plug = function(repo)
-        local name = repo:match("/([^/]+)$")
-        wanted[name] = true
-        return "git@github.com:" .. repo .. ".git"
+    local Plug = function(repo, opts)
+        local name = repo:match("/([^/]+)$");
+        wanted[name] = true;
+
+        opts = opts or {};
+        opts.src = "https://github.com/" .. repo .. ".git";
+
+        if opts.tag then
+            opts.version = opts.tag;
+            opts.tag = nil;
+        end
+
+        return opts;
     end
 
     vim.pack.add({
@@ -12,35 +21,32 @@ if not vim.g.vscode then
         --------------------
         Plug("ellisonleao/gruvbox.nvim"),
         Plug("echasnovski/mini.indentscope"),
-        Plug("nvim-tree/nvim-web-devicons"),
-        Plug("TheLeoP/fern-renderer-web-devicons.nvim"),
         Plug("nvim-treesitter/nvim-treesitter"),
+
+        ---------------
+        -- Explorers --
+        ---------------
+        Plug("lambdalisue/vim-glyph-palette"),
+        Plug("nvim-tree/nvim-web-devicons"),
+        Plug("lambdalisue/vim-fern"),
+        Plug("TheLeoP/fern-renderer-web-devicons.nvim"),
 
         ---------------
         -- Searchers --
         ---------------
         Plug("liuchengxu/vim-clap"),
-        Plug("lambdalisue/vim-fern"),
-        Plug("lambdalisue/vim-glyph-palette"),
 
         ------------------
         -- Autocomplete --
         ------------------
         Plug("neovim/nvim-lspconfig"),
         Plug("stevearc/aerial.nvim"),
-        Plug("vim-denops/denops.vim"),
-        Plug("vim-denops/denops-shared-server.vim"),
-        Plug("Shougo/ddc.vim"),
-        Plug("Shougo/ddc-ui-native"),
-        Plug("Shougo/ddc-source-lsp"),
-        Plug("tani/ddc-fuzzy"),
         Plug("rafamadriz/friendly-snippets"),
         Plug("hrsh7th/vim-vsnip"),
-        Plug("uga-rosa/ddc-source-vsnip"),
-        Plug("matsui54/denops-popup-preview.vim"),
-        Plug("matsui54/denops-signature_help"),
         Plug("seblyng/roslyn.nvim"),
         Plug("kkoomen/vim-doge"),
+        Plug("saghen/blink.lib"),
+        Plug("saghen/blink.cmp"),
 
         ----------------------
         -- Package managers --
